@@ -1,0 +1,10 @@
+.form_wrapper {
+    width: 400px;
+    height: 100vh;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
