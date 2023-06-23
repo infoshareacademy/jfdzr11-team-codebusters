@@ -4,6 +4,7 @@ import {
   UserCredential,
   User,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 import { auth } from '../api/firebase/firebase';
 import React, { useContext, useEffect, useState } from 'react';
@@ -20,26 +21,31 @@ type AuthContextProps = {
   currentUser: User | null;
   register: (email: string, password: string) => Promise<UserCredential>;
   login: (email: string, password: string) => Promise<UserCredential>;
+  logout: () => Promise<void>
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-  children
+  children,
 }) => {
-
   const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   // registration
   function register(email: string, password: string): Promise<UserCredential> {
     return createUserWithEmailAndPassword(auth, email, password);
   }
-//   login
-function login(email:string, password:string): Promise<UserCredential> {
-    return signInWithEmailAndPassword(auth,email,password)
-}
-// listen for auth state change
+  //   login
+  function login(email: string, password: string): Promise<UserCredential> {
+    return signInWithEmailAndPassword(auth, email, password);
+  }
+
+  // logout
+  function logout() : Promise<void> {
+    return signOut(auth);
+  }
+  // listen for auth state change
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
-        console.log(user)
+      console.log(user);
       setCurrentUser(user);
     });
     return unsubscribe;
@@ -49,6 +55,7 @@ function login(email:string, password:string): Promise<UserCredential> {
     currentUser,
     register,
     login,
+    logout,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
