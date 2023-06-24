@@ -1,12 +1,14 @@
 import { FormEvent, useRef } from 'react';
 import useAuth from '../../../AuthContext/AuthContext';
-import styles from './Register.module.css';
+import styles from '../Auth.module.css';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../../api/firebase/firebase';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const { register, logout } = useAuth();
   const formRef = useRef<HTMLFormElement>(null);
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,6 +60,7 @@ const Register = () => {
       try {
         await logout();
         console.log('Logged out successfully!')
+        navigate('/login')
       } catch (error) {
         console.log(error);
       }

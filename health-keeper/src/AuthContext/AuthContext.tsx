@@ -7,21 +7,24 @@ import {
   signOut,
 } from 'firebase/auth';
 import { auth } from '../api/firebase/firebase';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { ReactElement, useContext, useEffect, useState } from 'react';
 
-const AuthContext = React.createContext<AuthContextProps | undefined>(
-  undefined
-);
+type AuthContextProviderProps = {
+    children: ReactElement;
+
+}
+
+type AuthContextState = {
+    currentUser: {}
+}
+
+const defaultContextValue = {} as AuthContextState
+
+
+const AuthContext = React.createContext(defaultContextValue);
 
 const useAuth = () => {
   return useContext(AuthContext);
-};
-
-type AuthContextProps = {
-  currentUser: User | null;
-  register: (email: string, password: string) => Promise<UserCredential>;
-  login: (email: string, password: string) => Promise<UserCredential>;
-  logout: () => Promise<void>
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -39,7 +42,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   // logout
-  function logout() : Promise<void> {
+  function logout(): Promise<void> {
     return signOut(auth);
   }
   // listen for auth state change

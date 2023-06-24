@@ -1,8 +1,12 @@
 import { FormEvent, useRef } from 'react';
 import useAuth from '../../../AuthContext/AuthContext';
+import styles from '../Auth.module.css'
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { login } = useAuth();
+
+  const navigate = useNavigate()
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -19,6 +23,7 @@ const Login = () => {
     try {
       await login(email, password);
       console.log('Logged in successfully');
+      navigate('/')
     } catch (error) {
       console.log(error);
     }
@@ -26,15 +31,17 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={loginHandler} ref={formRef}>
-      <label htmlFor="email">Email:</label>
-      <input type="email" name="email" id="email" />
-      <label htmlFor="email">Password:</label>
-      <input type="password" name="password" id="password" />
-      <button type="submit">Log In</button>
-      <p>Forgot your password?</p>
-      <p>New to Health Keeper ? Sign Up </p>
-    </form>
+    <div className={styles.form_wrapper}>
+      <form onSubmit={loginHandler} ref={formRef} className={styles.form}>
+        <label htmlFor="email">Email:</label>
+        <input type="email" name="email" id="email" />
+        <label htmlFor="email">Password:</label>
+        <input type="password" name="password" id="password" />
+        <button type="submit">Log In</button>
+        <p>Forgot your password?</p>
+        <p>New to Health Keeper ? <Link to='/register'>Sign Up</Link> </p>
+      </form>
+    </div>
   );
 };
 
