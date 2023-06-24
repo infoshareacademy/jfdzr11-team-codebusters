@@ -1,12 +1,13 @@
 import { FormEvent, useRef } from 'react';
-import useAuth from '../../../AuthContext/AuthContext';
 import styles from '../Auth.module.css';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../../api/firebase/firebase';
 import { useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import {auth} from '../../../api/firebase/firebase'
 
 const Register = () => {
-  const { register, logout } = useAuth();
+
   const formRef = useRef<HTMLFormElement>(null);
   const navigate = useNavigate()
 
@@ -38,7 +39,7 @@ const Register = () => {
       return;
     } else {
       try {
-        const userCredential = await register(email, password);
+        const userCredential = await createUserWithEmailAndPassword(auth,email, password);
         console.log('Registration succesful!');
 
         const userId = userCredential.user?.uid;
@@ -58,7 +59,7 @@ const Register = () => {
         console.log(error);
       }
       try {
-        await logout();
+        await signOut(auth);
         console.log('Logged out successfully!')
         navigate('/login')
       } catch (error) {
