@@ -6,13 +6,13 @@ import { useContext, useEffect } from 'react';
 import { AuthContext } from './AuthContext/AuthContext';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './api/firebase/firebase';
+import Footer from './components/Footer/Footer';
 
 function App() {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
 
-
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
     });
     return unsubscribe;
@@ -21,16 +21,17 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path='/' element={<Layout />}>
           {/* Public routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
           {/* Private routes */}
           <Route element={<PrivateRoute />}>
-            <Route path="/" element={<Dashboard />} />
+            <Route path='/' element={<Dashboard />} />
           </Route>
         </Route>
       </Routes>
+      <Footer />
     </>
   );
 }
