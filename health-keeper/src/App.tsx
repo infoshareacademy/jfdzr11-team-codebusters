@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Layout, Login, Register, Dashboard } from './components/index';
 import PrivateRoute from './utils/PrivateRoute';
 import { useContext, useEffect } from 'react';
@@ -10,7 +10,6 @@ import { auth } from './api/firebase/firebase';
 function App() {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {

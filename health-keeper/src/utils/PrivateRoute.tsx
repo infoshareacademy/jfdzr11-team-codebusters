@@ -5,11 +5,18 @@ import { AuthContext } from '../AuthContext/AuthContext';
 
 const PrivateRoute = () => {
   const { currentUser } = useContext(AuthContext);
-  const location = useLocation()
-  console.log(currentUser.email)
+  const location = useLocation();
 
-
-  return <>{currentUser?.email ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />}</>;
+ 
+  return (
+    <>
+      {currentUser?.email ? (
+        <Outlet />
+      ) : (
+        <Navigate to="/login" state={{ from: location }} replace />
+      )}
+    </>
+  );
 };
 
 export default PrivateRoute;

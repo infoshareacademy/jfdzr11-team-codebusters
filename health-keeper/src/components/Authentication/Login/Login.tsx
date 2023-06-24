@@ -33,7 +33,7 @@ const Login = () => {
 
   return (
     <>
-      {!currentUser ? (<div className={styles.form_wrapper}>
+      <div className={styles.form_wrapper}>
         <form onSubmit={loginHandler} ref={formRef} className={styles.form}>
           <label htmlFor="email">Email:</label>
           <input type="email" name="email" id="email" />
@@ -45,9 +45,9 @@ const Login = () => {
             New to Health Keeper ? <Link to="/register">Sign Up</Link>{' '}
           </p>
         </form>
-      </div>) : (<Navigate to='/'/>)}
+      </div>
     </>
-  )
+  );
 };
 
 export default Login;
