@@ -40,9 +40,9 @@ const Login = () => {
           <label htmlFor="email">Password:</label>
           <input type="password" name="password" id="password" />
           <button type="submit">Log In</button>
-          <p>Forgot your password?</p>
+          <Link to='/forgot-password'>Forgot your password?</Link>
           <p>
-            New to Health Keeper ? <Link to="/register">Sign Up</Link>{' '}
+            New to Health Keeper ? <Link to="/register">Sign Up</Link>
           </p>
         </form>
       </div>
