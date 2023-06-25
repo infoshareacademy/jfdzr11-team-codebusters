@@ -1,12 +1,11 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import { Layout, Login, Register, Dashboard } from './components/index';
+import { Layout, Login, Register, Dashboard,ForgotPassword } from './components/index';
 import PrivateRoute from './utils/PrivateRoute';
 import { useContext, useEffect } from 'react';
 import { AuthContext } from './AuthContext/AuthContext';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './api/firebase/firebase';
-import Footer from './components/Footer/Footer';
 
 function App() {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
@@ -25,13 +24,13 @@ function App() {
           {/* Public routes */}
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
           {/* Private routes */}
           <Route element={<PrivateRoute />}>
             <Route path='/' element={<Dashboard />} />
           </Route>
         </Route>
       </Routes>
-      <Footer />
     </>
   );
 }
