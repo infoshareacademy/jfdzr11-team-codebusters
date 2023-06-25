@@ -4,6 +4,8 @@ import Login from './Authentication/Login/Login';
 import Layout from './Layout/Layout';
 import Dashboard from './Dashboard/Dashboard';
 import ForgotPassword from './Authentication/ForgotPassword/ForgotPassword';
+import Navbar from './Navbar/Navbar';
+import Footer from './Footer/Footer'
 
 
-export { Login, Register, Layout, Dashboard, ForgotPassword };
+export { Login, Register, Layout, Dashboard, ForgotPassword, Navbar, Footer };
