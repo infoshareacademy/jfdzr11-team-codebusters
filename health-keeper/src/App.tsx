@@ -8,16 +8,17 @@ import {
   ForgotPassword,
   ResultsList,
   MeasurementsList,
-  AddNewMeasurement
+  AddNewMeasurement,
+  AddMeasurementEntry,
 } from './components/index';
 import PrivateRoute from './utils/PrivateRoute';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from './AuthContext/AuthContext';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './api/firebase/firebase';
 
 function App() {
-  const { currentUser, setCurrentUser, setIsFetchingUserData } =
+  const { setCurrentUser, setIsFetchingUserData, isFetchingUserData } =
     useContext(AuthContext);
 
   useEffect(() => {
@@ -25,15 +26,21 @@ function App() {
       if (user) {
         setCurrentUser(user);
         console.log(user);
-        setIsFetchingUserData(false);
+        
       } else {
         setCurrentUser({ email: '' });
         console.log('wylogowano');
-        setIsFetchingUserData(false);
+        
       }
+      setIsFetchingUserData(false);
     });
     return unsubscribe;
-  }, [setIsFetchingUserData,setCurrentUser]);
+  }, [setIsFetchingUserData, setCurrentUser]);
+
+  // display the message during loading state
+  if (isFetchingUserData) {   
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
@@ -51,7 +58,14 @@ function App() {
               path="/results-list/measurements"
               element={<MeasurementsList />}
             />
-            <Route path="/results-list/measurements/add" element={<AddNewMeasurement/>} />
+            <Route
+              path="/results-list/measurements/addNew"
+              element={<AddNewMeasurement />}
+            />
+            <Route
+              path='/results-list/measurements/:measurementName/addEntry'
+              element={<AddMeasurementEntry />}
+            />
           </Route>
         </Route>
       </Routes>

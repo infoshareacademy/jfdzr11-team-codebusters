@@ -9,6 +9,8 @@ import Footer from './Footer/Footer'
 import ResultsList from './Results/ResultsList/ResultsList';
 import MeasurementsList from './Results/MeasurementList/MeasurementsList';
 import AddNewMeasurement from './Results/AddNewMeasurement/AddNewMeasurement';
+import AddMeasurementForm from './Results/AddMeasurementForm/AddMeasurementForm';
+import AddMeasurementEntry from './Results/AddMeasurementEntry/AddMeasurementEntry';
 
 
 export {
@@ -21,5 +23,7 @@ export {
   Footer,
   ResultsList,
   MeasurementsList,
-  AddNewMeasurement
+  AddNewMeasurement,
+  AddMeasurementForm,
+  AddMeasurementEntry,
 };
