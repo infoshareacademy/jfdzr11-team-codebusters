@@ -6,6 +6,9 @@ import Dashboard from './Dashboard/Dashboard';
 import ForgotPassword from './Authentication/ForgotPassword/ForgotPassword';
 import Navbar from './Navbar/Navbar';
 import Footer from './Footer/Footer'
+import MyProfile from './MyProfile/MyProfile';
+import PersonalData from './MyProfile/PersonalData/PersonalData';
+import PersonalDataEdit from './MyProfile/PersonalData/PersonalDataEdit/PersonalDataEdit';
 
 
-export { Login, Register, Layout, Dashboard, ForgotPassword, Navbar, Footer };
+export { Login, Register, Layout, Dashboard, ForgotPassword, Navbar, Footer, MyProfile, PersonalData, PersonalDataEdit };
