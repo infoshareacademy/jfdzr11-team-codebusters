@@ -4,16 +4,16 @@ import { useContext } from 'react';
 import { AuthContext } from '../AuthContext/AuthContext';
 
 const PrivateRoute = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, isFetchingUserData } = useContext(AuthContext);
   const location = useLocation();
+  console.log(isFetchingUserData);
 
- 
   return (
     <>
-      {currentUser?.email ? (
-        <Outlet />
-      ) : (
+      {!currentUser?.email && !isFetchingUserData ? (
         <Navigate to="/login" state={{ from: location }} replace />
+      ) : (
+        <Outlet />
       )}
     </>
   );
