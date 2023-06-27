@@ -6,6 +6,20 @@ import Dashboard from './Dashboard/Dashboard';
 import ForgotPassword from './Authentication/ForgotPassword/ForgotPassword';
 import Navbar from './Navbar/Navbar';
 import Footer from './Footer/Footer'
+import ResultsList from './Results/ResultsList/ResultsList';
+import MeasurementsList from './Results/MeasurementList/MeasurementsList';
+import AddNewMeasurement from './Results/AddNewMeasurement/AddNewMeasurement';
 
 
-export { Login, Register, Layout, Dashboard, ForgotPassword, Navbar, Footer };
+export {
+  Login,
+  Register,
+  Layout,
+  Dashboard,
+  ForgotPassword,
+  Navbar,
+  Footer,
+  ResultsList,
+  MeasurementsList,
+  AddNewMeasurement
+};
