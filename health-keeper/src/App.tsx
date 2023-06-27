@@ -7,12 +7,35 @@ import { AuthContext } from './AuthContext/AuthContext';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './api/firebase/firebase';
 
+import MyProfile from './components/MyProfile/MyProfile';
+import PersonalData from './components/MyProfile/PersonalData/PersonalData';
+import { DataContext } from './DataContext/DataContext';
+import {db} from './api/firebase/firebase'
+import {doc, getDoc} from 'firebase/firestore'
+import PersonalDataEdit from './components/MyProfile/PersonalData/PersonalDataEdit/PersonalDataEdit'
+
 function App() {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const {setUserData} = useContext(DataContext)
+
+  const getUserData = async (userID) => {
+        try{
+        
+            const userRef = doc(db, "users", userID);
+            const userData = await getDoc(userRef).then(snapshot => 
+                  snapshot.data()
+            )
+            setUserData(userData);
+        }catch(error){
+            console.error(error);
+        }
+    }
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+      getUserData(user.uid);
     });
     return unsubscribe;
   }, []);
@@ -28,6 +51,10 @@ function App() {
           {/* Private routes */}
           <Route element={<PrivateRoute />}>
             <Route path='/' element={<Dashboard />} />
+            <Route path='/myprofile' element={<MyProfile />}/>
+            <Route path='/myprofile/personaldata' element={<PersonalData />} />
+            <Route path='/myprofile/personaldata/:editData' element={<PersonalDataEdit />} />
+         
           </Route>
         </Route>
       </Routes>
@@ -36,3 +63,4 @@ function App() {
 }
 
 export default App;
+
