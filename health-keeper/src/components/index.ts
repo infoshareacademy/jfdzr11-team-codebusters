@@ -5,7 +5,7 @@ import Layout from './Layout/Layout';
 import Dashboard from './Dashboard/Dashboard';
 import ForgotPassword from './Authentication/ForgotPassword/ForgotPassword';
 import Navbar from './Navbar/Navbar';
-import Footer from './Footer/Footer'
+import Footer from './Footer/Footer';
 import ResultsList from './Results/ResultsList/ResultsList';
 import MeasurementsList from './Results/MeasurementList/MeasurementsList';
 import AddNewMeasurement from './Results/AddNewMeasurement/AddNewMeasurement';
@@ -14,6 +14,7 @@ import AddMeasurementEntry from './Results/AddMeasurementEntry/AddMeasurementEnt
 import MyProfile from './MyProfile/MyProfile';
 import PersonalData from './MyProfile/PersonalData/PersonalData';
 import PersonalDataEdit from './MyProfile/PersonalData/PersonalDataEdit/PersonalDataEdit';
+import Medicine from './Medicine/Medicine';
 export {
   Login,
   Register,
@@ -30,4 +31,5 @@ export {
   MyProfile,
   PersonalData,
   PersonalDataEdit,
+  Medicine,
 };

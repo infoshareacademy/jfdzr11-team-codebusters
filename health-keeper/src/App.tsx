@@ -7,6 +7,7 @@ import {
   Dashboard,
   ForgotPassword,
   ResultsList,
+  Medicine,
   MeasurementsList,
   AddNewMeasurement,
   AddMeasurementEntry,
@@ -28,10 +29,12 @@ function App() {
     useContext(AuthContext);
   const { setUserData } = useContext(DataContext);
 
-  const getUserData = async userID => {
+  const getUserData = async (userID) => {
     try {
       const userRef = doc(db, 'users', userID);
-      const userData = await getDoc(userRef).then(snapshot => snapshot.data());
+      const userData = await getDoc(userRef).then((snapshot) =>
+        snapshot.data()
+      );
       setUserData(userData);
     } catch (error) {
       console.error(error);
@@ -39,7 +42,7 @@ function App() {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
         setCurrentUser(user);
@@ -62,33 +65,34 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path='/' element={<Layout />}>
           {/* Public routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
 
           {/* Private routes */}
           <Route element={<PrivateRoute />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/myprofile" element={<MyProfile />} />
-            <Route path="/myprofile/personaldata" element={<PersonalData />} />
+            <Route path='/' element={<Dashboard />} />
+            <Route path='/medicine' element={<Medicine />} />
+            <Route path='/myprofile' element={<MyProfile />} />
+            <Route path='/myprofile/personaldata' element={<PersonalData />} />
             <Route
-              path="/myprofile/personaldata/:editData"
+              path='/myprofile/personaldata/:editData'
               element={<PersonalDataEdit />}
             />
 
-            <Route path="/results-list" element={<ResultsList />} />
+            <Route path='/results-list' element={<ResultsList />} />
             <Route
-              path="/results-list/measurements"
+              path='/results-list/measurements'
               element={<MeasurementsList />}
             />
             <Route
-              path="/results-list/measurements/addNew"
+              path='/results-list/measurements/addNew'
               element={<AddNewMeasurement />}
             />
             <Route
-              path="/results-list/measurements/:measurementName/addEntry"
+              path='/results-list/measurements/:measurementName/addEntry'
               element={<AddMeasurementEntry />}
             />
           </Route>
