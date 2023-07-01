@@ -22,6 +22,7 @@ import { DataContext } from './DataContext/DataContext';
 import {db} from './api/firebase/firebase'
 import {doc, getDoc} from 'firebase/firestore'
 
+
 function App() {
   const { currentUser, setCurrentUser, setIsFetchingUserData } =
     useContext(AuthContext);
@@ -60,7 +61,7 @@ function App() {
     
 
   return (
-    <>
+    <div className='app_container'>
       <Routes>
         <Route path="/" element={<Layout />}>
 
@@ -85,7 +86,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
-    </>
+    </div>
   );
 
 }

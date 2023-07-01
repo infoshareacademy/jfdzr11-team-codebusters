@@ -1,8 +1,74 @@
 .foot {
-  width: 328px;
-  height: 54px;
+  width: 100%;
+  height: 76px;
+  background-color: var(--fast-white);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 32px 10px 32px;
+  column-gap: 10px;
+}
+
+.foot a{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+.foot a div{
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+}
+
+.foot a div.home {
+  background: url(../../assets/footer/home-default.png); 
+}
+
+.foot a div.home.active {
+  background: url(../../assets/footer/home-active.png);
+}
+
+.foot a div.visits {
+  background: url(../../assets/footer/visits-default.png);
+}
+
+.foot a div.visits.active {
+  background: url(../../assets/footer/visits-active.png);
+}
+
+.foot a div.data {
+  background: url(../../assets/footer/data-default.png);
+}
+
+.foot a div.data.active {
+  background: url(../../assets/footer/data-active.png);
+}
+
+.foot a div.medicine {
+  background: url(../../assets/footer/medicine-default.png);
+}
+
+.foot a div.medicine.active {
+  background: url(../../assets/footer/medicine-active.png);
+}
+
+.foot a div.prevention {
+  background: url(../../assets/footer/prevention-default.png);
+}
+
+.foot a div.prevention.active {
+  background: url(../../assets/footer/prevention-active.png);
+}
+
+.foot span {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--black);
+}
+
+.foot a span.active {
+  color: var(--primary-green);
 }

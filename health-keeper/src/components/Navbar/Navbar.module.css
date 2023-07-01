@@ -12,9 +12,13 @@
 .navbar_container button {
     width: 69px;
     height: 24px;
-    background: url(../../assets/navbar/back-default.png);
     border: none;
     cursor: pointer;
+    background-color: #F8F8F9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
 }
 
 .navbar_container a{

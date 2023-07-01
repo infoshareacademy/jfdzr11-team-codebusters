@@ -50,6 +50,7 @@ const Register = () => {
             password,
           },
           personalData:{
+          email,
           name,
           lastName,
           }
