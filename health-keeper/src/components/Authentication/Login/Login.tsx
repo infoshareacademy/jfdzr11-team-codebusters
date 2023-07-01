@@ -37,12 +37,12 @@ const Login = () => {
         <form onSubmit={loginHandler} ref={formRef} className={styles.form}>
           <label htmlFor="email">Email:</label>
           <input type="email" name="email" id="email" />
-          <label htmlFor="email">Password:</label>
+          <label htmlFor="email">Hasło:</label>
           <input type="password" name="password" id="password" />
-          <button type="submit">Log In</button>
-          <Link to='/forgot-password'>Forgot your password?</Link>
+          <button type="submit">Zaloguj</button>
+          <Link to='/forgot-password'>Przypomnij hasło</Link>
           <p>
-            New to Health Keeper ? <Link to="/register">Sign Up</Link>
+            Jesteś nowym użytkownikiem? <Link to="/register">Zarejestruj się</Link>
           </p>
         </form>
       </div>
