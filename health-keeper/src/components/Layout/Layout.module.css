@@ -1,13 +1,17 @@
 .app {
-     max-width: 400px;
-    height: 100%;
+    background-color: var(--fast-white);
+    width: 360px;
+    height: 640px;
     grid-template-areas: 
     'navbar'
     'page-content'
     'footer'
     ;
-    grid-template-rows: 100px 1fr 10px;
-
+    grid-template-rows: 44px 1fr 76px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .navbar {
@@ -19,5 +23,6 @@
 }
 
 .page_content {
+    height: 520px;
     grid-area: page-content;
 }

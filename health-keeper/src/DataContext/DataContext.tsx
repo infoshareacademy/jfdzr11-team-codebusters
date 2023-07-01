@@ -11,8 +11,11 @@ type LoginData = {
 
 type PersonalData = {
     name?: string,
-    lastname?: string,
-    // birthday?: Timestamp;///////
+    lastName?: string,
+    birthday?: {
+      nanoseconds: number,
+      seconds: number,
+    };
     address?: string;
     tel?: number;
     PESEL?: number;

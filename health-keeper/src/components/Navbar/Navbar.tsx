@@ -1,6 +1,7 @@
 import styles from './Navbar.module.css'
 import {useNavigate, useLocation} from 'react-router-dom';
 import {Link} from 'react-router-dom'
+import backIcon from './../../assets/navbar/back.png'
 
 
 const Navbar= () => {
@@ -8,7 +9,7 @@ const Navbar= () => {
   const location = useLocation();
   return (
     <div className={styles.navbar_container}>
-            <button onClick={() => navigate(-1)}/> 
+            <button onClick={() => navigate(-1)}><img src={backIcon}/><span>Wróć</span></button>
         <div className={styles.navbar_icon_container}>
             <Link to="" className={`${location.pathname === "/calendar" ? styles.active : null} ${styles.calendar}`} />
             <Link to="" className={`${location.pathname === "/notifications" ? styles.active : null} ${styles.notifications}`}/>
