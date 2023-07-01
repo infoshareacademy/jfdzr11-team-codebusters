@@ -16,9 +16,9 @@ const Footer = () => {
   };
   return (
     <div className={styles.foot}>
-      <Link to={'/home'}>Home</Link>
+      <Link to={'/'}>Home</Link>
       <Link to={'/visits'}>Wizyty</Link>
-      <Link to={'/data'}>Wyniki</Link>
+      <Link to={'/results-list'}>Wyniki</Link>
       <Link to={'/medicine'}>Leki</Link>
       <Link to={'/prevention'}>Profilaktyka</Link>
       <button onClick={logoutHandler}>Wyloguj</button>
