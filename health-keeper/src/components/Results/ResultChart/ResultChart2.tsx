@@ -46,7 +46,7 @@ const ResultChart2 = ({ param }: ResultChartProps) => {
       }
     };
     fetchData();
-  }, []);
+  }, [measurementData,param,userId]);
 
   const getLabel = date => {
     const month = date.toLocaleString('default', { month: 'short' });
@@ -82,6 +82,7 @@ const ResultChart2 = ({ param }: ResultChartProps) => {
       },
     ],
   };
+
 const tooltipOptions = {
   callbacks: {
     label: tooltipItem => {

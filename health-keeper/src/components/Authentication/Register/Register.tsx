@@ -85,19 +85,19 @@ const Register = () => {
   return (
     <div className={styles.form_wrapper}>
       <form onSubmit={handleSubmit} className={styles.form} ref={formRef}>
-        <label htmlFor="name">Name:</label>
+        <label htmlFor="name">Imię:</label>
         <input type="text" name="name" id="name" />
-        <label htmlFor="lastName">Last name:</label>
+        <label htmlFor="lastName">Nazwisko:</label>
         <input type="text" name="lastName" id="lastName" />
         <label htmlFor="email">Email:</label>
         <input type="email" name="email" id="email" />
-        <label htmlFor="confirmEmail">Confirm email:</label>
+        <label htmlFor="confirmEmail">Powierdź email:</label>
         <input type="email" name="confirmEmail" id="confirmEmail" />
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password">Hasło:</label>
         <input type="password" name="password" id="password" />
-        <label htmlFor="confirmPassword">Confirm password:</label>
+        <label htmlFor="confirmPassword">Potwierdź hasło:</label>
         <input type="password" name="confirmPassword" id="confirmPassword" />
-        <button type="submit">Register</button>
+        <button type="submit">Zarejestruj</button>
       </form>
     </div>
   );
