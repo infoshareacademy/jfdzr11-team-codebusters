@@ -1,27 +1,21 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './Footer.module.css';
-import { signOut } from '@firebase/auth';
-import { auth } from '../../api/firebase/firebase';
 
 const Footer = () => {
-  const navigate = useNavigate();
+  const location = useLocation();
 
-  const logoutHandler = async () => {
-    try {
-      await signOut(auth);
-      navigate('/login');
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <div className={styles.foot}>
-      <Link to={'/'}>Home</Link>
-      <Link to={'/visits'}>Wizyty</Link>
-      <Link to={'/results-list'}>Wyniki</Link>
-      <Link to={'/medicine'}>Leki</Link>
-      <Link to={'/prevention'}>Profilaktyka</Link>
-      <button onClick={logoutHandler}>Wyloguj</button>
+      <Link  to={'/'}><div className={`${location.pathname === "/" ? styles.active : null} ${styles.home}`}/>
+        <span className={`${location.pathname === "/" ? styles.active : null}`}>Home</span></Link>
+      <Link to={''}><div className={`${location.pathname === "/visits" ? styles.active : null} ${styles.visits}`}/>
+        <span className={`${location.pathname === "/visits" ? styles.active : null}`}>Wizyty</span></Link>
+      <Link to={'/data'}><div className={`${location.pathname === "/data" ? styles.active : null} ${styles.data}`}/>
+        <span className={`${location.pathname === "/data" ? styles.active : null}`}>Wyniki</span></Link>
+      <Link to={'/medicine'}><div className={`${location.pathname === "/medicine" ? styles.active : null} ${styles.medicine}`}/>
+        <span className={`${location.pathname === "/medicine" ? styles.active : null}`}>Leki</span></Link>
+      <Link to={''}><div className={`${location.pathname === "/prevention" ? styles.active : null} ${styles.prevention}`}/>
+        <span className={`${location.pathname === "/prevention" ? styles.active : null}`}>Profilaktyka</span></Link>
     </div>
   );
 };
