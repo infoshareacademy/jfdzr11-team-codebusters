@@ -23,6 +23,7 @@ export const AuthProvider: React.FC<AuthContextProviderProps> = ({
 }) => {
   const [currentUser, setCurrentUser] = useState({ email: '' });
   const [isFetchingUserData, setIsFetchingUserData] = useState(true);
+  
 
   return (
     <AuthContext.Provider

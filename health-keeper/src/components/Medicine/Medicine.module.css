@@ -1,0 +1,8 @@
+.bigDiv {
+  height: 300px;
+  background-color: bisque;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}

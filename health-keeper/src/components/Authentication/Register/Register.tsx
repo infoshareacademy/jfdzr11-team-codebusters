@@ -53,7 +53,17 @@ const Register = () => {
           email,
           name,
           lastName,
-          }
+          email,
+          password,
+          measurements: {
+            tętno: {},
+            ciśnienie: {},
+            puls: {},
+            nawodnienie: {},
+            waga: {},
+            cukier: {},
+          },
+        },
         };
         // add user to database
         console.log(userId);
