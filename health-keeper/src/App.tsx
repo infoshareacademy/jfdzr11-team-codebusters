@@ -1,6 +1,13 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import { Layout, Login, Register, Dashboard,ForgotPassword } from './components/index';
+import {
+  Layout,
+  Login,
+  Register,
+  Dashboard,
+  ForgotPassword,
+  Medicine,
+} from './components/index';
 import PrivateRoute from './utils/PrivateRoute';
 import { useContext, useEffect } from 'react';
 import { AuthContext } from './AuthContext/AuthContext';
@@ -25,9 +32,11 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/medicine' element={<Medicine />} />
           {/* Private routes */}
           <Route element={<PrivateRoute />}>
             <Route path='/' element={<Dashboard />} />
+            <Route path='/medicine' element={<Medicine />} />
           </Route>
         </Route>
       </Routes>
