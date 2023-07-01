@@ -6,15 +6,5 @@ import Dashboard from './Dashboard/Dashboard';
 import ForgotPassword from './Authentication/ForgotPassword/ForgotPassword';
 import Navbar from './Navbar/Navbar';
 import Footer from './Footer/Footer';
-import Medicine from './Medicine/Medicine';
 
-export {
-  Login,
-  Register,
-  Layout,
-  Dashboard,
-  ForgotPassword,
-  Navbar,
-  Footer,
-  Medicine,
-};
+export { Login, Register, Layout, Dashboard, ForgotPassword, Navbar, Footer };

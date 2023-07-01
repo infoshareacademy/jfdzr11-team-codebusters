@@ -1,6 +1,6 @@
 .navbar_container{
     width: 100%;
-    height: 44px;
+    height: 100%;
     background-color: #F8F8F9;
     box-shadow: 0 4px 10px #00000040;
     display: flex;
@@ -9,10 +9,54 @@
     padding: 10px 32px 10px 32px;
 }
 
-.navbar_container img{
+.navbar_container button {
+    width: 69px;
+    height: 24px;
+    background: url(../../assets/navbar/back-default.png);
+    border: none;
     cursor: pointer;
 }
-.navbar_icon_container{
+
+.navbar_container a{
+    cursor: pointer;
+}
+
+.navbar_icon_container {
     display: flex;
     gap: 8px;
 }
+
+.navbar_container a.calendar{
+    width: 24px;
+    height: 24px; 
+    background: url(../../assets/navbar/calendar-default.png);
+
+}
+
+.navbar_container a.calendar.active{
+    background: url(../../assets/navbar/avatar-checked.png);
+}
+
+.navbar_container a.notifications {
+    width: 24px;
+    height: 24px;
+    background: url(../../assets/navbar/notifications-default.png);
+}
+
+.navbar_container a.notifications.active {
+    background: url(../../assets/navbar/notifications-checked.png);
+}
+
+.navbar_container a.avatar {
+    width: 24px;
+    height: 24px;
+    background: url(../../assets/navbar/avatar-default.png);
+}
+
+.navbar_container a.avatar.active {
+    background: url(../../assets/navbar/avatar-checked.png);
+}
+
+
+
+
