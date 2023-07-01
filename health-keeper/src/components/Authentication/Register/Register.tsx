@@ -45,6 +45,11 @@ const Register = () => {
         const userId = userCredential.user?.uid;
 
         const user = {
+          loginData: {
+            email,
+            password,
+          },
+          personalData:{
           name,
           lastName,
           email,
@@ -57,6 +62,7 @@ const Register = () => {
             waga: {},
             cukier: {},
           },
+        },
         };
         // add user to database
         console.log(userId);
