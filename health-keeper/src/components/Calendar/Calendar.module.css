@@ -1,0 +1,47 @@
+.calendar{
+    padding: 5px;
+}
+
+.calendar-header{
+    display: flex;
+}
+
+.dayGrid-header{
+    display: flex;
+    justify-content: space-between;
+}
+.dayGrid-table{
+    display: flex;
+    flex-direction: column;
+}
+.selected{
+    background-color: lightgray;
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
+    
+    
+}
+.selected-row{
+    background-color: #e4e4e4;
+}
+.slideout-row{
+    min-height: 100px;
+}
+.day{
+    padding: 5px;
+    margin: 2px;
+    border-radius: 15px;
+    min-width: 30px;
+    height: 30px;
+}
+
+.active{
+    color: #27272E
+}
+
+.disabled{
+    color: #B8B8BA
+}
