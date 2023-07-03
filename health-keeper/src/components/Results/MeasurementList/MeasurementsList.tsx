@@ -18,6 +18,7 @@ const MeasurementList = () => {
         const measurements: string[] = data.data()?.measurements;
         const measurementNames: string[] = Object.keys(measurements);
         setMeasurements(measurementNames);
+        console.log(measurementNames);
       } catch (error) {
         console.log(error);
       }
@@ -37,7 +38,9 @@ const MeasurementList = () => {
           </li>
         ))}
       </ul>
-      <Link to="/results-list/measurements/addNew" className={styles.add }>Dodaj +</Link>
+      <Link to="/results-list/measurements/addNew" className={styles.add}>
+        Dodaj +
+      </Link>
     </>
   );
 };

@@ -49,12 +49,12 @@ const Register = () => {
             email,
             password,
           },
-          personalData:{
-          email,
-          name,
-          lastName,
-          email,
-          password,
+          personalData: {
+            email,
+            name,
+            lastName,
+            password,
+          },
           measurements: {
             tętno: {},
             ciśnienie: {},
@@ -63,7 +63,6 @@ const Register = () => {
             waga: {},
             cukier: {},
           },
-        },
         };
         // add user to database
         console.log(userId);

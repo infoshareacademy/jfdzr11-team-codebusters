@@ -15,7 +15,6 @@ type ResultChartProps = {
 
 const ResultChart2 = ({ param }: ResultChartProps) => {
   const [measurementData, setMeasurementData] = useState([]);
-  console.log(measurementData);
 
   const { currentUser } = useContext(AuthContext);
   const userId = currentUser?.uid;
@@ -74,7 +73,6 @@ const ResultChart2 = ({ param }: ResultChartProps) => {
     }),
     datasets: [
       {
-        label: param,
         data: measurementData.map(entry => entry.measurementValue),
         fill: false,
         borderColor: 'rgb(75, 192, 192)',
@@ -97,7 +95,13 @@ const tooltipOptions = {
   const chartOptions = {
     plugins: {
       tooltip: tooltipOptions,
+      legend: {
+        display: false,
+      }
     },
+    label: {
+      display: false,
+    }
   };
 
   return (
