@@ -15,6 +15,10 @@ import MyProfile from './MyProfile/MyProfile';
 import PersonalData from './MyProfile/PersonalData/PersonalData';
 import PersonalDataEdit from './MyProfile/PersonalData/PersonalDataEdit/PersonalDataEdit';
 import Medicine from './Medicine/Medicine';
+import Backdrop from '../Reminders/Backdrop/Backdrop';
+import ReminderForm from '../Reminders/ReminderForm/ReminderForm';
+import ReminderMessage from '../Reminders/ReminderMessage/ReminderMessage';
+import Reminder from '../Reminders/Reminder/Reminder';
 export {
   Login,
   Register,
@@ -32,4 +36,8 @@ export {
   PersonalData,
   PersonalDataEdit,
   Medicine,
+  Backdrop,
+  ReminderForm,
+  ReminderMessage,
+  Reminder,
 };

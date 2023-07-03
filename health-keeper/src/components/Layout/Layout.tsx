@@ -1,11 +1,12 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthContext';
 import { Navbar, Footer } from '../index';
-import styles from './Layout.module.css'
+import styles from './Layout.module.css';
 
 const Layout = () => {
   const { currentUser } = useContext(AuthContext);
+
   return (
     <div className={styles.app}>
       {/* navbar */}
