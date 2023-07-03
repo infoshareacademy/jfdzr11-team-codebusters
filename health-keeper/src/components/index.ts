@@ -15,6 +15,7 @@ import MyProfile from './MyProfile/MyProfile';
 import PersonalData from './MyProfile/PersonalData/PersonalData';
 import PersonalDataEdit from './MyProfile/PersonalData/PersonalDataEdit/PersonalDataEdit';
 import Medicine from './Medicine/Medicine';
+import Calendar from './Calendar/Calendar';
 export {
   Login,
   Register,
@@ -32,4 +33,5 @@ export {
   PersonalData,
   PersonalDataEdit,
   Medicine,
+  Calendar
 };

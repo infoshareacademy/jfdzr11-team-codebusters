@@ -11,7 +11,7 @@ const Navbar= () => {
     <div className={styles.navbar_container}>
             <button onClick={() => navigate(-1)}><img src={backIcon}/><span>Wróć</span></button>
         <div className={styles.navbar_icon_container}>
-            <Link to="" className={`${location.pathname === "/calendar" ? styles.active : null} ${styles.calendar}`} />
+            <Link to="/calendar" className={`${location.pathname === "/calendar" ? styles.active : null} ${styles.calendar}`} />
             <Link to="" className={`${location.pathname === "/notifications" ? styles.active : null} ${styles.notifications}`}/>
             <Link to="/myprofile" className={`${location.pathname === "/myprofile" ? styles.active : null} ${styles.avatar}`} />
         </div>

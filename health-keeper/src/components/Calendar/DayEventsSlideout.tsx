@@ -1,26 +1,27 @@
-import { DocumentData, Timestamp } from "firebase/firestore"
+import { Timestamp } from "firebase/firestore"
+import { Reminder } from "./Calendar";
+import styles from "./Calendar.module.css"
 
 interface Props {
-   // reminders: DocumentData;
+    dayReminders: Reminder[];
     selected: Date;
 }
-enum ReminderType {
-    appointment = 1,
-    medicine,
-    examination
-}
 
-interface Reminder {
-    type: ReminderType;
-    title: string;
-    dateTime: Timestamp;
-}
 
-const DayEventsSlideout = ({ reminders }: Props) => {
+
+
+const DayEventsSlideout = ({ dayReminders, selected }: Props) => {
    return(
-    <div>
-        EVENTS
-    </div>
+    <>
+        {dayReminders.map((reminder, index) => {
+            return(
+                <div key={index} className={styles.reminder}>
+                    <p>{(reminder.dateTime.toDate()).toString()}</p>
+                    {reminder.title}
+                </div>
+            )
+        })}
+    </>
    )
 }
 

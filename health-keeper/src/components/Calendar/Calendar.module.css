@@ -24,16 +24,39 @@
     
     
 }
+.slideout-show {
+    height: 150px;
+    visibility: visible;
+     opacity: 1;
+    
+     transition:  height 0.5s, visibility 0s, opacity 1s linear;
+    
+
+}
+.slideout-hidden {
+    height: 1px;
+    visibility: hidden;
+    opacity: 0;
+   
+    transition: height 0.5s, visibility 0s, opacity 1s linear;
+
+}
+.slideout{
+    
+}
+
 .selected-row{
     background-color: #e4e4e4;
+    border-radius: 5px;
 }
 .slideout-row{
     min-height: 100px;
 }
 .day{
+    display: flex;
     padding: 5px;
     margin: 2px;
-    border-radius: 15px;
+    border-radius: 5px;
     min-width: 30px;
     height: 30px;
 }
@@ -45,3 +68,5 @@
 .disabled{
     color: #B8B8BA
 }
+
+

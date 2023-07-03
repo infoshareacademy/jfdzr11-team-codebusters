@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../AuthContext/AuthContext";
 import CalendarRows from "./CalendarRows";
 import styles from "./Calendar.module.css";
-
+import { getDoc, doc, Timestamp } from "firebase/firestore";
+import { db } from "../../api/firebase/firebase";
 
 
 const weekdays = ["Pon", "Wt", "Śr", "Czw", "Pt", "Sob", "Ndz"];
@@ -20,10 +22,32 @@ const months = [
   "Grudzień",
 ];
 
-const Calendar = () => {
+export interface Reminder {
+  title: string;
+  dateTime: Timestamp
+}
 
+const Calendar = () => {
+  const { currentUser } = useContext(AuthContext);
   const [selectedDay, setSelectedDay] = useState(new Date());
 
+  
+
+  const [reminders, setReminders] = useState<Reminder[]>([]);
+
+  useEffect(() => {
+    const fetchReminders = async () => {
+      try {
+        const id: string = currentUser?.uid;
+        const data = await getDoc(doc(db, 'users', id));
+        const reminders: Reminder[] = data.data()?.reminders;
+        setReminders(reminders);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchReminders();
+  }, []);
   
   const handleSelect = (newDate: Date) => {
     setSelectedDay(newDate);
@@ -31,8 +55,8 @@ const Calendar = () => {
   }
 
   const onMonthChange = (selected: Date, option: "next" | "prev") => {
-    option==="next" ? setSelectedDay(new Date(selected.getFullYear(), (selected.getMonth()+1), 1)) :
-    setSelectedDay(new Date(selected.getFullYear(), (selected.getMonth()-1), 1))
+    if(option==="next") setSelectedDay(new Date(selected.getFullYear(), (selected.getMonth()+1), 1));
+    if(option==="prev")setSelectedDay(new Date(selected.getFullYear(), (selected.getMonth()-1), 1))
   }
 
   return (
@@ -52,7 +76,7 @@ const Calendar = () => {
           <CalendarRows
             selected={selectedDay}
             changeSelected={handleSelect}
-           
+            reminders={reminders}
           />
         </div>
         

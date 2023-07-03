@@ -4,12 +4,19 @@ import CalendarDays from "./CalendarDays";
 
 import { DocumentData } from "firebase/firestore";
 import DayEventsSlideout from "./DayEventsSlideout";
-import { createPortal } from "react-dom";
+import { Reminder } from "./Calendar";
 
 
 interface Props {
   selected: Date;
   changeSelected: (newDate: Date) => void;
+  reminders: Reminder[]
+}
+
+const getRemindersForSelectedDay = (reminders: Reminder[], day: Date) => {
+  const dayReminders: Reminder[] = reminders.filter((reminder) => reminder.dateTime.toDate().toDateString()===day.toDateString())
+  //console.log(dayReminders);
+  return dayReminders;
 }
 
 const getAllDays = (selectedDay: Date) => {
@@ -57,16 +64,30 @@ const getAllDays = (selectedDay: Date) => {
   return _days;
 };
 
-const CalendarRows = ({ changeSelected, selected }: Props) => {
+const CalendarRows = ({ changeSelected, selected, reminders }: Props) => {
+
   const [rows, setRows] = useState<Date[][]>([]);
-  const [slideoutContainer, setSlideoutContainer] = useState <HTMLElement | null>(null)
-  
+  const [slideoutVisible, setSlideoutVisible] = useState<string>("hidden")
+
+  const toggleSlideoutVisibility = () => {
+    if(slideoutVisible==="show") setSlideoutVisible("hidden");
+    if(slideoutVisible==="hidden") setSlideoutVisible("show");
+  }
+  const sliedoutShow = () => {
+    setSlideoutVisible("show")
+  }
+
   const selectedDayInRow = (row: Date[]) => {
     return row.some((day) => day.toDateString() === selected.toDateString());
   };
+
   const slideoutRow = (row: Date[]) => {
-    if (row.length === 0) return true;
-    else false;
+    if (row.length === 0) {
+      return true;
+    }
+    if (row.length > 0) {
+      return false;
+    }
   };
   useEffect(() => {
     const days = getAllDays(selected);
@@ -82,10 +103,6 @@ const CalendarRows = ({ changeSelected, selected }: Props) => {
 
     setRows(_rows);
     
-    if(document.getElementById("slideout")){
-      createPortal(<DayEventsSlideout selected={selected}/>, document.getElementById("slideout")as HTMLElement)
-    }
-    
   }, [selected]);
 
   return (
@@ -93,27 +110,30 @@ const CalendarRows = ({ changeSelected, selected }: Props) => {
       <div className={styles["dayGrid-table"]}>
         {rows.map((row, index) => (
           <div
-            id={slideoutRow(row) ? "slideout" : undefined}
             className={
               styles["row"] +
               " " +
-              (selectedDayInRow(row) ? styles["selected-row"] : "")
+              (selectedDayInRow(row) ? styles["selected-row"] : "") + 
+              (slideoutRow(row) ? styles[`slideout-${slideoutVisible}`] : "")
             }
             key={index}
           >
-            <CalendarDays
-              rowArr={row}
-              changeSelect={changeSelected}
-              selected={selected}
-              selectedMonth={selected.getMonth()}
-             
-            />
+            {(slideoutRow(row))?
+             <DayEventsSlideout selected={selected} dayReminders={getRemindersForSelectedDay(reminders, selected)}/>:
+             <CalendarDays
+             rowArr={row}
+             changeSelect={changeSelected}
+             selected={selected}
+             selectedMonth={selected.getMonth()}
+             toggleSlideout={toggleSlideoutVisibility}
+             showSlideout={sliedoutShow}
+             reminders={reminders}
+           />}
             
           </div>
          
         ))}
       </div>
-      {}
     </>
   );
 };
