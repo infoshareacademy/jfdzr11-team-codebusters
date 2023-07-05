@@ -1,8 +1,12 @@
 import styles from './ReminderMessage.module.css'
-const ReminderMessage = () => {
+import { ReminderType } from '../ReminderForm/ReminderForm';
+type ReminderMessageProps = {
+    reminderData: ReminderType;
+}
+const ReminderMessage: React.FC<ReminderMessageProps> = ({reminderData}) => {
     return (
         <div className={styles.reminder_wrapper}>
-            Reminder message
+            <p>{reminderData.message}</p>
         </div>
     );
 }
