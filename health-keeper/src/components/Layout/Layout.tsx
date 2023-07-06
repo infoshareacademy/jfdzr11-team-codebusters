@@ -4,7 +4,7 @@ import { AuthContext } from '../../AuthContext/AuthContext';
 import { Navbar, Footer, Reminder } from '../index';
 import styles from './Layout.module.css';
 import { ReminderType } from '../../Reminders/ReminderForm/ReminderForm';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../api/firebase/firebase';
 
 const Layout = () => {
@@ -18,9 +18,11 @@ const Layout = () => {
   console.log(currentReminder);
 
   // check if there is a reminder to show
+
   useEffect(() => {
     if (reminderData) {
       const checkReminders = () => {
+        console.log('checking reminders');
         const currentDateTime = new Date();
         const currentYear = currentDateTime.getFullYear();
         const currentMonth = currentDateTime.getMonth() + 1;
@@ -28,7 +30,7 @@ const Layout = () => {
         const currentHours = currentDateTime.getHours();
         const currentMinutes = currentDateTime.getMinutes();
 
-        const matchingReminders = Object.entries(reminderData).filter(
+        const matchingReminder = Object.entries(reminderData).filter(
           ([_, reminder]) => {
             const { date, time } = reminder;
             const reminderDate = date.toDate();
@@ -49,76 +51,35 @@ const Layout = () => {
           }
         );
 
-        if (matchingReminders.length > 0) {
-          setCurrentReminder(matchingReminders[0][1]);
+        if (matchingReminder.length > 0) {
+          setCurrentReminder(matchingReminder[0][1]);
           setShowReminder(true);
-          console.log(matchingReminders)
+          console.log(matchingReminder);
         } else {
           setShowReminder(false);
         }
       };
-      checkReminders();
+      // check reminder every 20 seconds
+        const intervalId = setInterval(checkReminders, 20000); 
+
+        return () => {
+          clearInterval(intervalId); // Clean up the interval when the component unmounts
+        };
     }
+  }, [reminderData, currentReminder]);
 
-  }, [reminderData,currentReminder]);
+  // get the reminders from the database
+useEffect(() => {
+  const docRef = doc(db, 'users', currentUser?.uid);
+  const unsubscribe = onSnapshot(docRef, docSnap => {
+    const userReminders = docSnap.data()?.reminders;
+    setReminderData(userReminders);
+  });
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     checkReminders();
-  //   }, 1000); 
-
-  //   return () => {
-  //     clearInterval(interval); /
-  //   };
-  // }, [reminderData]);
-
-  // const checkReminders = () => {
-  //   if (reminderData) {
-  //     const currentDateTime = new Date();
-  //     const currentYear = currentDateTime.getFullYear();
-  //     const currentMonth = currentDateTime.getMonth() + 1;
-  //     const currentDay = currentDateTime.getDate();
-  //     const currentHours = currentDateTime.getHours();
-  //     const currentMinutes = currentDateTime.getMinutes();
-      
-  //     const matchingReminders = Object.entries(reminderData).filter(
-  //       ([_, reminder]) => {
-  //         const { date, time } = reminder;
-  //         const reminderDate = date.toDate();
-  //         const reminderYear = reminderDate.getFullYear();
-  //         const reminderMonth = reminderDate.getMonth() + 1;
-  //         const reminderDay = reminderDate.getDate();
-  //         const [reminderHours, reminderMinutes] = time.split(':').map(Number);
-
-  //         return (
-  //           reminderYear === currentYear &&
-  //           reminderMonth === currentMonth &&
-  //           reminderDay === currentDay &&
-  //           reminderHours === currentHours &&
-  //           reminderMinutes === currentMinutes
-  //         );
-  //       }
-  //     );
-
-  //     if (matchingReminders.length > 0) {
-  //       setCurrentReminder(matchingReminders[0][1]);
-  //       setShowReminder(true);
-  //     }
-  //   }
-  // };
-  
-  // fetch reminders from database
-  useEffect(() => {
-    const fetchReminders = async () => {
-      const docRef = doc(db, 'users', currentUser?.uid);
-      const docSnap = await getDoc(docRef);
-      const userReminders = docSnap.data()?.reminders;
-      setReminderData(userReminders);
-    };
-    fetchReminders();
-  }, []);
-
-
+  return () => {
+    unsubscribe(); 
+  };
+}, [currentUser]);
 
   const handleReminderVisibility = () => {
     setShowReminder(!showReminder);
