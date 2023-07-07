@@ -4,16 +4,19 @@ import { AuthContext } from '../../AuthContext/AuthContext';
 import { Navbar, Footer, Reminder } from '../index';
 import styles from './Layout.module.css';
 import { ReminderType } from '../../Reminders/ReminderForm/ReminderForm';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { deleteField, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { db } from '../../api/firebase/firebase';
+import { set } from 'date-fns';
 
 const Layout = () => {
   const { currentUser } = useContext(AuthContext);
 
   const [showReminder, setShowReminder] = useState<boolean>(false);
   const [reminderData, setReminderData] = useState<ReminderType | object>({});
-  const [currentReminder, setCurrentReminder] = useState<ReminderType | object>({});
-
+  const [currentReminder, setCurrentReminder] = useState<ReminderType | object>(
+    {}
+  );
+  const docRef = doc(db, 'users', currentUser?.uid);
   console.log(reminderData);
   console.log(currentReminder);
 
@@ -60,29 +63,46 @@ const Layout = () => {
         }
       };
       // check reminder every 20 seconds
-        const intervalId = setInterval(checkReminders, 20000); 
+      const intervalId = setInterval(checkReminders, 20000);
 
-        return () => {
-          clearInterval(intervalId); // Clean up the interval when the component unmounts
-        };
+      return () => {
+        clearInterval(intervalId); // Clean up the interval when the component unmounts
+      };
     }
   }, [reminderData, currentReminder]);
 
   // get the reminders from the database
-useEffect(() => {
-  const docRef = doc(db, 'users', currentUser?.uid);
-  const unsubscribe = onSnapshot(docRef, docSnap => {
-    const userReminders = docSnap.data()?.reminders;
-    setReminderData(userReminders);
-  });
+  useEffect(() => {
+    if (!currentUser) {
+      setReminderData({});
+      setShowReminder(false);
+      return;
+    }
 
-  return () => {
-    unsubscribe(); 
-  };
-}, [currentUser]);
+    const unsubscribe = onSnapshot(docRef, docSnap => {
+      const userReminders = docSnap.data()?.reminders;
+      setReminderData(userReminders);
+    });
 
-  const handleReminderVisibility = () => {
+    return () => {
+      unsubscribe();
+    };
+  }, [currentUser]);
+
+  const handleReminderVisibility = async () => {
     setShowReminder(!showReminder);
+    try {
+      if (currentReminder) {
+        const reminderId = currentReminder.reminderId;
+        const reminderPath = `reminders.${reminderId}`;
+        await updateDoc(docRef, {
+          [reminderPath]: deleteField(),
+        });
+        console.log('reminder deleted');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

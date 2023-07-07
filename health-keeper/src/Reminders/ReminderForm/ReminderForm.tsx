@@ -8,6 +8,7 @@ export type ReminderType =  {
   date: Date;
   time: string;
   message: string;
+  reminderId: string;
 }
 const ReminderForm: React.FC = () => {
   const { currentUser } = useContext(AuthContext);
@@ -39,12 +40,13 @@ const ReminderForm: React.FC = () => {
         date,
         time: reminderTime,
         message: reminderText,
+        reminderId,
       };
       const updatedReminders = {
         ...userData?.reminders,
         [reminderId]: newReminder,
       };
-      // 4. update the document in the database
+      // update the document in the database
       await updateDoc(docRef, { reminders: updatedReminders });
       console.log('Reminder successfully added');
     } catch (error) {
