@@ -133,6 +133,11 @@
     cursor: pointer;
     margin: 20px 0;
 }
+.dataedit_container form button:hover {
+    background-color: var(--primary-green);
+    border: none;
+    color: var(--fast-white);
+}
 
 .radio_container{
     display: flex;
