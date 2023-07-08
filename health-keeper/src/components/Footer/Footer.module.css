@@ -1,7 +1,7 @@
 .foot {
-  width: 328px;
-  height: 54px;
-    background-color: var(--fast-white);
+  width: 100%;
+  height: 76px;
+  background-color: var(--fast-white);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -15,6 +15,9 @@
   flex-direction: column;
   align-items: center;
   text-decoration: none;
+  
+  
+
 }
 
 .foot a div{
@@ -67,6 +70,7 @@
   font-weight: 600;
   font-size: 14px;
   color: var(--black);
+  
 }
 
 .foot a span.active {

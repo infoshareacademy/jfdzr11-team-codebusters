@@ -25,9 +25,21 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 :root{
+  --black-shadow: rgba(0, 0, 0, 0.4);
   --black: #27272E;
   --dark-grey: #7D7D82;
   --medium-grey: #B8B8BA;
   --fast-white: #F8F8F9;
   --primary-green: #446E52;
+  --Relaway: 'Raleway',
+    sans-serif;
+  font-family:  var(--Relaway);
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-green);
 }

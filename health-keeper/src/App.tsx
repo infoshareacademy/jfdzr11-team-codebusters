@@ -1,35 +1,35 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import {
-	Layout,
-	Login,
-	Register,
-	Dashboard,
-	ForgotPassword,
-	ResultsList,
-	Medicine,
-	MeasurementsList,
-	AddNewMeasurement,
-	AddMeasurementEntry,
-	MyProfile,
-	PersonalData,
-	PersonalDataEdit,
-} from "./components/index";
-import PrivateRoute from "./utils/PrivateRoute";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "./AuthContext/AuthContext";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./api/firebase/firebase";
-import { DataContext } from "./DataContext/DataContext";
-import { db } from "./api/firebase/firebase";
-import { doc, getDoc } from "firebase/firestore";
+  Layout,
+  Login,
+  Register,
+  Dashboard,
+  ForgotPassword,
+  ResultsList,
+  Medicine,
+  MeasurementsList,
+  AddNewMeasurement,
+  AddMeasurementEntry,
+  MyProfile,
+  PersonalData,
+} from './components/index';
+import PrivateRoute from './utils/PrivateRoute';
+import { useContext, useEffect } from 'react';
+import { AuthContext } from './AuthContext/AuthContext';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './api/firebase/firebase';
+import { DataContext } from './DataContext/DataContext';
+import { db } from './api/firebase/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+
 
 function App() {
 	const { setCurrentUser, setIsFetchingUserData, isFetchingUserData } =
 		useContext(AuthContext);
 	const { setUserData } = useContext(DataContext);
 
-	const getUserData = async (userID) => {
+	const getUserData = async (userID:string) => {
 		try {
 			const userRef = doc(db, "users", userID);
 			const userData = await getDoc(userRef).then((snapshot) =>
@@ -69,19 +69,12 @@ function App() {
 					<Route path="/register" element={<Register />} />
 					<Route path="/forgot-password" element={<ForgotPassword />} />
 
-					{/* Private routes */}
-					<Route element={<PrivateRoute />}>
-						<Route path="/" element={<Dashboard />} />
-						<Route path="/medicine" element={<Medicine />} />
-						<Route path="/myprofile" element={<MyProfile />} />
-						<Route
-							path="/myprofile/personaldata"
-							element={<PersonalData />}
-						/>
-						<Route
-							path="/myprofile/personaldata/:editData"
-							element={<PersonalDataEdit />}
-						/>
+          {/* Private routes */}
+          <Route element={<PrivateRoute />}>
+            <Route path='/' element={<Dashboard />} />
+            <Route path='/medicine' element={<Medicine />} />
+            <Route path='/myprofile' element={<MyProfile />} />
+            <Route path='/myprofile/personaldata' element={<PersonalData />} />
 
 						<Route path="/results-list" element={<ResultsList />} />
 						<Route

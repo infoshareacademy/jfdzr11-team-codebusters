@@ -2,7 +2,7 @@ import { FormEvent, useRef } from 'react';
 import styles from '../Auth.module.css';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../../api/firebase/firebase';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import {auth} from '../../../api/firebase/firebase'
 
@@ -85,20 +85,23 @@ const Register = () => {
 
   return (
     <div className={styles.form_wrapper}>
+      <Link to='/login' className={styles.backIcon}/>
+      <h1 className={styles.app_name}>HealthKeeper</h1>
+      <span className={styles.header}>Zarejestruj się</span>
       <form onSubmit={handleSubmit} className={styles.form} ref={formRef}>
-        <label htmlFor="name">Imię:</label>
+        <label htmlFor="name">Imię</label>
         <input type="text" name="name" id="name" />
-        <label htmlFor="lastName">Nazwisko:</label>
+        <label htmlFor="lastName">Nazwisko</label>
         <input type="text" name="lastName" id="lastName" />
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="email">E-mail</label>
         <input type="email" name="email" id="email" />
-        <label htmlFor="confirmEmail">Powierdź email:</label>
+        <label htmlFor="confirmEmail">Potwierdź e-mail</label>
         <input type="email" name="confirmEmail" id="confirmEmail" />
-        <label htmlFor="password">Hasło:</label>
+        <label htmlFor="password">Hasło</label>
         <input type="password" name="password" id="password" />
-        <label htmlFor="confirmPassword">Potwierdź hasło:</label>
+        <label htmlFor="confirmPassword">Potwierdź hasło</label>
         <input type="password" name="confirmPassword" id="confirmPassword" />
-        <button type="submit">Zarejestruj</button>
+        <button type="submit">Zarejestruj się</button>
       </form>
     </div>
   );
