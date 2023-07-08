@@ -12,7 +12,7 @@ const Dashboard = () => {
     <div>
       Dashboard !!
       {reminderVisibility && (
-        <Reminder isModalForm onModalDisable={handleReminderVisibility} />
+        <Reminder isModalForm onHideForm={handleReminderVisibility} />
       )}
       <button onClick={handleReminderVisibility}>Reminder form</button>
     </div>

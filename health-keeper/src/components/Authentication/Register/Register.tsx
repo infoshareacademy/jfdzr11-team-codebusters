@@ -63,7 +63,7 @@ const Register = () => {
             waga: {},
             cukier: {},
           },
-          reminders: {},
+          reminders: [],
         };
         // add user to database
         console.log(userId);

@@ -1,10 +1,8 @@
-import { Timestamp } from "firebase/firestore";
-
 export type ReminderType = {
-	date: Timestamp;
-	time: string;
+	dateTime: number
 	message: string;
 	reminderId: string;
+	reminderType: string;
 };
 
 export type ReminderData = Array<ReminderType>;
