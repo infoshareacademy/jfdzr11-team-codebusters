@@ -6,6 +6,7 @@ import { doc, updateDoc, getDoc } from '@firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import ResultChart2 from '../ResultChart/ResultChart2';
 
+
 type AddMeasurementFormProps = {
   isNewMeasurement: boolean;
   param?: string;
@@ -17,8 +18,6 @@ const AddMeasurementForm = ({
 }: AddMeasurementFormProps) => {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  console.log(param)
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -33,7 +32,8 @@ const AddMeasurementForm = ({
       (e.currentTarget.elements.namedItem('value') as HTMLInputElement).value
     );
     const date: Date = new Date(
-      (e.currentTarget.elements.namedItem('date') as HTMLInputElement).value);
+      (e.currentTarget.elements.namedItem('date') as HTMLInputElement).value
+    );
 
     const id = currentUser.uid;
 
@@ -42,8 +42,8 @@ const AddMeasurementForm = ({
       const docRef = doc(db, 'users', id);
       const docSnap = await getDoc(docRef);
       const existingMeasurements = docSnap.data()?.measurements;
-      const measurementValues =docSnap.data()?.measurements[param as string];
-      console.log(measurementValues)
+      const measurementValues = docSnap.data()?.measurements[param as string];
+      console.log(measurementValues);
 
       // check if the measurement with this name already exists
       if (docSnap.data()?.measurements?.[measurementName]) {
@@ -78,7 +78,9 @@ const AddMeasurementForm = ({
 
       await updateDoc(docRef, { measurements: updatedMeasurementData });
       console.log('Document updated with ID: ', docRef.id);
-      navigate('/results-list/measurements');
+      if (isNewMeasurement) {
+        navigate('/results-list/measurements');
+      }
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +89,10 @@ const AddMeasurementForm = ({
 
   return (
     <div>
-      <form className={styles.form} onSubmit={handleAddMeasurement} ref={formRef}>
+      <form
+        className={styles.form}
+        onSubmit={handleAddMeasurement}
+        ref={formRef}>
         {isNewMeasurement && (
           <>
             <label htmlFor="measurement_type">Dodaj pomiar</label>
@@ -98,14 +103,16 @@ const AddMeasurementForm = ({
             />
           </>
         )}
-        {!isNewMeasurement && <h2>{param}</h2>}
+        {!isNewMeasurement && (
+          <h2 className={styles.measurement_name}>{param?.toUpperCase()}</h2>
+        )}
         <label htmlFor="value">Wartość</label>
         <input type="number" name="value" id="value" />
         <label htmlFor="date">Data</label>
         <input type="date" name="date" id="date" />
         <button type="submit">Dodaj</button>
       </form>
-      <ResultChart2 param={param} />
+      {!isNewMeasurement && <ResultChart2 param={param} />}
     </div>
   );
 };

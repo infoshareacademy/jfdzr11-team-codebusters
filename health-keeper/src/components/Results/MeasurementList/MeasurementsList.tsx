@@ -27,18 +27,17 @@ const MeasurementList = () => {
 
   return (
     <>
-      <h2>Codzienne pomiary</h2>
+      <h2 className={styles.header}>Codzienne pomiary</h2>
       <ul className={styles.measurement_list}>
         {measurements.map(measurement => (
-          <Link
-            className={styles.measurement_item}
-            key={crypto.randomUUID()}
-            to={`/results-list/measurements/${measurement}/addEntry`}>
-            {measurement.toUpperCase()}
-          </Link>
+          <li key={crypto.randomUUID()} className={styles.measurement_item}>
+            <Link to={`/results-list/measurements/${measurement}/addEntry`}>
+              {measurement.toUpperCase()}
+            </Link>
+          </li>
         ))}
       </ul>
-      <Link to="/results-list/measurements/addNew">Add +</Link>
+      <Link to="/results-list/measurements/addNew" className={styles.add }>Dodaj +</Link>
     </>
   );
 };
