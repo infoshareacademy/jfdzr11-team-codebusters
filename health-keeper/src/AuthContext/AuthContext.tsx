@@ -1,17 +1,15 @@
-import React, { ReactElement, useState } from 'react';
-
+import React, { ReactElement, SetStateAction, useState } from "react";
+import type { Dispatch } from "react";
 
 type AuthContextProviderProps = {
-  children: ReactElement;
+	children: ReactElement;
 };
 
 type AuthContextState = {
-  currentUser: {
-    email: string;
-  };
-  setCurrentUser: (currentUser: { email: string }) => void;
-  isFetchingUserData: boolean;
-  setIsFetchingUserData: (isFetchingUserData: boolean) => void;
+	currentUser: any;
+	setCurrentUser: Dispatch<SetStateAction<string>>;
+	isFetchingUserData: boolean;
+	setIsFetchingUserData: (isFetchingUserData: boolean) => void;
 };
 
 const defaultContextValue = {} as AuthContextState;
@@ -19,21 +17,21 @@ const defaultContextValue = {} as AuthContextState;
 export const AuthContext = React.createContext(defaultContextValue);
 
 export const AuthProvider: React.FC<AuthContextProviderProps> = ({
-  children,
+	children,
 }) => {
-  const [currentUser, setCurrentUser] = useState({ email: '' });
-  const [isFetchingUserData, setIsFetchingUserData] = useState(true);
-  
+	const [currentUser, setCurrentUser] = useState();
+	const [isFetchingUserData, setIsFetchingUserData] = useState(true);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        currentUser,
-        setCurrentUser,
-        isFetchingUserData,
-        setIsFetchingUserData,
-      }}>
-      {children}
-    </AuthContext.Provider>
-  );
+	return (
+		<AuthContext.Provider
+			value={{
+				currentUser,
+				setCurrentUser,
+				isFetchingUserData,
+				setIsFetchingUserData,
+			}}
+		>
+			{children}
+		</AuthContext.Provider>
+	);
 };
