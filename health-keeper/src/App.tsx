@@ -7,13 +7,15 @@ import {
   Dashboard,
   ForgotPassword,
   ResultsList,
-  Medicine,
+  MedicineMain,
   MeasurementsList,
   AddNewMeasurement,
   AddMeasurementEntry,
   MyProfile,
   PersonalData,
   PersonalDataEdit,
+  FindMedicine,
+  MyMedicine,
 } from './components/index';
 import PrivateRoute from './utils/PrivateRoute';
 import { useContext, useEffect } from 'react';
@@ -23,7 +25,6 @@ import { auth } from './api/firebase/firebase';
 import { DataContext } from './DataContext/DataContext';
 import { db } from './api/firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
-
 
 function App() {
   const { setCurrentUser, setIsFetchingUserData, isFetchingUserData } =
@@ -75,7 +76,9 @@ function App() {
           {/* Private routes */}
           <Route element={<PrivateRoute />}>
             <Route path='/' element={<Dashboard />} />
-            <Route path='/medicine' element={<Medicine />} />
+            <Route path='/medicine' element={<MedicineMain />} />
+            <Route path='/medicine/find' element={<FindMedicine />} />
+            <Route path='/medicine/mymedicine' element={<MyMedicine />} />
             <Route path='/myprofile' element={<MyProfile />} />
             <Route path='/myprofile/personaldata' element={<PersonalData />} />
             <Route

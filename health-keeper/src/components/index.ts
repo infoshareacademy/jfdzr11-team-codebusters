@@ -14,7 +14,9 @@ import AddMeasurementEntry from './Results/AddMeasurementEntry/AddMeasurementEnt
 import MyProfile from './MyProfile/MyProfile';
 import PersonalData from './MyProfile/PersonalData/PersonalData';
 import PersonalDataEdit from './MyProfile/PersonalData/PersonalDataEdit/PersonalDataEdit';
-import Medicine from './Medicine/Medicine';
+import MedicineMain from './Medicine/MedicineMain';
+import FindMedicine from './Medicine/FindMedicine/FindMedicine';
+import MyMedicine from './Medicine/MyMedicine/MyMedicine';
 export {
   Login,
   Register,
@@ -31,5 +33,7 @@ export {
   MyProfile,
   PersonalData,
   PersonalDataEdit,
-  Medicine,
+  MedicineMain,
+  FindMedicine,
+  MyMedicine,
 };
