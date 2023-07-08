@@ -24,9 +24,10 @@ type PersonalData = {
 
 }
 
-type UserData = {
+export type UserData = {
     loginData: LoginData,
     personalData: PersonalData,
+    avatar: string,
 }
 
 type DataContextState = {

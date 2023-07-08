@@ -13,7 +13,6 @@ import {
   AddMeasurementEntry,
   MyProfile,
   PersonalData,
-  PersonalDataEdit,
 } from './components/index';
 import PrivateRoute from './utils/PrivateRoute';
 import { useContext, useEffect } from 'react';
@@ -78,10 +77,6 @@ function App() {
             <Route path='/medicine' element={<Medicine />} />
             <Route path='/myprofile' element={<MyProfile />} />
             <Route path='/myprofile/personaldata' element={<PersonalData />} />
-            <Route
-              path='/myprofile/personaldata/:editData'
-              element={<PersonalDataEdit />}
-            />
 
             <Route path='/results-list' element={<ResultsList />} />
             <Route
