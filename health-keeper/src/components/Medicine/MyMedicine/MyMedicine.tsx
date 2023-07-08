@@ -1,18 +1,51 @@
+import { useContext, useEffect, useState } from 'react';
 import { db } from '../../../api/firebase/firebase';
-import { collection, doc, getDocs } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
+import { AuthContext } from '../../../AuthContext/AuthContext';
 
 const MyMedicine = () => {
-  const getMedicines = async () => {
-    const querySnapshot = await getDocs(collection(db, 'medicines'));
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, ' => ', doc.data());
-    });
+  const { currentUser } = useContext(AuthContext);
+
+  const [medicines, setMedicines] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchMedicineNames = async () => {
+      try {
+        const id: string = currentUser?.uid;
+        const data = await getDoc(doc(db, 'users', id));
+        const medicines: string[] = data.data()?.medicines;
+
+        setMedicines(medicines);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchMedicineNames();
+  }, []);
+
+  const handleDelete = () => {
+    console.log('Usuwam lek');
+    console.log(medicines);
   };
-  getMedicines();
+
   return (
     <div>
-      <h2>Leki</h2>
-      <ul></ul>
+      <h1>Moje leki</h1>
+      <ul>
+        {medicines.map((medicine) => (
+          <>
+            <h2>{medicine.name}</h2>
+            <p>{medicine.form}</p>
+            <p>{medicine.substance}</p>
+            <p>{medicine.power}</p>
+            <p>{medicine.pack}</p>
+            <p>{medicine.registryNumber}</p>
+            <button type='button' onClick={handleDelete}>
+              Usuń lek
+            </button>
+          </>
+        ))}
+      </ul>
     </div>
   );
 };
