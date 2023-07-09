@@ -16,6 +16,7 @@ import PersonalData from './MyProfile/PersonalData/PersonalData';
 import MedicineMain from './Medicine/MedicineMain';
 import FindMedicine from './Medicine/FindMedicine/FindMedicine';
 import MyMedicine from './Medicine/MyMedicine/MyMedicine';
+import Calendar from './Calendar/Calendar';
 import Backdrop from '../Reminders/Backdrop/Backdrop';
 import ReminderForm from '../Reminders/ReminderForm/ReminderForm';
 import ReminderMessage from '../Reminders/ReminderMessage/ReminderMessage';
@@ -42,4 +43,5 @@ export {
   ReminderForm,
   ReminderMessage,
   Reminder,
+  Calendar,
 };

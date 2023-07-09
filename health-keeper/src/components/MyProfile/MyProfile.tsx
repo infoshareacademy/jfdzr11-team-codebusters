@@ -20,11 +20,12 @@ const MyProfile = () => {
     const [avatarForm, setAvatarForm] = useState<boolean>();
 
     const {userData, setUserData} = useContext(DataContext);
-     const { currentUser} = useContext(AuthContext);
+     const { currentUser, setCurrentUser} = useContext(AuthContext);
 
   const logoutHandler = async () => {
     try {
       await signOut(auth);
+      setCurrentUser(null)
       navigate('/login');
     } catch (error) {
       console.log(error);
