@@ -7,7 +7,7 @@ type AuthContextProviderProps = {
 
 type AuthContextState = {
 	currentUser: any;
-	setCurrentUser: Dispatch<SetStateAction<string>>;
+	setCurrentUser: Dispatch<SetStateAction<any>>;
 	isFetchingUserData: boolean;
 	setIsFetchingUserData: (isFetchingUserData: boolean) => void;
 };
