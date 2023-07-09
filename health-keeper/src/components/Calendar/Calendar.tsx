@@ -26,7 +26,7 @@ export interface Reminder {
   dateTime: number;
   message: string;
   reminderId: number;
-  type: "general" | "medicine";
+  reminderType: "general" | "medicine";
 }
 
 const Calendar = () => {
@@ -66,9 +66,14 @@ const Calendar = () => {
 
   return (
     <div className={styles.calendar}>
-      {selectedDay.getFullYear()+" "+months[selectedDay.getMonth()]}
-      <button onClick={() => onMonthChange(selectedDay, "prev")}>prev</button>
-      <button onClick={() => onMonthChange(selectedDay, "next")}>next</button>
+      <div className={styles.header}>
+        <h1 className={styles[`header-monthYear`]}>{selectedDay.getFullYear()+" "+months[selectedDay.getMonth()]}</h1>
+        <section className={styles[`header-nav`]}>
+          <button onClick={() => onMonthChange(selectedDay, "prev")}>{"<"}</button>
+          <button onClick={() => onMonthChange(selectedDay, "next")}>{">"}</button>
+        </section>
+          
+      </div>
       <div className="calendar-body">
         <div className={styles["dayGrid-header"]}>
           {weekdays.map((weekday, index) => (

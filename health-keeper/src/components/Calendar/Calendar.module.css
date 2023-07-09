@@ -1,7 +1,16 @@
 .calendar{
     padding: 5px;
+    font-family: var(--Relaway);
 }
-
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.header-monthYear{
+    font-size: 2rem;
+}
 .calendar-header{
     display: flex;
 }
@@ -24,34 +33,22 @@
     
     
 }
-.slideout-show {
-    height: 150px;
-    visibility: visible;
-     opacity: 1;
-    
-     transition:  height 0.5s, visibility 0s, opacity 1s linear;
-    
 
+button{
+    height: 25px;
+    width: 25px;
+    border: 1.5px solid black;
+    border-radius: 5px;
+    margin: 3px
 }
-.slideout-hidden {
-    height: 1px;
-    visibility: hidden;
-    opacity: 0;
-   
-    transition: height 0.5s, visibility 0s, opacity 1s linear;
 
-}
-.slideout{
-    
-}
+
 
 .selected-row{
     background-color: #e4e4e4;
     border-radius: 5px;
 }
-.slideout-row{
-    min-height: 100px;
-}
+
 .day{
     display: flex;
     justify-content: space-between;
@@ -81,15 +78,24 @@
     border-radius: 5px;
     width: 6px;
     height: 100%;
-    background-color:rgba(51, 141, 201, 0.664);
+    justify-content: center;
     
     align-self: flex-start;
 }
+.indicator{
+    height: 30%;
+    width: 100%;
+    border-radius: 5px;
+    margin: 1px 0;
+}
 
 .indicator-general{
+    background-color:rgba(51, 141, 201, 0.664);
     
 }
 
 .indicator-medicine{
-
+    background-color:rgba(51, 201, 89, 0.664);
+    
 }
+

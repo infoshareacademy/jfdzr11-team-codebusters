@@ -5,23 +5,21 @@ import CalendarDays from "./CalendarDays";
 import DayEventsSlideout from "./DayEventsSlideout";
 import { Reminder } from "./Calendar";
 
-
 interface Props {
   selected: Date;
   changeSelected: (newDate: Date) => void;
-  reminders: Reminder[]
+  reminders: Reminder[];
 }
 
 const getRemindersForSelectedDay = (reminders: Reminder[], day: Date) => {
-  
-  let dayReminders: Reminder[] = []
-  if(reminders) {
-    dayReminders = reminders.filter((reminder) => new Date(reminder.dateTime).toDateString()===day.toDateString())
-  }
-  
-  if(dayReminders===undefined) return [];
-      else return dayReminders
-}
+  const dayReminders: Reminder[] = reminders.filter(
+    (reminder) =>
+      new Date(reminder.dateTime).toDateString() === day.toDateString()
+    );
+    if(dayReminders===undefined) return [];
+
+    else return dayReminders.sort((a, b) => a.dateTime - b.dateTime);
+};
 
 const getAllDays = (selectedDay: Date) => {
   const firstDayOfSelectedMonth = new Date(
@@ -69,20 +67,20 @@ const getAllDays = (selectedDay: Date) => {
 };
 
 const CalendarRows = ({ changeSelected, selected, reminders }: Props) => {
-  console.log(reminders);
+  
   const [rows, setRows] = useState<Date[][]>([]);
-  const [slideoutVisible, setSlideoutVisible] = useState<string>("hidden")
+  const [slideoutVisible, setSlideoutVisible] = useState<string>("hidden");
 
   const toggleSlideoutVisibility = () => {
-    if(slideoutVisible==="show") setSlideoutVisible("hidden");
-    if(slideoutVisible==="hidden") setSlideoutVisible("show");
-  }
+    if (slideoutVisible === "show") setSlideoutVisible("hidden");
+    if (slideoutVisible === "hidden") setSlideoutVisible("show");
+  };
   const sliedoutShow = () => {
-    setSlideoutVisible("show")
-  }
+    setSlideoutVisible("show");
+  };
   const slideoutHide = () => {
     setSlideoutVisible("hidden");
-  }
+  };
 
   const selectedDayInRow = (row: Date[]) => {
     return row.some((day) => day.toDateString() === selected.toDateString());
@@ -105,11 +103,10 @@ const CalendarRows = ({ changeSelected, selected, reminders }: Props) => {
         row.push(days[j]);
       }
       _rows.push(row);
-      if(selectedDayInRow(row)) _rows.push([]);
+      if (selectedDayInRow(row)) _rows.push([]);
     }
 
     setRows(_rows);
-    
   }, [selected]);
 
   return (
@@ -120,26 +117,29 @@ const CalendarRows = ({ changeSelected, selected, reminders }: Props) => {
             className={
               styles["row"] +
               " " +
-              (selectedDayInRow(row) ? styles["selected-row"] : "") + 
-              (slideoutRow(row)&&(getRemindersForSelectedDay(reminders, selected).length>0) ? styles[`slideout-${slideoutVisible}`] : "")
+              (selectedDayInRow(row) ? styles["selected-row"] : "")
             }
             key={index}
           >
-            {(slideoutRow(row))?
-             <DayEventsSlideout selected={selected} dayReminders={getRemindersForSelectedDay(reminders, selected)}/>:
-             <CalendarDays
-             rowArr={row}
-             changeSelect={changeSelected}
-             selected={selected}
-             selectedMonth={selected.getMonth()}
-             toggleSlideout={toggleSlideoutVisibility}
-             showSlideout={sliedoutShow}
-             hideSlideout={slideoutHide}
-             reminders={reminders}
-           />}
-            
+            {(slideoutRow(row) && getRemindersForSelectedDay(reminders, selected).length>0)? (
+              <DayEventsSlideout
+                selected={selected}
+                dayReminders={getRemindersForSelectedDay(reminders, selected)}
+                visibility={slideoutVisible}
+              />
+            ) : (
+              <CalendarDays
+                rowArr={row}
+                changeSelect={changeSelected}
+                selected={selected}
+                selectedMonth={selected.getMonth()}
+                toggleSlideout={toggleSlideoutVisibility}
+                showSlideout={sliedoutShow}
+                hideSlideout={slideoutHide}
+                reminders={reminders}
+              />
+            )}
           </div>
-         
         ))}
       </div>
     </>

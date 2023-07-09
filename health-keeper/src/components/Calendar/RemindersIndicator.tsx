@@ -1,3 +1,4 @@
+
 import { Reminder } from "./Calendar";
 import styles from "./Calendar.module.css";
 
@@ -6,18 +7,23 @@ interface Props {
 }
 
 const RemindersIndicator = ({ dayReminders }: Props) => {
-  const reminderTypes: string[] = [];
-  dayReminders?.map((reminder) => {
-    if (!reminderTypes.includes(reminder.type))
-      reminderTypes.push(reminder.type);
-  });
+  console.log(dayReminders);
+  
 
+  const tempArr = dayReminders?.map((reminder) => reminder.reminderType);
+  const reminderTypes = [...new Set(tempArr)]
+
+  
+  
   return (
-    <div className={styles.indicators}>
-      {reminderTypes?.map((type, index) => {
-        return <div className={styles[`indicator-${type}`]} key={index}></div>;
-      })}
-    </div>
+    <>
+    {dayReminders.length>0 && <div className={styles.indicators}>
+    {reminderTypes.map((type, index) => {
+
+      return <div className={`${styles[`indicator-${type}`]} ${styles.indicator} `} key={index}></div>;
+    })}
+  </div>}
+  </>
   );
 };
 
