@@ -14,6 +14,7 @@ import AddMeasurementEntry from './Results/AddMeasurementEntry/AddMeasurementEnt
 import MyProfile from './MyProfile/MyProfile';
 import PersonalData from './MyProfile/PersonalData/PersonalData';
 import Medicine from './Medicine/Medicine';
+import Calendar from './Calendar/Calendar';
 import Backdrop from '../Reminders/Backdrop/Backdrop';
 import ReminderForm from '../Reminders/ReminderForm/ReminderForm';
 import ReminderMessage from '../Reminders/ReminderMessage/ReminderMessage';
@@ -38,4 +39,5 @@ export {
   ReminderForm,
   ReminderMessage,
   Reminder,
+  Calendar
 };

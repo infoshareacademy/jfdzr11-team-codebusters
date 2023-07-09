@@ -1,0 +1,95 @@
+.calendar{
+    padding: 5px;
+}
+
+.calendar-header{
+    display: flex;
+}
+
+.dayGrid-header{
+    display: flex;
+    justify-content: space-between;
+}
+.dayGrid-table{
+    display: flex;
+    flex-direction: column;
+}
+.selected{
+    background-color: lightgray;
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
+    
+    
+}
+.slideout-show {
+    height: 150px;
+    visibility: visible;
+     opacity: 1;
+    
+     transition:  height 0.5s, visibility 0s, opacity 1s linear;
+    
+
+}
+.slideout-hidden {
+    height: 1px;
+    visibility: hidden;
+    opacity: 0;
+   
+    transition: height 0.5s, visibility 0s, opacity 1s linear;
+
+}
+.slideout{
+    
+}
+
+.selected-row{
+    background-color: #e4e4e4;
+    border-radius: 5px;
+}
+.slideout-row{
+    min-height: 100px;
+}
+.day{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2px;
+    border-radius: 5px;
+    min-width: 30px;
+    height: 30px;
+}
+.date{
+    display: flex;
+
+    
+}
+
+.active{
+    color: #27272E
+}
+
+.disabled{
+    color: #B8B8BA
+}
+
+.indicators{
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    width: 6px;
+    height: 100%;
+    background-color:rgba(51, 141, 201, 0.664);
+    
+    align-self: flex-start;
+}
+
+.indicator-general{
+    
+}
+
+.indicator-medicine{
+
+}

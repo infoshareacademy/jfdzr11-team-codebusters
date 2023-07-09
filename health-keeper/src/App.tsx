@@ -4,7 +4,7 @@ import {
   Layout,
   Login,
   Register,
-  Dashboard,
+  Calendar,
   ForgotPassword,
   ResultsList,
   Medicine,
@@ -13,6 +13,7 @@ import {
   AddMeasurementEntry,
   MyProfile,
   PersonalData,
+  Dashboard
 } from './components/index';
 import PrivateRoute from './utils/PrivateRoute';
 import { useContext, useEffect } from 'react';
@@ -72,6 +73,7 @@ function App() {
           {/* Private routes */}
           <Route element={<PrivateRoute />}>
             <Route path='/' element={<Dashboard />} />
+            <Route path='/calendar' element={<Calendar/>}/>
             <Route path='/medicine' element={<Medicine />} />
             <Route path='/myprofile' element={<MyProfile />} />
             <Route path='/myprofile/personaldata' element={<PersonalData />} />
