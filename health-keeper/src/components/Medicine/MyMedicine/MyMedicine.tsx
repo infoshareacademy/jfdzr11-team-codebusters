@@ -40,9 +40,6 @@ const MyMedicine = () => {
             <p>{medicine.power}</p>
             <p>{medicine.pack}</p>
             <p>{medicine.registryNumber}</p>
-            <button type='button' onClick={handleDelete}>
-              Usuń lek
-            </button>
           </>
         ))}
       </ul>

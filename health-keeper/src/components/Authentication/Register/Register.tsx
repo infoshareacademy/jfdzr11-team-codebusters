@@ -4,12 +4,11 @@ import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../../api/firebase/firebase';
 import { useNavigate, Link } from 'react-router-dom';
 import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import {auth} from '../../../api/firebase/firebase'
+import { auth } from '../../../api/firebase/firebase';
 
 const Register = () => {
-
   const formRef = useRef<HTMLFormElement>(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,7 +38,11 @@ const Register = () => {
       return;
     } else {
       try {
-        const userCredential = await createUserWithEmailAndPassword(auth,email, password);
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
         console.log('Registration succesful!');
 
         const userId = userCredential.user?.uid;
@@ -64,6 +67,7 @@ const Register = () => {
             cukier: {},
           },
           reminders: [],
+          medicines: [],
         };
         // add user to database
         console.log(userId);
@@ -75,8 +79,8 @@ const Register = () => {
       }
       try {
         await signOut(auth);
-        console.log('Logged out successfully!')
-        navigate('/login')
+        console.log('Logged out successfully!');
+        navigate('/login');
       } catch (error) {
         console.log(error);
       }
@@ -85,23 +89,23 @@ const Register = () => {
 
   return (
     <div className={styles.form_wrapper}>
-      <Link to='/login' className={styles.backIcon}/>
+      <Link to='/login' className={styles.backIcon} />
       <h1 className={styles.app_name}>HealthKeeper</h1>
       <span className={styles.header}>Zarejestruj się</span>
       <form onSubmit={handleSubmit} className={styles.form} ref={formRef}>
-        <label htmlFor="name">Imię</label>
-        <input type="text" name="name" id="name" />
-        <label htmlFor="lastName">Nazwisko</label>
-        <input type="text" name="lastName" id="lastName" />
-        <label htmlFor="email">E-mail</label>
-        <input type="email" name="email" id="email" />
-        <label htmlFor="confirmEmail">Potwierdź e-mail</label>
-        <input type="email" name="confirmEmail" id="confirmEmail" />
-        <label htmlFor="password">Hasło</label>
-        <input type="password" name="password" id="password" />
-        <label htmlFor="confirmPassword">Potwierdź hasło</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" />
-        <button type="submit">Zarejestruj się</button>
+        <label htmlFor='name'>Imię</label>
+        <input type='text' name='name' id='name' />
+        <label htmlFor='lastName'>Nazwisko</label>
+        <input type='text' name='lastName' id='lastName' />
+        <label htmlFor='email'>E-mail</label>
+        <input type='email' name='email' id='email' />
+        <label htmlFor='confirmEmail'>Potwierdź e-mail</label>
+        <input type='email' name='confirmEmail' id='confirmEmail' />
+        <label htmlFor='password'>Hasło</label>
+        <input type='password' name='password' id='password' />
+        <label htmlFor='confirmPassword'>Potwierdź hasło</label>
+        <input type='password' name='confirmPassword' id='confirmPassword' />
+        <button type='submit'>Zarejestruj się</button>
       </form>
     </div>
   );

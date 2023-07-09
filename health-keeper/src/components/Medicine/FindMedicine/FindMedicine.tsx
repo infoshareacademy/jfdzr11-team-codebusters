@@ -1,18 +1,29 @@
-import { addDoc, collection } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import styles from './FindMedicine.module.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { db } from '../../../api/firebase/firebase';
+import { AuthContext } from '../../../AuthContext/AuthContext';
+import type { MedType } from '../types';
 
 const FindMedicine = () => {
+  const { currentUser } = useContext(AuthContext);
+  const id = currentUser?.uid;
   let medPack: string;
   const [isActive, setActive] = useState<boolean>(false);
   const [foundMedicine, setMedicine] = useState({
-    medSbstncName: '',
-    medPower: '',
-    medName: '',
-    medFormName: '',
-    medRegstrNum: '',
-    medPack: '',
+    substance: '',
+    power: '',
+    name: '',
+    form: '',
+    registryNumber: '',
+    pack: '',
   });
   const getMedicine = async () => {
     const searchCode = (document.getElementById('codeEAN') as HTMLInputElement)
@@ -27,7 +38,6 @@ const FindMedicine = () => {
 
     const data = await response.json();
     const medicineData = data.content[0];
-
     const gtin = medicineData.gtin;
     const gtinArr = gtin.split('\\n');
 
@@ -37,26 +47,43 @@ const FindMedicine = () => {
     medPack = packsArr[packIndx];
 
     setMedicine({
-      medPack: medPack,
-      medSbstncName: medicineData.medicinalProductName,
-      medPower: medicineData.medicinalProductPower,
-      medName: medicineData.commonName,
-      medFormName: medicineData.pharmaceuticalFormName,
-      medRegstrNum: medicineData.registryNumber,
+      pack: medPack,
+      substance: medicineData.activeSubstanceName,
+      power: medicineData.medicinalProductPower,
+      name: medicineData.medicinalProductName,
+      form: medicineData.pharmaceuticalFormName,
+      registryNumber: medicineData.registryNumber,
     });
 
     setActive(!isActive);
   };
 
-  const addMedicine = () => {
-    addDoc(collection(db, 'medicines'), {
-      form: foundMedicine.medFormName,
-      name: foundMedicine.medName,
-      pack: foundMedicine.medPack,
-      power: foundMedicine.medPower,
-      registryNumber: foundMedicine.medRegstrNum,
-      substance: foundMedicine.medSbstncName,
-    });
+  const addMedicine = async () => {
+    console.log(
+      foundMedicine.form,
+      foundMedicine.name,
+      foundMedicine.pack,
+      foundMedicine.power,
+      foundMedicine.registryNumber,
+      foundMedicine.substance
+    );
+
+    const docRef = doc(db, 'users', id);
+    const docSnap = await getDoc(docRef);
+    const userData = docSnap.data();
+
+    const newMed: MedType = {
+      name: foundMedicine.name,
+      form: foundMedicine.form,
+      pack: foundMedicine.pack,
+      power: foundMedicine.power,
+      registryNumber: foundMedicine.registryNumber,
+      substance: foundMedicine.substance,
+    };
+
+    const updateMedicines = [...userData.medicines, newMed];
+    await updateDoc(docRef, { medicines: updateMedicines });
+    console.log('Dodano lek');
   };
 
   return (
@@ -73,13 +100,13 @@ const FindMedicine = () => {
       {isActive ? (
         <div className={styles.resultDiv}>
           <ul>
-            <li>Nazwa leku: {foundMedicine.medSbstncName}</li>
-            <li>Forma leku: {foundMedicine.medFormName}</li>
-            <li>Nazwa substancji czynnej: {foundMedicine.medName}</li>
-            <li>Ilość substancji czynnej:{foundMedicine.medPower}</li>
-            <li>Opakowanie: {foundMedicine.medPack}</li>
+            <li>Nazwa leku: {foundMedicine.name}</li>
+            <li>Forma leku: {foundMedicine.form}</li>
+            <li>Nazwa substancji czynnej: {foundMedicine.substance}</li>
+            <li>Ilość substancji czynnej: {foundMedicine.power}</li>
+            <li>Opakowanie: {foundMedicine.pack}</li>
 
-            <li>Numer pozwolenia: {foundMedicine.medRegstrNum}</li>
+            <li>Numer pozwolenia: {foundMedicine.registryNumber}</li>
           </ul>
           <button type='button' onClick={addMedicine}>
             Dodaj lek
