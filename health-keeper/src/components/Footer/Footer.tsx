@@ -30,16 +30,14 @@ const Footer = () => {
           Wizyty
         </span>
       </Link>
-      <Link to={'/results-list'}>
+      <Link to={'/data'}>
         <div
-          className={`${
-            location.pathname === '/results-list' ? styles.active : null
-          } ${styles.data}`}
+          className={`${location.pathname === '/data' ? styles.active : null} ${
+            styles.data
+          }`}
         />
         <span
-          className={`${
-            location.pathname === '/results-list' ? styles.active : null
-          }`}
+          className={`${location.pathname === '/data' ? styles.active : null}`}
         >
           Wyniki
         </span>

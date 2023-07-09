@@ -13,7 +13,6 @@ import {
   AddMeasurementEntry,
   MyProfile,
   PersonalData,
-  PersonalDataEdit,
   FindMedicine,
   MyMedicine,
 } from './components/index';
@@ -31,7 +30,7 @@ function App() {
     useContext(AuthContext);
   const { setUserData } = useContext(DataContext);
 
-  const getUserData = async (userID) => {
+  const getUserData = async (userID: string) => {
     try {
       const userRef = doc(db, 'users', userID);
       const userData = await getDoc(userRef).then((snapshot) =>
@@ -47,11 +46,9 @@ function App() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
-        setCurrentUser(user);
         getUserData(user.uid);
         console.log(user);
       } else {
-        setCurrentUser({ email: '' });
         console.log('wylogowano');
       }
       setIsFetchingUserData(false);
@@ -81,10 +78,6 @@ function App() {
             <Route path='/medicine/mymedicine' element={<MyMedicine />} />
             <Route path='/myprofile' element={<MyProfile />} />
             <Route path='/myprofile/personaldata' element={<PersonalData />} />
-            <Route
-              path='/myprofile/personaldata/:editData'
-              element={<PersonalDataEdit />}
-            />
 
             <Route path='/results-list' element={<ResultsList />} />
             <Route

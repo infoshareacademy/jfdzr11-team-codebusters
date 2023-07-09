@@ -1,16 +1,20 @@
 import { Link } from "react-router-dom";
+import styles from './ResultsList.module.css'
 const ResultsList= () => {
     return (
-      <ul>
-        <li>Badania</li>
-        <li>Zaświadczenia</li>
-        <li>Szczepienia</li>
-        <li>Skierowania</li>
-        <li>Recepty</li>
-        <li>
-          <Link to="/results-list/measurements">Codzienne pomiary</Link>
-        </li>
-      </ul>
+      <div className={styles.container}>
+      <h2 className={styles.header}>Wyniki</h2>
+        <ul className={styles.results_list}>
+          <li>BADANIA</li>
+          <li>ZAŚWIADCZENIA</li>
+          <li>SZCZEPIENIA</li>
+          <li>SKIEROWANIA</li>
+          <li>RECEPTY</li>
+          <li>
+            <Link to="/results-list/measurements">CODZIENNE POMIARY</Link>
+          </li>
+        </ul>
+      </div>
     );
 }
 

@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../api/firebase/firebase';
 import { AuthContext } from '../../../AuthContext/AuthContext';
 
+
 const Login = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
@@ -34,16 +35,16 @@ const Login = () => {
   return (
     <>
       <div className={styles.form_wrapper}>
+        <h1 className={styles.app_name}>HealthKeeper</h1>
+        <span className={styles.header}>Zaloguj się</span>
         <form onSubmit={loginHandler} ref={formRef} className={styles.form}>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">E-mail</label>
           <input type="email" name="email" id="email" />
-          <label htmlFor="email">Password:</label>
+          <label htmlFor="email">Hasło</label>
           <input type="password" name="password" id="password" />
-          <button type="submit">Log In</button>
-          <Link to='/forgot-password'>Forgot your password?</Link>
-          <p>
-            New to Health Keeper ? <Link to="/register">Sign Up</Link>
-          </p>
+          <button type="submit">Zaloguj się</button>
+          <Link to='/forgot-password'>Nie pamiętam hasła</Link>
+          <Link to="/register">Nie masz jeszcze konta?</Link> 
         </form>
       </div>
     </>
