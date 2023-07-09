@@ -13,6 +13,7 @@ import {
   AddMeasurementEntry,
   MyProfile,
   PersonalData,
+  Dashboard
 } from './components/index';
 import PrivateRoute from './utils/PrivateRoute';
 import { useContext, useEffect } from 'react';

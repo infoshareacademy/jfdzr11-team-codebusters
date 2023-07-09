@@ -24,11 +24,14 @@ const CalendarDays = ({
   hideSlideout,
   reminders,
 }: Props) => {
-
   const getRemindersForDay = (reminders: Reminder[], day: Date) => {
-    const dayReminders: Reminder[] = reminders.filter(
-      (reminder) => new Date(reminder.dateTime).toDateString() === day.toDateString()
-    );
+    let dayReminders: Reminder[] = [];
+    if (reminders) {
+      dayReminders = reminders.filter(
+        (reminder) =>
+          new Date(reminder.dateTime).toDateString() === day.toDateString()
+      );
+    }
     if (dayReminders === undefined) return [];
     else return dayReminders;
   };

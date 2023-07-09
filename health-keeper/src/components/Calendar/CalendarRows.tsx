@@ -13,7 +13,12 @@ interface Props {
 }
 
 const getRemindersForSelectedDay = (reminders: Reminder[], day: Date) => {
-  const dayReminders: Reminder[] = reminders.filter((reminder) => reminder.date.toDate().toDateString()===day.toDateString())
+  
+  let dayReminders: Reminder[] = []
+  if(reminders) {
+    dayReminders = reminders.filter((reminder) => new Date(reminder.dateTime).toDateString()===day.toDateString())
+  }
+  
   if(dayReminders===undefined) return [];
       else return dayReminders
 }
@@ -64,7 +69,7 @@ const getAllDays = (selectedDay: Date) => {
 };
 
 const CalendarRows = ({ changeSelected, selected, reminders }: Props) => {
-
+  console.log(reminders);
   const [rows, setRows] = useState<Date[][]>([]);
   const [slideoutVisible, setSlideoutVisible] = useState<string>("hidden")
 
