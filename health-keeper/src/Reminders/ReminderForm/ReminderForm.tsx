@@ -9,7 +9,7 @@ type ReminderFormProps = {
   onHideForm: () => void;
 };
 
-const ReminderForm: React.FC = ({ onHideForm }) => {
+const ReminderForm: React.FC<ReminderFormProps> = ({ onHideForm }) => {
   const { currentUser } = useContext(AuthContext);
 
   const id = currentUser?.uid;

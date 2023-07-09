@@ -1,5 +1,5 @@
 import { AuthContext } from '../../../AuthContext/AuthContext';
-import styles from '../AddNewMeasurement/AddNewMeasurement.module.css';
+import styles from './AddMeasurementForm.module.css';
 import { FormEvent, useContext, useRef } from 'react';
 import { db } from '../../../api/firebase/firebase';
 import { doc, updateDoc, getDoc } from '@firebase/firestore';
@@ -112,7 +112,11 @@ const AddMeasurementForm = ({
         <input type="date" name="date" id="date" />
         <button type="submit">Dodaj</button>
       </form>
-      {!isNewMeasurement && <ResultChart2 param={param} />}
+      {!isNewMeasurement && (
+        <div className={styles.chart_container}>
+          <ResultChart2 param={param} />
+        </div>
+      )}
     </div>
   );
 };
