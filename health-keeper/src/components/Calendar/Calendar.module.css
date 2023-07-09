@@ -54,11 +54,17 @@
 }
 .day{
     display: flex;
-    padding: 5px;
+    justify-content: space-between;
+    align-items: center;
     margin: 2px;
     border-radius: 5px;
     min-width: 30px;
     height: 30px;
+}
+.date{
+    display: flex;
+
+    
 }
 
 .active{
@@ -69,4 +75,21 @@
     color: #B8B8BA
 }
 
+.indicators{
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    width: 6px;
+    height: 100%;
+    background-color:rgba(51, 141, 201, 0.664);
+    
+    align-self: flex-start;
+}
 
+.indicator-general{
+    
+}
+
+.indicator-medicine{
+
+}

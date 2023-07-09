@@ -10,10 +10,9 @@ interface Props {
   changeSelect: (newDate: Date) => void;
   toggleSlideout: () => void;
   showSlideout: () => void;
-  reminders:Reminder[]
+  hideSlideout: () => void;
+  reminders: Reminder[];
 }
-
-
 
 const CalendarDays = ({
   rowArr,
@@ -22,23 +21,26 @@ const CalendarDays = ({
   selectedMonth,
   toggleSlideout,
   showSlideout,
-  reminders
+  hideSlideout,
+  reminders,
 }: Props) => {
 
-    const getRemindersForDay = (reminders: Reminder[], day: Date) => {
-      const dayReminders: Reminder[] = reminders.filter((reminder) => reminder.dateTime.toDate().toDateString()===day.toDateString())
-      //console.log(dayReminders);
-      return dayReminders;
-    }
+  const getRemindersForDay = (reminders: Reminder[], day: Date) => {
+    const dayReminders: Reminder[] = reminders.filter(
+      (reminder) => new Date(reminder.dateTime).toDateString() === day.toDateString()
+    );
+    if (dayReminders === undefined) return [];
+    else return dayReminders;
+  };
 
-    const handleClick = (day: Date) => {
-        if (day.getMonth() === selectedMonth) changeSelect(day);
-        if (isSelected(day)) toggleSlideout();
-        else showSlideout()
-        
-    }
-  
-    const isInSelectedMonth = (day: Date) => {
+  const handleClick = (day: Date) => {
+    if (day.getMonth() === selectedMonth) changeSelect(day);
+    if (isSelected(day)) toggleSlideout();
+    else if (!isInSelectedMonth(day)) hideSlideout();
+    else showSlideout();
+  };
+
+  const isInSelectedMonth = (day: Date) => {
     return day.getMonth() === selectedMonth ? true : false;
   };
   const isSelected = (day: Date) => {
@@ -49,24 +51,30 @@ const CalendarDays = ({
     <>
       {rowArr.map((day, index) => {
         return (
-            <div
-              key={index}
-              className={
-                styles["day"] +
-                " " + (isSelected(day) ? styles["selected"] : "") +
-                " " + (isInSelectedMonth(day) ? styles["active"] : styles["disabled"])
-              }
-              onClick={() => handleClick(day)}
-            >
-              <div className={styles["notify"]}>
-                <RemindersIndicator dayReminders={getRemindersForDay(reminders, day)}/>
-              </div>
-              <p className={styles.date}>{day.getDate()}</p>
-            </div>
-            
+          <div
+            key={index}
+            className={
+              styles["day"] +
+              " " +
+              (isSelected(day) ? styles["selected"] : "") +
+              " " +
+              (isInSelectedMonth(day) ? styles["active"] : styles["disabled"])
+            }
+            onClick={() => handleClick(day)}
+          >
+            {getRemindersForDay(reminders, day).length > 0 ? (
+              <RemindersIndicator
+                dayReminders={getRemindersForDay(reminders, day)}
+              />
+            ) : (
+              <div></div>
+            )}
+
+            <div className={styles.date}>{day.getDate()}</div>
+            <div></div>
+          </div>
         );
       })}
-      
     </>
   );
 };

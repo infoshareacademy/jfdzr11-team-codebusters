@@ -23,8 +23,10 @@ const months = [
 ];
 
 export interface Reminder {
-  title: string;
-  dateTime: Timestamp
+  dateTime: number;
+  message: string;
+  reminderId: number;
+  type: "general" | "medicine";
 }
 
 const Calendar = () => {
@@ -47,6 +49,7 @@ const Calendar = () => {
       }
     };
     fetchReminders();
+    
   }, []);
   
   const handleSelect = (newDate: Date) => {
@@ -54,9 +57,11 @@ const Calendar = () => {
     
   }
 
+  
+
   const onMonthChange = (selected: Date, option: "next" | "prev") => {
-    if(option==="next") setSelectedDay(new Date(selected.getFullYear(), (selected.getMonth()+1), 1));
-    if(option==="prev")setSelectedDay(new Date(selected.getFullYear(), (selected.getMonth()-1), 1))
+    if(option==="next") setSelectedDay(new Date(selected.getFullYear(), (selected.getMonth()+1), selected.getDate()));
+    if(option==="prev")setSelectedDay(new Date(selected.getFullYear(), (selected.getMonth()-1), selected.getDate()));
   }
 
   return (

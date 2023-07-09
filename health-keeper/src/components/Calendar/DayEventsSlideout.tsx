@@ -16,8 +16,8 @@ const DayEventsSlideout = ({ dayReminders, selected }: Props) => {
         {dayReminders.map((reminder, index) => {
             return(
                 <div key={index} className={styles.reminder}>
-                    <p>{(reminder.dateTime.toDate()).toString()}</p>
-                    {reminder.title}
+                    <p>{(new Date(reminder.dateTime)).toDateString()} </p>
+                    {reminder.message}
                 </div>
             )
         })}

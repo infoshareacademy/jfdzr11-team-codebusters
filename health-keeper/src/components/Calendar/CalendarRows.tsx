@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import styles from "./Calendar.module.css";
 import CalendarDays from "./CalendarDays";
 
-import { DocumentData } from "firebase/firestore";
 import DayEventsSlideout from "./DayEventsSlideout";
 import { Reminder } from "./Calendar";
 
@@ -14,9 +13,9 @@ interface Props {
 }
 
 const getRemindersForSelectedDay = (reminders: Reminder[], day: Date) => {
-  const dayReminders: Reminder[] = reminders.filter((reminder) => reminder.dateTime.toDate().toDateString()===day.toDateString())
-  //console.log(dayReminders);
-  return dayReminders;
+  const dayReminders: Reminder[] = reminders.filter((reminder) => reminder.date.toDate().toDateString()===day.toDateString())
+  if(dayReminders===undefined) return [];
+      else return dayReminders
 }
 
 const getAllDays = (selectedDay: Date) => {
@@ -76,6 +75,9 @@ const CalendarRows = ({ changeSelected, selected, reminders }: Props) => {
   const sliedoutShow = () => {
     setSlideoutVisible("show")
   }
+  const slideoutHide = () => {
+    setSlideoutVisible("hidden");
+  }
 
   const selectedDayInRow = (row: Date[]) => {
     return row.some((day) => day.toDateString() === selected.toDateString());
@@ -114,7 +116,7 @@ const CalendarRows = ({ changeSelected, selected, reminders }: Props) => {
               styles["row"] +
               " " +
               (selectedDayInRow(row) ? styles["selected-row"] : "") + 
-              (slideoutRow(row) ? styles[`slideout-${slideoutVisible}`] : "")
+              (slideoutRow(row)&&(getRemindersForSelectedDay(reminders, selected).length>0) ? styles[`slideout-${slideoutVisible}`] : "")
             }
             key={index}
           >
@@ -127,6 +129,7 @@ const CalendarRows = ({ changeSelected, selected, reminders }: Props) => {
              selectedMonth={selected.getMonth()}
              toggleSlideout={toggleSlideoutVisibility}
              showSlideout={sliedoutShow}
+             hideSlideout={slideoutHide}
              reminders={reminders}
            />}
             
