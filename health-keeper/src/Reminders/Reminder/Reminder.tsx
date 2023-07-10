@@ -9,14 +9,14 @@ import {ReminderType} from '../types'
 type ReminderProps = {
   isModalForm: boolean;
   onModalDisable?: () => void;
-  reminderData?: Array<ReminderType> | null;
+  reminderData?: Array<ReminderType>;
   onHideForm?: () => void;
 };
 const Reminder: React.FC<ReminderProps> = ({
   isModalForm,
-  onModalDisable,
+  onModalDisable = () => {},
   reminderData,
-  onHideForm,
+  onHideForm= () => {},
 }) => {
   return (
     <>
@@ -24,7 +24,7 @@ const Reminder: React.FC<ReminderProps> = ({
       {isModalForm ? (
         <ReminderForm onHideForm={onHideForm} />
       ) : (
-        <ReminderMessage reminderData={reminderData} onHideForm={onHideForm} />
+        <ReminderMessage reminderData={reminderData} onModalDisable={onModalDisable}  />
       )}
     </>
   );

@@ -101,7 +101,12 @@ const tooltipOptions = {
     },
     label: {
       display: false,
+    },
+    animation: {
+      duration: 0,
+
     }
+    
   };
 
   return (
