@@ -13,89 +13,91 @@ import {
   AddMeasurementEntry,
   MyProfile,
   PersonalData,
-  Dashboard
-} from './components/index';
-import PrivateRoute from './utils/PrivateRoute';
-import { useContext, useEffect } from 'react';
-import { AuthContext } from './AuthContext/AuthContext';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './api/firebase/firebase';
-import { DataContext } from './DataContext/DataContext';
-import { db } from './api/firebase/firebase';
-import { doc, getDoc } from 'firebase/firestore';
-
+  Dashboard,
+} from "./components/index";
+import PrivateRoute from "./utils/PrivateRoute";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "./AuthContext/AuthContext";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./api/firebase/firebase";
+import { DataContext } from "./DataContext/DataContext";
+import { db } from "./api/firebase/firebase";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { UserData } from "./DataContext/dataTypes";
 
 function App() {
-	const { setCurrentUser, setIsFetchingUserData, isFetchingUserData } =
-		useContext(AuthContext);
-	const { setUserData } = useContext(DataContext);
+  const { setCurrentUser, setIsFetchingUserData, isFetchingUserData } =
+    useContext(AuthContext);
+  const { setUserData } = useContext(DataContext);
 
-	const getUserData = async (userID:string) => {
-		try {
-			const userRef = doc(db, "users", userID);
-			const userData = await getDoc(userRef).then((snapshot) =>
-				snapshot.data()
-			);
-			setUserData(userData);
-		} catch (error) {
-			console.error(error);
-		}
-	};
+  const getUserData = async (userID: string) => {
+    try {
+        const docRef = doc(db, "users", userID);
+        const unsubscribe = onSnapshot(docRef, (docSnap) => {
+          const userData = docSnap.data();
+          setUserData(userData as UserData);
+        });
 
-	useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, (user) => {
-			if (user) {
-				setCurrentUser(user);
-				getUserData(user.uid);
-				console.log(user);
-			} else {
-				console.log("wylogowano");
-			}
-			setIsFetchingUserData(false);
-		});
-		return unsubscribe;
-	}, [setIsFetchingUserData, setCurrentUser]);
+        return () => unsubscribe();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-	// display the message during loading state
-	if (isFetchingUserData) {
-		return <p>Loading...</p>;
-	}
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+        getUserData(user.uid);
+        console.log(user);
+      } else {
+        console.log("wylogowano");
+      }
+      setIsFetchingUserData(false);
+    });
+    return unsubscribe;
+  }, [setIsFetchingUserData, setCurrentUser]);
 
-	return (
-		<div className="app_container">
-			<Routes>
-				<Route path="/" element={<Layout />}>
-					{/* Public routes */}
-					<Route path="/login" element={<Login />} />
-					<Route path="/register" element={<Register />} />
-					<Route path="/forgot-password" element={<ForgotPassword />} />
+  // display the message during loading state
+  if (isFetchingUserData) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <div className="app_container">
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {/* Public routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
           {/* Private routes */}
           <Route element={<PrivateRoute />}>
-            <Route path='/' element={<Dashboard />} />
-            <Route path='/calendar' element={<Calendar/>}/>
-            <Route path='/medicine' element={<Medicine />} />
-            <Route path='/myprofile' element={<MyProfile />} />
-            <Route path='/myprofile/personaldata' element={<PersonalData />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/medicine" element={<Medicine />} />
+            <Route path="/myprofile" element={<MyProfile />} />
+            <Route path="/myprofile/personaldata" element={<PersonalData />} />
 
-						<Route path="/results-list" element={<ResultsList />} />
-						<Route
-							path="/results-list/measurements"
-							element={<MeasurementsList />}
-						/>
-						<Route
-							path="/results-list/measurements/addNew"
-							element={<AddNewMeasurement />}
-						/>
-						<Route
-							path="/results-list/measurements/:measurementName/addEntry"
-							element={<AddMeasurementEntry />}
-						/>
-					</Route>
-				</Route>
-			</Routes>
-		</div>
-	);
+            <Route path="/results-list" element={<ResultsList />} />
+            <Route
+              path="/results-list/measurements"
+              element={<MeasurementsList />}
+            />
+            <Route
+              path="/results-list/measurements/addNew"
+              element={<AddNewMeasurement />}
+            />
+            <Route
+              path="/results-list/measurements/:measurementName/addEntry"
+              element={<AddMeasurementEntry />}
+            />
+          </Route>
+        </Route>
+      </Routes>
+    </div>
+  );
 }
 
 export default App;

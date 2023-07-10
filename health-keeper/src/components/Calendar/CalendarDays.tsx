@@ -24,17 +24,21 @@ const CalendarDays = ({
   hideSlideout,
   reminders,
 }: Props) => {
+  
+
   const getRemindersForDay = (reminders: Reminder[], day: Date) => {
     let dayReminders: Reminder[] = [];
-    if (reminders) {
+    if (reminders.length > 0) {
       dayReminders = reminders.filter(
         (reminder) =>
           new Date(reminder.dateTime).toDateString() === day.toDateString()
       );
+      
     }
-    if (dayReminders === undefined) return [];
-    else return dayReminders;
+    return dayReminders.sort((a, b) => a.dateTime - b.dateTime);
   };
+
+
 
   const handleClick = (day: Date) => {
     if (day.getMonth() === selectedMonth) changeSelect(day);
