@@ -1,5 +1,5 @@
 
-import { Reminder } from "./Calendar";
+import { Reminder } from "../../DataContext/dataTypes";
 import styles from "./Calendar.module.css";
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const RemindersIndicator = ({ dayReminders }: Props) => {
-  console.log(dayReminders);
+  
   
 
   const tempArr = dayReminders?.map((reminder) => reminder.reminderType);

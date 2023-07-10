@@ -3,7 +3,7 @@ import styles from "./Calendar.module.css";
 import CalendarDays from "./CalendarDays";
 
 import DayEventsSlideout from "./DayEventsSlideout";
-import { Reminder } from "./Calendar";
+import { Reminder } from "../../DataContext/dataTypes";
 
 interface Props {
   selected: Date;
@@ -12,16 +12,19 @@ interface Props {
 }
 
 const getRemindersForSelectedDay = (reminders: Reminder[], day: Date) => {
-  const dayReminders: Reminder[] = reminders.filter(
-    (reminder) =>
-      new Date(reminder.dateTime).toDateString() === day.toDateString()
-    );
-    if(dayReminders===undefined) return [];
-
-    else return dayReminders.sort((a, b) => a.dateTime - b.dateTime);
+  let dayReminders: Reminder[];
+  if (reminders === undefined) return [];
+  else {
+    dayReminders = reminders.filter(
+      (reminder) =>
+        new Date(reminder.dateTime).toDateString() === day.toDateString()
+      );
+    return dayReminders.sort((a, b) => a.dateTime - b.dateTime);
+  }
 };
 
 const getAllDays = (selectedDay: Date) => {
+  //takes selectedDay and populates a table that will be rendered later in the component/s
   const firstDayOfSelectedMonth = new Date(
     selectedDay.getFullYear(),
     selectedDay.getMonth(),
@@ -67,7 +70,6 @@ const getAllDays = (selectedDay: Date) => {
 };
 
 const CalendarRows = ({ changeSelected, selected, reminders }: Props) => {
-  
   const [rows, setRows] = useState<Date[][]>([]);
   const [slideoutVisible, setSlideoutVisible] = useState<string>("hidden");
 
@@ -95,6 +97,7 @@ const CalendarRows = ({ changeSelected, selected, reminders }: Props) => {
     }
   };
   useEffect(() => {
+    //dividing days into 6 rows and placing them in rows table for later render
     const days = getAllDays(selected);
     const _rows: Date[][] = [];
     for (let i = 0; i < 6; i++) {
@@ -121,7 +124,8 @@ const CalendarRows = ({ changeSelected, selected, reminders }: Props) => {
             }
             key={index}
           >
-            {(slideoutRow(row) && getRemindersForSelectedDay(reminders, selected).length>0)? (
+            {slideoutRow(row) &&
+            getRemindersForSelectedDay(reminders, selected).length > 0 ? (
               <DayEventsSlideout
                 selected={selected}
                 dayReminders={getRemindersForSelectedDay(reminders, selected)}

@@ -1,8 +1,8 @@
 import { Timestamp } from "firebase/firestore";
-import { Reminder } from "./Calendar";
+
 import styles from "./DayEventsSlideout.module.css";
 import { useEffect, useState } from "react";
-import { parse } from "date-fns";
+import { Reminder } from "../../DataContext/dataTypes";
 
 interface Props {
   dayReminders: Reminder[];
