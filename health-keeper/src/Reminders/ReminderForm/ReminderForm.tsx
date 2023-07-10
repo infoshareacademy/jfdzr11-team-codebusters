@@ -61,20 +61,20 @@ const ReminderForm: React.FC<ReminderFormProps> = ({ onHideForm }) => {
   };
 
   return (
-    <>
-      <form
-        className={styles.form_wrapper}
-        onSubmit={handleAddReminder}
-        ref={formRef}>
+    <div className={styles.form_wrapper}>
+      <button className={styles.close_button} onClick={onHideForm}>
+        X
+      </button>
+      <form className={styles.form} onSubmit={handleAddReminder} ref={formRef}>
         <label htmlFor="date">Data przypomnienia</label>
         <input type="date" name="date" id="date" />
         <label htmlFor="time">Czas przypomnienia</label>
         <input type="time" name="time" id="time" />
-        <label htmlFor="">Podaj treść przypomnienia</label>
+        <label htmlFor="">Treść przypomnienia</label>
         <textarea name="reminderText" id="reminderText" />
-        <fieldset>
-          <legend>Typ przypomnienia:</legend>
-          <label htmlFor="general">Ogólny</label>
+        <fieldset className={styles.medicine_type_wrapper}>
+          <legend>Typ przypomnienia</legend>
+          <label htmlFor="general">Ogólny:</label>
           <input
             type="radio"
             id="general"
@@ -82,7 +82,7 @@ const ReminderForm: React.FC<ReminderFormProps> = ({ onHideForm }) => {
             value="general"
             defaultChecked
           />
-          <label htmlFor="medicine">Lek</label>
+          <label htmlFor="medicine">Lek:</label>
           <input
             type="radio"
             id="medicine"
@@ -92,7 +92,7 @@ const ReminderForm: React.FC<ReminderFormProps> = ({ onHideForm }) => {
         </fieldset>
         <button type="submit">OK</button>
       </form>
-    </>
+    </div>
   );
 };
 

@@ -24,7 +24,7 @@ const Reminder: React.FC<ReminderProps> = ({
       {isModalForm ? (
         <ReminderForm onHideForm={onHideForm} />
       ) : (
-        <ReminderMessage reminderData={reminderData} />
+        <ReminderMessage reminderData={reminderData} onHideForm={onHideForm} />
       )}
     </>
   );

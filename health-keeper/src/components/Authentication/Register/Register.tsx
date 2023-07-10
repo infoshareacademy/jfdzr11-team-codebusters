@@ -1,15 +1,13 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent } from 'react';
 import styles from '../Auth.module.css';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../../api/firebase/firebase';
 import { useNavigate, Link } from 'react-router-dom';
-import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import {auth} from '../../../api/firebase/firebase'
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../api/firebase/firebase';
 
 const Register = () => {
-
-  const formRef = useRef<HTMLFormElement>(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,7 +37,11 @@ const Register = () => {
       return;
     } else {
       try {
-        const userCredential = await createUserWithEmailAndPassword(auth,email, password);
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
         console.log('Registration succesful!');
 
         const userId = userCredential.user?.uid;
@@ -47,13 +49,11 @@ const Register = () => {
         const user = {
           loginData: {
             email,
-            password,
           },
           personalData: {
             email,
             name,
             lastName,
-            password,
           },
           measurements: {
             tętno: {},
@@ -65,18 +65,9 @@ const Register = () => {
           },
           reminders: [],
         };
+        navigate('/');
         // add user to database
-        console.log(userId);
         await setDoc(doc(db, 'users', userId), user);
-        // reset form fields
-        formRef.current?.reset();
-      } catch (error) {
-        console.log(error);
-      }
-      try {
-        await signOut(auth);
-        console.log('Logged out successfully!')
-        navigate('/login')
       } catch (error) {
         console.log(error);
       }
@@ -85,10 +76,10 @@ const Register = () => {
 
   return (
     <div className={styles.form_wrapper}>
-      <Link to='/login' className={styles.backIcon}/>
+      <Link to="/login" className={styles.backIcon} />
       <h1 className={styles.app_name}>HealthKeeper</h1>
       <span className={styles.header}>Zarejestruj się</span>
-      <form onSubmit={handleSubmit} className={styles.form} ref={formRef}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <label htmlFor="name">Imię</label>
         <input type="text" name="name" id="name" />
         <label htmlFor="lastName">Nazwisko</label>

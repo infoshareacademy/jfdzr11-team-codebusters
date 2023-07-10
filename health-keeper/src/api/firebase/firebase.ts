@@ -9,5 +9,3 @@ export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app)
 export const storage = getStorage(app)
-
-//https://console.firebase.google.com/u/0/project/jfdzr11cb/overview
