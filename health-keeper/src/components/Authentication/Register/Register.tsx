@@ -64,6 +64,7 @@ const Register = () => {
             cukier: {},
           },
           reminders: [],
+          medicines: []
         };
         // add user to database
         console.log(userId);
