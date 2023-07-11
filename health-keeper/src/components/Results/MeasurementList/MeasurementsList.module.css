@@ -24,7 +24,7 @@
 
 .measurement_item {
     border: 2px solid black;
-    
+    position: relative;
     border-radius: 10px;
 
 }
@@ -62,4 +62,19 @@
     background: var(--primary-green-normal, #446e52);
     color: var(--base-colors-fast-white, #f8f8f9);
     cursor: pointer;
+}
+
+.measurement_item button{
+  position: absolute;
+  top:0;
+  right: 0;
+  padding: 0.3rem;
+  background: var(--dark-grey);
+  color: var(--fast-white);
+  border: none;
+  border-radius: 0 8px 8px 0;
+  height: 33.59px;
+}
+.measurement_item button:hover {
+  cursor: pointer;
 }

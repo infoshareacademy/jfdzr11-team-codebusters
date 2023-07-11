@@ -103,7 +103,7 @@ const tooltipOptions = {
       display: false,
     },
     animation: {
-      duration: 0,
+      duration: 30,
 
     }
     
