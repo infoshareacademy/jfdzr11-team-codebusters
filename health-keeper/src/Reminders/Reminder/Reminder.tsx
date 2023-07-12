@@ -4,25 +4,27 @@ import {
   ReminderMessage,
 } from '../../components/index';
 import React from 'react';
-import {ReminderType} from '../types'
+import { Reminder } from '../../DataContext/dataTypes';
 
 type ReminderProps = {
   isModalForm: boolean;
   onModalDisable?: () => void;
-  reminderData?: Array<ReminderType> | null;
+  reminderData?: Array<Reminder> | null;
   onHideForm?: () => void;
+  editForm: undefined | Reminder;
 };
-const Reminder: React.FC<ReminderProps> = ({
+const ReminderComponent: React.FC<ReminderProps> = ({
   isModalForm,
   onModalDisable,
   reminderData,
   onHideForm,
-}) => {
+  editForm
+}) => {  
   return (
     <>
       <Backdrop onModalDisable={onModalDisable} onHideForm={onHideForm} />
       {isModalForm ? (
-        <ReminderForm onHideForm={onHideForm} />
+        <ReminderForm editForm={editForm} onHideForm={onHideForm} />
       ) : (
         <ReminderMessage reminderData={reminderData} />
       )}
@@ -30,4 +32,4 @@ const Reminder: React.FC<ReminderProps> = ({
   );
 };
 
-export default Reminder;
+export default ReminderComponent;
