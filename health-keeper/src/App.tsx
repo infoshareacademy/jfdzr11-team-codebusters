@@ -14,8 +14,6 @@ import {
   MyProfile,
   PersonalData,
   Dashboard,
-  FindMedicine,
-  MyMedicine,
 } from './components/index';
 import PrivateRoute from './utils/PrivateRoute';
 import { useContext, useEffect } from 'react';
@@ -75,9 +73,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path='/' element={<Dashboard />} />
             <Route path='/calendar' element={<Calendar />} />
-            <Route path='/medicine' element={<MedicineMain />} />
-            <Route path='/medicine/find' element={<FindMedicine />} />
-            <Route path='/medicine/mymedicine' element={<MyMedicine />} />
+            <Route path='/medicine' element={<Medicine />} />
             <Route path='/myprofile' element={<MyProfile />} />
             <Route path='/myprofile/personaldata' element={<PersonalData />} />
 
