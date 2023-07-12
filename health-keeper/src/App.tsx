@@ -22,13 +22,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./api/firebase/firebase";
 import { DataContext } from "./DataContext/DataContext";
 import { db } from "./api/firebase/firebase";
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { UserData } from "./DataContext/dataTypes";
 
 function App() {
   const { setCurrentUser, setIsFetchingUserData, isFetchingUserData } =
     useContext(AuthContext);
   const { setUserData } = useContext(DataContext);
+  
 
   const getUserData = async (userID: string) => {
     try {
