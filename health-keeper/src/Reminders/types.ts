@@ -1,8 +1,8 @@
 export type ReminderType = {
-	dateTime: number
-	message: string;
-	reminderId: string;
-	reminderType: string;
+  dateTime: number;
+  message: string;
+  reminderId: string;
+  reminderType: string;
 };
 
 export type ReminderData = Array<ReminderType>;

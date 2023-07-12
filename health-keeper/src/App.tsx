@@ -7,52 +7,53 @@ import {
   Calendar,
   ForgotPassword,
   ResultsList,
-  Medicine,
+  MedicineMain,
   MeasurementsList,
   AddNewMeasurement,
   AddMeasurementEntry,
   MyProfile,
   PersonalData,
   Dashboard,
-} from "./components/index";
-import PrivateRoute from "./utils/PrivateRoute";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "./AuthContext/AuthContext";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./api/firebase/firebase";
-import { DataContext } from "./DataContext/DataContext";
-import { db } from "./api/firebase/firebase";
-import { doc, onSnapshot } from "firebase/firestore";
-import { UserData } from "./DataContext/dataTypes";
+  FindMedicine,
+  MyMedicine,
+} from './components/index';
+import PrivateRoute from './utils/PrivateRoute';
+import { useContext, useEffect } from 'react';
+import { AuthContext } from './AuthContext/AuthContext';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './api/firebase/firebase';
+import { DataContext } from './DataContext/DataContext';
+import { db } from './api/firebase/firebase';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { UserData } from './DataContext/dataTypes';
 
 function App() {
   const { setCurrentUser, setIsFetchingUserData, isFetchingUserData } =
     useContext(AuthContext);
   const { setUserData } = useContext(DataContext);
-  
 
   const getUserData = async (userID: string) => {
     try {
-        const docRef = doc(db, "users", userID);
-        const unsubscribe = onSnapshot(docRef, (docSnap) => {
-          const userData = docSnap.data();
-          setUserData(userData as UserData);
-        });
+      const docRef = doc(db, 'users', userID);
+      const unsubscribe = onSnapshot(docRef, docSnap => {
+        const userData = docSnap.data();
+        setUserData(userData as UserData);
+      });
 
-        return () => unsubscribe();
+      return () => unsubscribe();
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
         setCurrentUser(user);
         getUserData(user.uid);
         console.log(user);
       } else {
-        console.log("wylogowano");
+        console.log('wylogowano');
       }
       setIsFetchingUserData(false);
     });
@@ -77,7 +78,9 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/calendar" element={<Calendar />} />
-            <Route path="/medicine" element={<Medicine />} />
+            <Route path="/medicine" element={<MedicineMain />} />
+            <Route path="/medicine/find" element={<FindMedicine />} />
+            <Route path="/medicine/mymedicine" element={<MyMedicine />} />
             <Route path="/myprofile" element={<MyProfile />} />
             <Route path="/myprofile/personaldata" element={<PersonalData />} />
 
