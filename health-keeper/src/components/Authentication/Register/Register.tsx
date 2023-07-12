@@ -64,6 +64,7 @@ const Register = () => {
             cukier: {},
           },
           reminders: [],
+          medicines: []
         };
         navigate('/');
         // add user to database
