@@ -1,15 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-// import { AuthContext } from '../../../AuthContext/AuthContext';
-// import { db } from '../../../api/firebase/firebase';
-// import { getDoc, doc, updateDoc } from 'firebase/firestore';
 import styles from './MeasurementsList.module.css';
-// import { set } from 'date-fns';
 import { DataContext } from '../../../DataContext/DataContext';
 import {MeasurementsData} from '../../../DataContext/dataTypes'
+import { toast } from 'react-hot-toast';
 
 const MeasurementList = () => {
-  // const { currentUser } = useContext(AuthContext);
   const [measurementsNames, setMeasurementsNames] = useState<string[]>([]);
   const {userData} = useContext(DataContext)
   const [hoveredName, setHoveredName] = useState<string>('');
@@ -17,15 +13,11 @@ const MeasurementList = () => {
   useEffect(() => {
     const fetchMeasurementNames = async () => {
       try {
-        // const id = currentUser?.uid;
-        // const data = await getDoc(doc(db, 'users', id));
-        // const measurements: string[] = data.data()?.measurements;
         const measurements: MeasurementsData = userData.measurements
         const measurementNames: string[] = Object.keys(measurements);
         setMeasurementsNames(measurementNames);
-        console.log(measurementNames);
       } catch (error) {
-        console.log(error);
+        toast.error('Błąd pobierania danych');
       }
     };
     fetchMeasurementNames();

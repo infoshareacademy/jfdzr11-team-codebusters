@@ -4,6 +4,7 @@ import { AuthContext } from '../../AuthContext/AuthContext';
 import { db } from '../../api/firebase/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import type { ReminderType } from '../types';
+import toast from 'react-hot-toast';
 
 type ReminderFormProps = {
   onHideForm: () => void;
@@ -51,7 +52,7 @@ const ReminderForm: React.FC<ReminderFormProps> = ({ onHideForm }) => {
       const updatedReminders = [...userData.reminders, newReminder];
       // update the document in the database
       await updateDoc(docRef, { reminders: updatedReminders });
-      console.log('Reminder successfully added');
+      toast.success('Reminder successfully added');
       onHideForm();
     } catch (error) {
       console.log(error);

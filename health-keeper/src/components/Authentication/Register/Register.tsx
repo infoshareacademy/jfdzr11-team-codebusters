@@ -5,6 +5,7 @@ import { db } from '../../../api/firebase/firebase';
 import { useNavigate, Link } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../api/firebase/firebase';
+import { toast } from 'react-hot-toast';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const Register = () => {
           email,
           password
         );
-        console.log('Registration succesful!');
+        toast.success('Pomyślnie zarejestrowano!');
 
         const userId = userCredential.user?.uid;
 
@@ -70,7 +71,7 @@ const Register = () => {
         // add user to database
         await setDoc(doc(db, 'users', userId), user);
       } catch (error) {
-        console.log(error);
+        toast.error('Wystąpił błąd podczas rejestracji!');
       }
     }
   };

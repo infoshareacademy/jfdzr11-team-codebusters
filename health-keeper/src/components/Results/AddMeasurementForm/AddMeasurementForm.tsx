@@ -2,10 +2,11 @@ import { AuthContext } from '../../../AuthContext/AuthContext';
 import styles from './AddMeasurementForm.module.css';
 import { FormEvent, useContext, useRef } from 'react';
 import { db } from '../../../api/firebase/firebase';
-import { doc, updateDoc, getDoc } from '@firebase/firestore';
+import { doc, updateDoc } from '@firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import ResultChart2 from '../ResultChart/ResultChart2';
 import { DataContext } from '../../../DataContext/DataContext';
+
 
 type AddMeasurementFormProps = {
   isNewMeasurement: boolean;
@@ -50,7 +51,7 @@ const AddMeasurementForm = ({
       // check if the measurement with this name already exists
       if (existingMeasurements[measurementName]) {
         formRef.current?.reset();
-        console.log('Measurement already exists');
+        toast.error('Measurement already exists');
         return;
       }
       const updatedMeasurementData = isNewMeasurement

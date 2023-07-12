@@ -7,7 +7,6 @@ const Dashboard = () => {
   const handleReminderVisibility = () => {
     setReminderVisibility(!reminderVisibility);
   };
-
   return (
     <div>
       Dashboard !!

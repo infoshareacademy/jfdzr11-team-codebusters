@@ -26,6 +26,7 @@ import { DataContext } from './DataContext/DataContext';
 import { db } from './api/firebase/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { UserData } from './DataContext/dataTypes';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const { setCurrentUser, setIsFetchingUserData, isFetchingUserData } =
@@ -67,6 +68,11 @@ function App() {
 
   return (
     <div className="app_container">
+      <Toaster
+        containerStyle={{
+          top: '170px',
+        }}
+      />
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* Public routes */}
