@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { db } from '../../../api/firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { AuthContext } from '../../../AuthContext/AuthContext';
+import styles from './MyMedicine.module.css';
 
 const MyMedicine = () => {
   const { currentUser } = useContext(AuthContext);
@@ -23,13 +24,8 @@ const MyMedicine = () => {
     fetchMedicineNames();
   }, []);
 
-  const handleDelete = () => {
-    console.log('Usuwam lek');
-    console.log(medicines);
-  };
-
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Moje leki</h1>
       <ul>
         {medicines.map((medicine) => (

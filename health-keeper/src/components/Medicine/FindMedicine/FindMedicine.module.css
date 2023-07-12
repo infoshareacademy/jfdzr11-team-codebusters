@@ -1,20 +1,26 @@
 .bigDiv {
-  height: 300px;
-  background-color: bisque;
-  padding: 10px;
+  height: 100%;
+  padding: 20px;
+}
+
+.findDiv {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
 
-.findDiv {
-  background-color: chocolate;
-}
-
 .resultDiv {
-  background-color: aqua;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 ul {
   list-style-type: none;
+}
+
+li {
+  margin-top: 10px;
 }

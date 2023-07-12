@@ -13,7 +13,7 @@ import {
   AddMeasurementEntry,
   MyProfile,
   PersonalData,
-  Dashboard
+  Dashboard,
   FindMedicine,
   MyMedicine,
 } from './components/index';
@@ -74,7 +74,7 @@ function App() {
           {/* Private routes */}
           <Route element={<PrivateRoute />}>
             <Route path='/' element={<Dashboard />} />
-            <Route path='/calendar' element={<Calendar/>}/>
+            <Route path='/calendar' element={<Calendar />} />
             <Route path='/medicine' element={<MedicineMain />} />
             <Route path='/medicine/find' element={<FindMedicine />} />
             <Route path='/medicine/mymedicine' element={<MyMedicine />} />
