@@ -1,5 +1,5 @@
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
 import {
   Layout,
   Login,
@@ -7,23 +7,22 @@ import {
   Calendar,
   ForgotPassword,
   ResultsList,
-  Medicine,
+  MedicineMain,
   MeasurementsList,
   AddNewMeasurement,
   AddMeasurementEntry,
   MyProfile,
   PersonalData,
   Dashboard,
-} from "./components/index";
-import PrivateRoute from "./utils/PrivateRoute";
-import { useContext, useEffect } from "react";
-import { AuthContext } from "./AuthContext/AuthContext";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./api/firebase/firebase";
-import { DataContext } from "./DataContext/DataContext";
-import { db } from "./api/firebase/firebase";
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
-import { UserData } from "./DataContext/dataTypes";
+} from './components/index';
+import PrivateRoute from './utils/PrivateRoute';
+import { useContext, useEffect } from 'react';
+import { AuthContext } from './AuthContext/AuthContext';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './api/firebase/firebase';
+import { DataContext } from './DataContext/DataContext';
+import { db } from './api/firebase/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 function App() {
   const { setCurrentUser, setIsFetchingUserData, isFetchingUserData } =
@@ -32,13 +31,11 @@ function App() {
 
   const getUserData = async (userID: string) => {
     try {
-        const docRef = doc(db, "users", userID);
-        const unsubscribe = onSnapshot(docRef, (docSnap) => {
-          const userData = docSnap.data();
-          setUserData(userData as UserData);
-        });
-
-        return () => unsubscribe();
+      const userRef = doc(db, 'users', userID);
+      const userData = await getDoc(userRef).then((snapshot) =>
+        snapshot.data()
+      );
+      setUserData(userData);
     } catch (error) {
       console.error(error);
     }
@@ -51,7 +48,7 @@ function App() {
         getUserData(user.uid);
         console.log(user);
       } else {
-        console.log("wylogowano");
+        console.log('wylogowano');
       }
       setIsFetchingUserData(false);
     });
@@ -64,33 +61,33 @@ function App() {
   }
 
   return (
-    <div className="app_container">
+    <div className='app_container'>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path='/' element={<Layout />}>
           {/* Public routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
 
           {/* Private routes */}
           <Route element={<PrivateRoute />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/medicine" element={<Medicine />} />
-            <Route path="/myprofile" element={<MyProfile />} />
-            <Route path="/myprofile/personaldata" element={<PersonalData />} />
+            <Route path='/' element={<Dashboard />} />
+            <Route path='/calendar' element={<Calendar />} />
+            <Route path='/medicine' element={<Medicine />} />
+            <Route path='/myprofile' element={<MyProfile />} />
+            <Route path='/myprofile/personaldata' element={<PersonalData />} />
 
-            <Route path="/results-list" element={<ResultsList />} />
+            <Route path='/results-list' element={<ResultsList />} />
             <Route
-              path="/results-list/measurements"
+              path='/results-list/measurements'
               element={<MeasurementsList />}
             />
             <Route
-              path="/results-list/measurements/addNew"
+              path='/results-list/measurements/addNew'
               element={<AddNewMeasurement />}
             />
             <Route
-              path="/results-list/measurements/:measurementName/addEntry"
+              path='/results-list/measurements/:measurementName/addEntry'
               element={<AddMeasurementEntry />}
             />
           </Route>

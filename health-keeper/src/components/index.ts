@@ -13,7 +13,9 @@ import AddMeasurementForm from './Results/AddMeasurementForm/AddMeasurementForm'
 import AddMeasurementEntry from './Results/AddMeasurementEntry/AddMeasurementEntry';
 import MyProfile from './MyProfile/MyProfile';
 import PersonalData from './MyProfile/PersonalData/PersonalData';
-import Medicine from './Medicine/Medicine';
+import MedicineMain from './Medicine/MedicineMain';
+import FindMedicine from './Medicine/FindMedicine/FindMedicine';
+import MyMedicine from './Medicine/MyMedicine/MyMedicine';
 import Calendar from './Calendar/Calendar';
 import Backdrop from '../Reminders/Backdrop/Backdrop';
 import ReminderForm from '../Reminders/ReminderForm/ReminderForm';
@@ -34,10 +36,12 @@ export {
   AddMeasurementEntry,
   MyProfile,
   PersonalData,
-  Medicine,
+  MedicineMain,
+  FindMedicine,
+  MyMedicine,
   Backdrop,
   ReminderForm,
   ReminderMessage,
   Reminder,
-  Calendar
+  Calendar,
 };
