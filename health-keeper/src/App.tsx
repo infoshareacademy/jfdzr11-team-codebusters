@@ -13,7 +13,6 @@ import {
   AddMeasurementEntry,
   MyProfile,
   PersonalData,
-  Dashboard,
   FindMedicine,
   MyMedicine,
 } from './components/index';
@@ -26,7 +25,7 @@ import { DataContext } from './DataContext/DataContext';
 import { db } from './api/firebase/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { UserData } from './DataContext/dataTypes';
-import { Toaster } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 
 function App() {
   const { setCurrentUser, setIsFetchingUserData, isFetchingUserData } =
@@ -41,9 +40,9 @@ function App() {
         setUserData(userData as UserData);
       });
 
-      return () => unsubscribe();
+      return unsubscribe();
     } catch (error) {
-      console.error(error);
+      toast.error('Błąd pobierania danych użytkownika');
     }
   };
 
@@ -82,8 +81,8 @@ function App() {
 
           {/* Private routes */}
           <Route element={<PrivateRoute />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/calendar" element={<Calendar />} />
+            {/* <Route path="/" element={<Dashboard />} /> */}
+            <Route path="/" element={<Calendar />} />
             <Route path="/medicine" element={<MedicineMain />} />
             <Route path="/medicine/find" element={<FindMedicine />} />
             <Route path="/medicine/mymedicine" element={<MyMedicine />} />

@@ -51,7 +51,7 @@ const Layout = () => {
       );
 
       return () => {
-        clearInterval(intervalId); // Clean up the interval when the component unmounts
+        clearInterval(intervalId); 
       };
     }
   }, [reminderData, currentReminder]);
