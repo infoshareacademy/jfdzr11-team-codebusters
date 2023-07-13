@@ -1,0 +1,9 @@
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 20px;
+  font-family: var(--Relaway);
+  color: var(--primary-green);
+}

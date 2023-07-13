@@ -8,6 +8,30 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
+  font-family: var(--Relaway);
+  color: var(--primary-green);
+  font-weight: 600;
+  font-size: 30px;
+}
+
+.findDiv button {
+  background-color: var(--primary-green);
+  color: var(--fast-white);
+  height: 69px;
+  width: calc(100% - 48px);
+  border-radius: 12px;
+  border: 1px solid var(--primary-green);
+  align-items: center;
+  padding: 20px;
+  font-family: var(--Relaway);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.findDiv input {
+  border: 1px solid var(--primary-green);
+  font-size: 16px;
 }
 
 .resultDiv {
@@ -15,6 +39,25 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
+  font-family: var(--Relaway);
+  color: var(--primary-green);
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.resultDiv button {
+  background-color: var(--primary-green);
+  color: var(--fast-white);
+  height: 69px;
+  width: calc(100% - 48px);
+  border-radius: 12px;
+  border: 1px solid var(--primary-green);
+  align-items: center;
+  padding: 20px;
+  font-family: var(--Relaway);
+  font-weight: 600;
+  font-size: 16px;
 }
 
 ul {
