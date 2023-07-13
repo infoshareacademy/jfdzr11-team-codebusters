@@ -99,3 +99,22 @@
     
 }
 
+.calendarLegend{
+    width: 60%;
+    padding: 2px;
+}
+
+.legend{
+    border-radius: 5px;
+    margin: 3px 0;
+    padding: 0 3px;
+}
+.legend-general{
+    background-color:rgba(51, 141, 201, 0.364);
+    
+}
+
+.legend-medicine{
+    background-color:rgba(51, 201, 89, 0.364);
+    
+}

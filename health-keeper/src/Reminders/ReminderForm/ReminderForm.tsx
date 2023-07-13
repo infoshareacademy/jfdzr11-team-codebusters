@@ -2,20 +2,28 @@ import styles from './ReminderForm.module.css';
 import React, { useContext, useRef } from 'react';
 import { AuthContext } from '../../AuthContext/AuthContext';
 import { db } from '../../api/firebase/firebase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import type { ReminderType } from '../types';
-import toast from 'react-hot-toast';
+import { parseEditDate, parseEditTime } from '../utils';
+import { DataContext } from '../../DataContext/DataContext';
 
 type ReminderFormProps = {
   onHideForm: () => void;
+  editForm: undefined | ReminderType;
 };
 
-const ReminderForm: React.FC<ReminderFormProps> = ({ onHideForm }) => {
+const ReminderForm: React.FC<ReminderFormProps> = ({
+  editForm,
+  onHideForm,
+}) => {
   const { currentUser } = useContext(AuthContext);
+  const { userData } = useContext(DataContext);
 
   const id = currentUser?.uid;
 
   const formRef = useRef<HTMLFormElement>(null);
+  const docRef = doc(db, 'users', id);
+
 
   const handleAddReminder = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,9 +46,8 @@ const ReminderForm: React.FC<ReminderFormProps> = ({ onHideForm }) => {
     console.log('reminderType:', reminderType);
     try {
       // function that will update the document in the firebase database
-      const docRef = doc(db, 'users', id);
-      const docSnap = await getDoc(docRef);
-      const userData = docSnap.data();
+
+      const _userData = userData;
       const reminderId = crypto.randomUUID();
 
       const newReminder: ReminderType = {
@@ -49,11 +56,25 @@ const ReminderForm: React.FC<ReminderFormProps> = ({ onHideForm }) => {
         reminderId,
         reminderType,
       };
-      const updatedReminders = [...userData.reminders, newReminder];
-      // update the document in the database
-      await updateDoc(docRef, { reminders: updatedReminders });
-      toast.success('Reminder successfully added');
-      onHideForm();
+
+      if (editForm) {
+        const editId = editForm.reminderId;
+        const updatedReminders = _userData.reminders.filter(
+          reminder => reminder.reminderId !== editId
+        );
+        updatedReminders.push(newReminder);
+        await updateDoc(docRef, { reminders: updatedReminders });
+        console.log('reminder edited');
+
+        onHideForm();
+      } else {
+        const updatedReminders = [..._userData.reminders, newReminder];
+        // update the document in the database
+
+        await updateDoc(docRef, { reminders: updatedReminders });
+        console.log('Reminder successfully added');
+        onHideForm();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -61,27 +82,61 @@ const ReminderForm: React.FC<ReminderFormProps> = ({ onHideForm }) => {
     console.log('form submitted');
   };
 
+  // const handleDeleteReminder = async () => {
+  //   try {
+  //     if(editForm){
+  //     const deleteId = editForm.reminderId;
+  //     const _userData = userData;
+  //     console.log("przed usunięciem", _userData.reminders);
+  //     console.log("deleteID", deleteId);
+
+  //     const updatedReminders = _userData.reminders.filter((reminder) => {
+  //     reminder.reminderId !== deleteId;}
+  //     )
+  //     console.log("po usunięciu", updatedReminders);
+  //     await updateDoc(docRef, { reminders: updatedReminders });
+  //     onHideForm();
+
+  //   }
+  // }
+  //   catch(error){
+  //     console.log(error);
+  //   }
+  // };
+
   return (
     <div className={styles.form_wrapper}>
-      <button className={styles.close_button} onClick={onHideForm}>
-        X
-      </button>
-      <form className={styles.form} onSubmit={handleAddReminder} ref={formRef}>
+      <button className={styles.close_button} onClick={onHideForm}>X</button>
+      <form onSubmit={handleAddReminder} ref={formRef} className={styles.form}>
         <label htmlFor="date">Data przypomnienia</label>
-        <input type="date" name="date" id="date" />
+        <input
+          defaultValue={editForm ? parseEditDate(editForm.dateTime) : ''}
+          type="date"
+          name="date"
+          id="date"
+        />
         <label htmlFor="time">Czas przypomnienia</label>
-        <input type="time" name="time" id="time" />
-        <label htmlFor="">Treść przypomnienia</label>
-        <textarea name="reminderText" id="reminderText" />
+        <input
+          defaultValue={editForm ? parseEditTime(editForm.dateTime) : ''}
+          type="time"
+          name="time"
+          id="time"
+        />
+        <label htmlFor="">Podaj treść przypomnienia</label>
+        <textarea
+          defaultValue={editForm ? editForm.message : ''}
+          name="reminderText"
+          id="reminderText"
+        />
         <fieldset className={styles.medicine_type_wrapper}>
-          <legend>Typ przypomnienia</legend>
-          <label htmlFor="general">Ogólny:</label>
+          <legend>Typ przypomnienia:</legend>
+          <label htmlFor="general">Ogólny</label>
           <input
             type="radio"
             id="general"
             name="reminderType"
             value="general"
-            defaultChecked
+            defaultChecked={editForm && editForm.reminderType === 'general'}
           />
           <label htmlFor="medicine">Lek:</label>
           <input
@@ -89,10 +144,12 @@ const ReminderForm: React.FC<ReminderFormProps> = ({ onHideForm }) => {
             id="medicine"
             name="reminderType"
             value="medicine"
+            defaultChecked={editForm && editForm.reminderType === 'medicine'}
           />
         </fieldset>
         <button type="submit">OK</button>
       </form>
+      {/* {editForm && <button className={styles.delete} onClick={handleDeleteReminder}>Usuń</button>} */}
     </div>
   );
 };

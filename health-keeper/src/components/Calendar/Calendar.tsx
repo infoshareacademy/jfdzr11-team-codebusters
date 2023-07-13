@@ -1,10 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../../AuthContext/AuthContext";
 import CalendarRows from "./CalendarRows";
 import styles from "./Calendar.module.css";
-import { getDoc, doc } from "firebase/firestore";
-import { db } from "../../api/firebase/firebase";
-import { Reminder, UserData } from "../../DataContext/dataTypes";
 import { DataContext } from "../../DataContext/DataContext";
 
 const weekdays = ["Pon", "Wt", "Śr", "Czw", "Pt", "Sob", "Ndz"];
@@ -25,16 +21,10 @@ const months = [
 
 
 const Calendar = () => {
-  const { currentUser } = useContext(AuthContext);
-  const [selectedDay, setSelectedDay] = useState(new Date());
-  const { userData, setUserData } = useContext(DataContext);
-
-  // const [reminders, setReminders] = useState<Reminder[]>([]);
-
-  // useEffect(() => {
-  //   setReminders(userData.reminders);
-  // }, [userData.reminders]);
   
+  const [selectedDay, setSelectedDay] = useState(new Date());
+  const { userData } = useContext(DataContext);
+
   const handleSelect = (newDate: Date) => {
     setSelectedDay(newDate);
   }
@@ -69,6 +59,10 @@ const Calendar = () => {
             changeSelected={handleSelect}
             reminders={userData.reminders}
           />
+        </div>
+        <div className={styles.calendarLegend}>
+          <div className={styles.legend +" " + styles['legend-general']}>Przypomnienia ogólne</div>
+          <div className={styles.legend +" " + styles['legend-medicine']}>Przypomnienia leków</div>
         </div>
         
       </div>

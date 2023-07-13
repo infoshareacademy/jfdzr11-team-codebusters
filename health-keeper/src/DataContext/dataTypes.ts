@@ -7,8 +7,8 @@ interface LoginData {
 export interface Reminder {
     dateTime: number;
     message: string;
-    reminderId: number;
-    reminderType: "general" | "medicine";
+    reminderId: string;
+    reminderType: string;
 }
 
 

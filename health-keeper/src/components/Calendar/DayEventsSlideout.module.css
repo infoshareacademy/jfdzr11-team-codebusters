@@ -60,6 +60,9 @@
 
 
 .reminder{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     box-sizing: border-box;
     width: 100%;
     padding: 5px 10px;
@@ -71,12 +74,12 @@
 }
 
 .reminder-general {
-    display: flex;
+    
     background-color: rgba(51, 141, 201, 0.364);
 }
 
 .reminder-medicine{
-    display: flex;
+   
     background-color: rgba(51, 201, 89, 0.364);
 }
 
@@ -87,4 +90,18 @@
     to{
         opacity: 1;
     }
+}
+
+
+
+.reminderEditBtn{
+    border: none;
+    background-color: transparent;
+    color: #ffffff;
+}
+
+
+
+.editIcon{
+    max-height: 25px;
 }

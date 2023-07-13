@@ -1,6 +1,5 @@
-import { DocumentData } from "firebase/firestore";
 import styles from "./Calendar.module.css";
-import { Reminder } from "./Calendar";
+import { Reminder } from "../../DataContext/dataTypes";
 import RemindersIndicator from "./RemindersIndicator";
 
 interface Props {

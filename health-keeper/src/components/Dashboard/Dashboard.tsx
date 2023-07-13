@@ -1,4 +1,4 @@
-import { Reminder } from '../../components/index';
+import { ReminderComponent } from '../../components/index';
 import { useState } from 'react';
 
 const Dashboard = () => {
@@ -11,7 +11,7 @@ const Dashboard = () => {
     <div>
       Dashboard !!
       {reminderVisibility && (
-        <Reminder isModalForm onHideForm={handleReminderVisibility} />
+        <ReminderComponent editForm={undefined} isModalForm onHideForm={handleReminderVisibility} />
       )}
       <button onClick={handleReminderVisibility}>Reminder form</button>
     </div>
