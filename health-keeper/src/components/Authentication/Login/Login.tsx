@@ -1,14 +1,13 @@
-import { FormEvent, useContext, useRef } from 'react';
+import { FormEvent, useRef } from 'react';
 import styles from '../Auth.module.css';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../api/firebase/firebase';
-import { AuthContext } from '../../../AuthContext/AuthContext';
+import { toast } from 'react-hot-toast';
 
 
 const Login = () => {
   const navigate = useNavigate();
-  const { currentUser } = useContext(AuthContext);
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -24,10 +23,10 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      console.log('Logged in successfully');
+      toast.success('Pomyślnie zalogowano!');
       navigate('/');
     } catch (error) {
-      console.log(error);
+      toast.error('Wystąpił błąd podczas logowania!')
     }
     formRef.current?.reset();
   };

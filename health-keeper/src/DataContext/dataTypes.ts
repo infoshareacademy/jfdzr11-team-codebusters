@@ -12,13 +12,13 @@ export interface Reminder {
 }
 
 
-type MeasurementEntry = {
+export type MeasurementEntry = {
     date: Timestamp;
     measurementValue: number;
 }
 type MeasurementType = Record<string, MeasurementEntry> 
 
-type MeasurementsData = Record<string, MeasurementType>
+export type MeasurementsData = Record<string, MeasurementType>
 
 type PersonalData = {
     name?: string,

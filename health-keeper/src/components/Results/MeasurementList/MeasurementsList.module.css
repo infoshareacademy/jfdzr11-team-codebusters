@@ -15,6 +15,7 @@
 .measurement_list li {
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 .measurement_list a {
     text-decoration: none;
@@ -23,9 +24,18 @@
 
 .measurement_item {
     border: 2px solid black;
-    padding: 0.3rem 1.2rem;
+    position: relative;
     border-radius: 10px;
 
+}
+
+.measurement_item a {
+    color: var(--black);
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding: 0.3rem 1.2rem;
+    
 }
 
 .measurement_list li:hover,
@@ -38,16 +48,33 @@
 
 .add {
     display: flex;
+    color: var(--black);
     justify-content: center;
     align-items: center;
     border: 2px solid black;
     border-radius: 10px;
     padding: 0.3rem 1.2rem;
-    margin: 0.5rem 0;
+    margin: 0.5rem 1rem;
+    text-decoration: none;
 }
 
 .add:hover {
     background: var(--primary-green-normal, #446e52);
     color: var(--base-colors-fast-white, #f8f8f9);
     cursor: pointer;
+}
+
+.measurement_item button{
+  position: absolute;
+  top:0;
+  right: 0;
+  padding: 0.3rem;
+  background: var(--dark-grey);
+  color: var(--fast-white);
+  border: none;
+  border-radius: 0 8px 8px 0;
+  height: 33.59px;
+}
+.measurement_item button:hover {
+  cursor: pointer;
 }

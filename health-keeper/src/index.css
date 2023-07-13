@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -15,25 +17,36 @@ img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
 }
-*/
-input, button, textarea, select {
+*/ input,
+button,
+textarea,
+select {
   font: inherit;
 }
-*/
-p, h1, h2, h3, h4, h5, h6 {
+*/ p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
 }
 
-:root{
+:root {
+  /* colours */
   --black-shadow: rgba(0, 0, 0, 0.4);
-  --black: #27272E;
-  --dark-grey: #7D7D82;
-  --medium-grey: #B8B8BA;
-  --fast-white: #F8F8F9;
-  --primary-green: #446E52;
-  --Relaway: 'Raleway',
-    sans-serif;
-  font-family:  var(--Relaway);
+  --black: #27272e;
+  --dark-grey: #7d7d82;
+  --medium-grey: #b8b8ba;
+  --fast-white: #f8f8f9;
+  --primary-green: #446e52;
+  --Relaway: 'Raleway', sans-serif;
+  /* font */
+  font-family: var(--Relaway);
+  --fw-bold: 500;
+  --fw-bolder: 600;
+  --fw-extra-bold: 700;
 }
 
 ::-webkit-scrollbar {

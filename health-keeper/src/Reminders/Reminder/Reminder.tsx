@@ -15,9 +15,9 @@ type ReminderProps = {
 };
 const ReminderComponent: React.FC<ReminderProps> = ({
   isModalForm,
-  onModalDisable,
+  onModalDisable = () => {},
   reminderData,
-  onHideForm,
+  onHideForm = () => {},
   editForm
 }) => {  
   return (
@@ -26,7 +26,7 @@ const ReminderComponent: React.FC<ReminderProps> = ({
       {isModalForm ? (
         <ReminderForm editForm={editForm} onHideForm={onHideForm} />
       ) : (
-        <ReminderMessage reminderData={reminderData} />
+        <ReminderMessage reminderData={reminderData} onModalDisable={onModalDisable}  />
       )}
     </>
   );

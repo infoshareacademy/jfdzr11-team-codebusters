@@ -1,10 +1,11 @@
 import { AuthContext } from '../../../AuthContext/AuthContext';
-import styles from '../AddNewMeasurement/AddNewMeasurement.module.css';
+import styles from './AddMeasurementForm.module.css';
 import { FormEvent, useContext, useRef } from 'react';
 import { db } from '../../../api/firebase/firebase';
-import { doc, updateDoc, getDoc } from '@firebase/firestore';
+import { doc, updateDoc } from '@firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import ResultChart2 from '../ResultChart/ResultChart2';
+import { DataContext } from '../../../DataContext/DataContext';
 
 
 type AddMeasurementFormProps = {
@@ -16,10 +17,14 @@ const AddMeasurementForm = ({
   isNewMeasurement,
   param,
 }: AddMeasurementFormProps) => {
-  const { currentUser } = useContext(AuthContext);
-  const navigate = useNavigate();
 
+  const { currentUser } = useContext(AuthContext);
+  const { userData } = useContext(DataContext);
+  const id = currentUser.uid;
+  const navigate = useNavigate();
+  const docRef = doc(db, 'users', id);
   const formRef = useRef<HTMLFormElement>(null);
+
 
   const handleAddMeasurement = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,20 +40,18 @@ const AddMeasurementForm = ({
       (e.currentTarget.elements.namedItem('date') as HTMLInputElement).value
     );
 
-    const id = currentUser.uid;
-
     //  try catch block that will update the document in the database
     try {
-      const docRef = doc(db, 'users', id);
-      const docSnap = await getDoc(docRef);
-      const existingMeasurements = docSnap.data()?.measurements;
-      const measurementValues = docSnap.data()?.measurements[param as string];
+      // const docSnap = await getDoc(docRef);
+      // const existingMeasurements = docSnap.data()?.measurements;
+      const existingMeasurements = userData.measurements;
+      const measurementValues = existingMeasurements[param as string];
       console.log(measurementValues);
 
       // check if the measurement with this name already exists
-      if (docSnap.data()?.measurements?.[measurementName]) {
+      if (existingMeasurements[measurementName]) {
         formRef.current?.reset();
-        console.log('Measurement already exists');
+        toast.error('Measurement already exists');
         return;
       }
       const updatedMeasurementData = isNewMeasurement
@@ -112,7 +115,11 @@ const AddMeasurementForm = ({
         <input type="date" name="date" id="date" />
         <button type="submit">Dodaj</button>
       </form>
-      {!isNewMeasurement && <ResultChart2 param={param} />}
+      {!isNewMeasurement && (
+        <div className={styles.chart_container}>
+          <ResultChart2 param={param} />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,13 +1,13 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent } from 'react';
 import styles from '../Auth.module.css';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../../api/firebase/firebase';
 import { useNavigate, Link } from 'react-router-dom';
-import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../api/firebase/firebase';
+import { toast } from 'react-hot-toast';
 
 const Register = () => {
-  const formRef = useRef<HTMLFormElement>(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -43,20 +43,18 @@ const Register = () => {
           email,
           password
         );
-        console.log('Registration succesful!');
+        toast.success('Pomyślnie zarejestrowano!');
 
         const userId = userCredential.user?.uid;
 
         const user = {
           loginData: {
             email,
-            password,
           },
           personalData: {
             email,
             name,
             lastName,
-            password,
           },
           measurements: {
             tętno: {},
@@ -67,45 +65,36 @@ const Register = () => {
             cukier: {},
           },
           reminders: [],
-          medicines: [],
+          medicines: []
         };
+        navigate('/');
         // add user to database
-        console.log(userId);
         await setDoc(doc(db, 'users', userId), user);
-        // reset form fields
-        formRef.current?.reset();
       } catch (error) {
-        console.log(error);
-      }
-      try {
-        await signOut(auth);
-        console.log('Logged out successfully!');
-        navigate('/login');
-      } catch (error) {
-        console.log(error);
+        toast.error('Wystąpił błąd podczas rejestracji!');
       }
     }
   };
 
   return (
     <div className={styles.form_wrapper}>
-      <Link to='/login' className={styles.backIcon} />
+      <Link to="/login" className={styles.backIcon} />
       <h1 className={styles.app_name}>HealthKeeper</h1>
       <span className={styles.header}>Zarejestruj się</span>
-      <form onSubmit={handleSubmit} className={styles.form} ref={formRef}>
-        <label htmlFor='name'>Imię</label>
-        <input type='text' name='name' id='name' />
-        <label htmlFor='lastName'>Nazwisko</label>
-        <input type='text' name='lastName' id='lastName' />
-        <label htmlFor='email'>E-mail</label>
-        <input type='email' name='email' id='email' />
-        <label htmlFor='confirmEmail'>Potwierdź e-mail</label>
-        <input type='email' name='confirmEmail' id='confirmEmail' />
-        <label htmlFor='password'>Hasło</label>
-        <input type='password' name='password' id='password' />
-        <label htmlFor='confirmPassword'>Potwierdź hasło</label>
-        <input type='password' name='confirmPassword' id='confirmPassword' />
-        <button type='submit'>Zarejestruj się</button>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label htmlFor="name">Imię</label>
+        <input type="text" name="name" id="name" />
+        <label htmlFor="lastName">Nazwisko</label>
+        <input type="text" name="lastName" id="lastName" />
+        <label htmlFor="email">E-mail</label>
+        <input type="email" name="email" id="email" />
+        <label htmlFor="confirmEmail">Potwierdź e-mail</label>
+        <input type="email" name="confirmEmail" id="confirmEmail" />
+        <label htmlFor="password">Hasło</label>
+        <input type="password" name="password" id="password" />
+        <label htmlFor="confirmPassword">Potwierdź hasło</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" />
+        <button type="submit">Zarejestruj się</button>
       </form>
     </div>
   );
