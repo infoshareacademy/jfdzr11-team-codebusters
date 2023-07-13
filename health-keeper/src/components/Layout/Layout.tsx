@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext/AuthContext';
-import { Navbar, Footer, Reminder } from '../index';
+import { Navbar, Footer, ReminderComponent } from '../index';
 import styles from './Layout.module.css';
 import {
   doc,
@@ -81,7 +81,7 @@ const Layout = () => {
     <div className={styles.app}>
       {/* reminder */}
       {showReminder && (
-        <Reminder
+        <ReminderComponent
           isModalForm={false}
           onModalDisable={handleReminderVisibility}
           reminderData={currentReminder}

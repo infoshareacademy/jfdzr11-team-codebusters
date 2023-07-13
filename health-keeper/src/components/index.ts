@@ -20,7 +20,7 @@ import Calendar from './Calendar/Calendar';
 import Backdrop from '../Reminders/Backdrop/Backdrop';
 import ReminderForm from '../Reminders/ReminderForm/ReminderForm';
 import ReminderMessage from '../Reminders/ReminderMessage/ReminderMessage';
-import Reminder from '../Reminders/Reminder/Reminder';
+import ReminderComponent from '../Reminders/Reminder/Reminder';
 export {
   Login,
   Register,
@@ -42,6 +42,6 @@ export {
   Backdrop,
   ReminderForm,
   ReminderMessage,
-  Reminder,
-  Calendar,
+  ReminderComponent,
+  Calendar
 };
