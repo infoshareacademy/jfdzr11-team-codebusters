@@ -63,7 +63,7 @@ const MeasurementList = () => {
               <button
                onClick={() => handleDelete(measurement)}
               >
-                x
+                X
               </button>
             )}
             <Link to={`/results-list/measurements/${measurement}/addEntry`}>
