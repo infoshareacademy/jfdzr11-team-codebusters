@@ -9,6 +9,8 @@
   width: 75%;
   z-index: 100;
   background: var(--fast-white);
+  max-height: 400px;
+  overflow: scroll;
 }
 
 .form {

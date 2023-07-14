@@ -21,6 +21,7 @@ const Navbar = () => {
           editForm={undefined}
           isModalForm
           onHideForm={handleReminderVisibility}
+          medicineForm={false}
         />
       )}
       <div className={styles.navbar_container}>

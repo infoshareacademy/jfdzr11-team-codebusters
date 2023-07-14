@@ -8,12 +8,14 @@ import { useContext, useState } from 'react';
 import { db } from '../../../api/firebase/firebase';
 import { AuthContext } from '../../../AuthContext/AuthContext';
 import type { MedType } from '../types';
+import {ReminderComponent} from '../../index'
 
 const FindMedicine = () => {
   const { currentUser } = useContext(AuthContext);
   const id = currentUser?.uid;
   let medPack: string;
   const [isActive, setActive] = useState<boolean>(false);
+   const [reminderVisibility, setReminderVisibility] = useState<boolean>(false);
   const [foundMedicine, setMedicine] = useState({
     substance: '',
     power: '',
@@ -83,6 +85,10 @@ const FindMedicine = () => {
     console.log('Dodano lek');
   };
 
+   const handleReminderVisibility = () => {
+     setReminderVisibility(!reminderVisibility);
+   };
+
   return (
     <div className={styles.bigDiv}>
       {!isActive ? (
@@ -90,7 +96,11 @@ const FindMedicine = () => {
           <h2>Znajdź lek</h2>
           <form className={styles.findDiv}>
             <label htmlFor="codeEAN">Wpisz kod leku z opakowania</label>
-            <input name="codeEAN" id="codeEAN" placeholder="np. 5909990864546" />
+            <input
+              name="codeEAN"
+              id="codeEAN"
+              placeholder="np. 5909990864546"
+            />
             <button type="button" onClick={getMedicine}>
               Wyszukaj lek
             </button>
@@ -99,18 +109,39 @@ const FindMedicine = () => {
       ) : null}
       {isActive ? (
         <div className={styles.resultDiv}>
+          {reminderVisibility && (
+            <ReminderComponent
+              editForm={undefined}
+              isModalForm
+              onHideForm={handleReminderVisibility}
+              medicineForm={true}
+            />
+          )}
           <ul>
-            <li><span>Nazwa leku:</span> {foundMedicine.name}</li>
-            <li><span>Forma leku:</span> {foundMedicine.form}</li>
-            <li><span>Nazwa substancji czynnej:</span> {foundMedicine.substance}</li>
-            <li><span>Ilość substancji czynnej:</span> {foundMedicine.power}</li>
-            <li><span>Opakowanie:</span> {foundMedicine.pack}</li>
+            <li>
+              <span>Nazwa leku:</span> {foundMedicine.name}
+            </li>
+            <li>
+              <span>Forma leku:</span> {foundMedicine.form}
+            </li>
+            <li>
+              <span>Nazwa substancji czynnej:</span> {foundMedicine.substance}
+            </li>
+            <li>
+              <span>Ilość substancji czynnej:</span> {foundMedicine.power}
+            </li>
+            <li>
+              <span>Opakowanie:</span> {foundMedicine.pack}
+            </li>
 
             <li>Numer pozwolenia: {foundMedicine.registryNumber}</li>
           </ul>
-          <button type="button" onClick={addMedicine}>
-            Dodaj lek
-          </button>
+          <div>
+            <button type="button" onClick={addMedicine}>
+              Dodaj lek
+            </button>
+            <button onClick={handleReminderVisibility}>Dodaj przypomnienie</button>
+          </div>
         </div>
       ) : null}
     </div>
