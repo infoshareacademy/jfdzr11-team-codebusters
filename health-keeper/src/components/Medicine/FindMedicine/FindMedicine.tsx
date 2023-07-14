@@ -70,6 +70,7 @@ const FindMedicine = () => {
     const docRef = doc(db, 'users', id);
     const docSnap = await getDoc(docRef);
     const userData = docSnap.data();
+    const _currentAmount = Number(foundMedicine.pack.split(' ')[0])
 
     const newMed: MedType = {
       name: foundMedicine.name,
@@ -78,6 +79,7 @@ const FindMedicine = () => {
       power: foundMedicine.power,
       registryNumber: foundMedicine.registryNumber,
       substance: foundMedicine.substance,
+      currentAmount: _currentAmount
     };
 
     const updateMedicines = [...userData.medicines, newMed];

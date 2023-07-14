@@ -84,7 +84,7 @@ const ReminderForm: React.FC<ReminderFormProps> = ({
     console.log('form submitted');
   };
 
-  const handleAddMedicineReminder =  async (
+  const handleAddMedicineReminder = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
@@ -104,17 +104,16 @@ const ReminderForm: React.FC<ReminderFormProps> = ({
         .value
     );
 
-
-    try{
+    try {
       for (let i = 0; i < daysNumber; i++) {
         const date = new Date(startDate);
-        date.setDate(startDate.getDate()+i);
-        
+        date.setDate(startDate.getDate() + i);
+
         for (let j = 0; j < timesDay; j++) {
           const time = (
             e.currentTarget.elements.namedItem(`time${j}`) as HTMLInputElement
           ).value;
-  
+
           const [hours, minutes] = time.split(':');
           const dateTime = date.setHours(Number(hours), Number(minutes));
           const reminderId = crypto.randomUUID();
@@ -122,25 +121,22 @@ const ReminderForm: React.FC<ReminderFormProps> = ({
             dateTime,
             message: message,
             reminderId,
-            reminderType: "medicine"
-          } 
-          medReminders.push(newReminder)
-        }      
-        
-    }
-    const updatedReminders = [...userData.reminders, ...medReminders];
+            reminderType: 'medicine',
+          };
+          medReminders.push(newReminder);
+        }
+      }
+      const updatedReminders = [...userData.reminders, ...medReminders];
       // update the document in the database
 
       await updateDoc(docRef, { reminders: updatedReminders });
       console.log('Reminders successfully added');
       onHideForm();
-    }catch(error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
-    
-    }
-    
-    
+  };
+
   // const handleDeleteReminder = async () => {
   //   try {
   //     if(editForm){
