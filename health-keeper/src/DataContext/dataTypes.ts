@@ -36,6 +36,7 @@ type PersonalData = {
 }
 
 export type UserData = {
+    avatar: string;
     loginData: LoginData;
     measurements: MeasurementsData;
     personalData: PersonalData;

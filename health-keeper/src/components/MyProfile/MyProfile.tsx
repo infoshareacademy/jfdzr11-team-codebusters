@@ -7,10 +7,9 @@ import { auth } from '../../api/firebase/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { storage} from '../../api/firebase/firebase'
 import { DataContext } from './../../DataContext/DataContext'
-import { doc, updateDoc, getDoc} from 'firebase/firestore';
+import { doc, updateDoc} from 'firebase/firestore';
 import { AuthContext } from './../../AuthContext/AuthContext'
 import {db} from './../../api/firebase/firebase'
-import {UserData} from './../../DataContext/DataContext'
 import arrowIcon from './../../assets/arrow.png'
 import avatarDefault from './../../assets/avatar.jpg'
 
@@ -19,7 +18,7 @@ const MyProfile = () => {
     const navigate = useNavigate();
     const [avatarForm, setAvatarForm] = useState<boolean>();
 
-    const {userData, setUserData} = useContext(DataContext);
+    const {userData} = useContext(DataContext);
      const { currentUser, setCurrentUser} = useContext(AuthContext);
 
   const logoutHandler = async () => {
@@ -53,13 +52,6 @@ const MyProfile = () => {
       
       const userRef = doc(db, 'users', currentUser.uid);
       await updateDoc(userRef, avatar);
-      const userData= await getDoc(userRef).then(snapshot => 
-                  snapshot.data()
-      )
-      if(userData){
-        setUserData(userData as UserData)
-      }
-
     }catch(error){
       console.log(error);
     }
