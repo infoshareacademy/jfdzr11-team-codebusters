@@ -40,7 +40,7 @@ function App() {
         setUserData(userData as UserData);
       });
 
-      return unsubscribe();
+      return () => unsubscribe();
     } catch (error) {
       toast.error('Błąd pobierania danych użytkownika');
     }
