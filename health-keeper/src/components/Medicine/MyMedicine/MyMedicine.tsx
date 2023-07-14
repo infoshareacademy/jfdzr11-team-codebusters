@@ -12,9 +12,9 @@ const MyMedicine = () => {
     setMedicines(userData.medicines);
   }, []);
 
-  const deleteMed = async () => {
-    await console.log('Usuwam lek');
-  };
+  // const deleteMed = async () => {
+  //   await console.log('Usuwam lek');
+  // };
 
   return (
     <div className={styles.container}>
