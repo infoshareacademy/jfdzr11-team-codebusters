@@ -11,6 +11,7 @@ interface MedicineProps {
 }
 
 const Medicine = ({ medicine }: MedicineProps) => {
+    
   const [medicineVisibility, setMedicineVisibility] = useState(false);
   const [currentAmountMedicine, setCurrentAmountMedicine] = useState(
     medicine.currentAmount
@@ -27,28 +28,29 @@ const Medicine = ({ medicine }: MedicineProps) => {
   };
 
   const handleAddMedicine = () => {
-     setCurrentAmountMedicine((prev) => prev+1);
+    setCurrentAmountMedicine(prev => prev + 1);
   };
 
   const handleRemoveMedicine = () => {
-    setCurrentAmountMedicine((prev) => prev-1);
+    setCurrentAmountMedicine(prev => prev - 1);
   };
 
   const handleMedicineAmountChange = async () => {
-    
     medicine.currentAmount = currentAmountMedicine;
 
-    const updatedMedicines: MedType[] = userData.medicines.filter((element: MedType) => {
+    const updatedMedicines: MedType[] = userData.medicines.filter(
+      (element: MedType) => {
         element.registryNumber !== medicine.registryNumber;
-    })
+      }
+    );
     updatedMedicines.push(medicine);
     try {
       await updateDoc(docRef, { medicines: updatedMedicines });
-      console.log('Document updated successfully!')
+      console.log('Document updated successfully!');
     } catch (error) {
       console.log(error);
     }
-    };
+  };
 
   return (
     <div className={styles.medicine}>

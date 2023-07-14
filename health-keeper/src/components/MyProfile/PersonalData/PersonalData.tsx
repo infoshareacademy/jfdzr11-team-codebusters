@@ -6,7 +6,7 @@ import { db } from './../../../api/firebase/firebase';
 import { doc, updateDoc, getDoc, Timestamp } from 'firebase/firestore';
 import { AuthContext } from '../../../AuthContext/AuthContext';
 import dateConvert from '../../../utils/DateConverter';
-import { UserData } from '../../../DataContext/DataContext';
+
 
 const PersonalData = () => {
   const { userData, setUserData } = useContext(DataContext);

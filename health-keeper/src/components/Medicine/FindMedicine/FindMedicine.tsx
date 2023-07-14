@@ -1,21 +1,19 @@
-import {
-  doc,
-  getDoc,
-  updateDoc,
-} from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import styles from './FindMedicine.module.css';
 import { useContext, useState } from 'react';
 import { db } from '../../../api/firebase/firebase';
 import { AuthContext } from '../../../AuthContext/AuthContext';
 import type { MedType } from '../types';
-import {ReminderComponent} from '../../index'
+import { ReminderComponent } from '../../index';
+import { DataContext } from '../../../DataContext/DataContext';
+import { toast } from 'react-hot-toast';
 
 const FindMedicine = () => {
   const { currentUser } = useContext(AuthContext);
   const id = currentUser?.uid;
   let medPack: string;
   const [isActive, setActive] = useState<boolean>(false);
-   const [reminderVisibility, setReminderVisibility] = useState<boolean>(false);
+  const [reminderVisibility, setReminderVisibility] = useState<boolean>(false);
   const [foundMedicine, setMedicine] = useState({
     substance: '',
     power: '',
@@ -24,6 +22,7 @@ const FindMedicine = () => {
     registryNumber: '',
     pack: '',
   });
+  const { userData } = useContext(DataContext);
   const getMedicine = async () => {
     const searchCode = (document.getElementById('codeEAN') as HTMLInputElement)
       .value;
@@ -58,19 +57,10 @@ const FindMedicine = () => {
   };
 
   const addMedicine = async () => {
-    console.log(
-      foundMedicine.form,
-      foundMedicine.name,
-      foundMedicine.pack,
-      foundMedicine.power,
-      foundMedicine.registryNumber,
-      foundMedicine.substance
-    );
-
     const docRef = doc(db, 'users', id);
     const docSnap = await getDoc(docRef);
     const userData = docSnap.data();
-    const _currentAmount = Number(foundMedicine.pack.split(' ')[0])
+    const _currentAmount = Number(foundMedicine.pack.split(' ')[0]);
 
     const newMed: MedType = {
       name: foundMedicine.name,
@@ -79,17 +69,27 @@ const FindMedicine = () => {
       power: foundMedicine.power,
       registryNumber: foundMedicine.registryNumber,
       substance: foundMedicine.substance,
-      currentAmount: _currentAmount
+      currentAmount: _currentAmount,
     };
+
+    const isNumberAlreadyInBase = userData.medicines.some(
+      (medicine: MedType) => {
+        return medicine.registryNumber === newMed.registryNumber;
+      }
+    );
+    if (isNumberAlreadyInBase) {
+      toast.error('Ten lek jest już w Twojej apteczce');
+      return;
+    }
 
     const updateMedicines = [...userData.medicines, newMed];
     await updateDoc(docRef, { medicines: updateMedicines });
     console.log('Dodano lek');
   };
 
-   const handleReminderVisibility = () => {
-     setReminderVisibility(!reminderVisibility);
-   };
+  const handleReminderVisibility = () => {
+    setReminderVisibility(!reminderVisibility);
+  };
 
   return (
     <div className={styles.bigDiv}>
@@ -142,7 +142,9 @@ const FindMedicine = () => {
             <button type="button" onClick={addMedicine}>
               Dodaj lek
             </button>
-            <button onClick={handleReminderVisibility}>Dodaj przypomnienie</button>
+            <button onClick={handleReminderVisibility}>
+              Dodaj przypomnienie
+            </button>
           </div>
         </div>
       ) : null}

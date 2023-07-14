@@ -7,9 +7,6 @@ const MyMedicine = () => {
   const { userData } = useContext(DataContext);
 
   const [medicines, setMedicines] = useState<MedData>([]);
-  
-  
-  console.log(medicines);
 
   useEffect(() => {
     setMedicines(userData.medicines);
