@@ -1,9 +1,6 @@
 import {
-  addDoc,
-  collection,
   doc,
   getDoc,
-  setDoc,
   updateDoc,
 } from 'firebase/firestore';
 import styles from './FindMedicine.module.css';
@@ -89,26 +86,29 @@ const FindMedicine = () => {
   return (
     <div className={styles.bigDiv}>
       {!isActive ? (
-        <div className={styles.findDiv}>
-          <label htmlFor='codeEAN'>Znajdź lek</label>
-          <input name='codeEAN' id='codeEAN' placeholder='Podaj kod EAN leku' />
-          <button type='button' onClick={getMedicine}>
-            Wyszukaj lek
-          </button>
+        <div className={styles.wrapper}>
+          <h2>Znajdź lek</h2>
+          <form className={styles.findDiv}>
+            <label htmlFor="codeEAN">Wpisz kod leku z opakowania</label>
+            <input name="codeEAN" id="codeEAN" placeholder="np. 5909990864546" />
+            <button type="button" onClick={getMedicine}>
+              Wyszukaj lek
+            </button>
+          </form>
         </div>
       ) : null}
       {isActive ? (
         <div className={styles.resultDiv}>
           <ul>
-            <li>Nazwa leku: {foundMedicine.name}</li>
-            <li>Forma leku: {foundMedicine.form}</li>
-            <li>Nazwa substancji czynnej: {foundMedicine.substance}</li>
-            <li>Ilość substancji czynnej: {foundMedicine.power}</li>
-            <li>Opakowanie: {foundMedicine.pack}</li>
+            <li><span>Nazwa leku:</span> {foundMedicine.name}</li>
+            <li><span>Forma leku:</span> {foundMedicine.form}</li>
+            <li><span>Nazwa substancji czynnej:</span> {foundMedicine.substance}</li>
+            <li><span>Ilość substancji czynnej:</span> {foundMedicine.power}</li>
+            <li><span>Opakowanie:</span> {foundMedicine.pack}</li>
 
             <li>Numer pozwolenia: {foundMedicine.registryNumber}</li>
           </ul>
-          <button type='button' onClick={addMedicine}>
+          <button type="button" onClick={addMedicine}>
             Dodaj lek
           </button>
         </div>
