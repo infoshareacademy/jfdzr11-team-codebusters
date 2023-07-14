@@ -4,11 +4,18 @@ import styles from './MeasurementsList.module.css';
 import { DataContext } from '../../../DataContext/DataContext';
 import {MeasurementsData} from '../../../DataContext/dataTypes'
 import { toast } from 'react-hot-toast';
+import { updateDoc, doc } from 'firebase/firestore';
+import { db } from '../../../api/firebase/firebase';
+import { AuthContext } from '../../../AuthContext/AuthContext';
 
 const MeasurementList = () => {
   const [measurementsNames, setMeasurementsNames] = useState<string[]>([]);
   const {userData} = useContext(DataContext)
   const [hoveredName, setHoveredName] = useState<string>('');
+  const {currentUser} = useContext(AuthContext)
+
+   const id = currentUser?.uid;
+   const docRef = doc(db, 'users', id);
 
   useEffect(() => {
     const fetchMeasurementNames = async () => {
@@ -30,22 +37,17 @@ const MeasurementList = () => {
   const handleMouseLeave = () => {
     setHoveredName('');
   };
-// not working yet
 
-  // const handleDelete = async (measurementName: string) => {
-  //   try {
-  //     const filteredMeasurements = measurementsNames.filter(
-  //       measurementNames => measurementNames !== measurementName
-  //     );
-  //     const id = currentUser?.uid;
-  //     const docRef = doc(db, 'users', id);
-
-  //     await updateDoc(docRef, { measurements: filteredMeasurements });
-  //     setMeasurementsNames(filteredMeasurements)
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const handleDelete = async (measurementName: string) => {
+    try {
+      const newMeasurements = {...userData.measurements} ;
+      delete newMeasurements[measurementName];
+      await updateDoc(docRef, { measurements: newMeasurements  });
+      setMeasurementsNames(Object.keys(newMeasurements))
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -59,7 +61,7 @@ const MeasurementList = () => {
             onMouseOut={handleMouseLeave}>
             {hoveredName === measurement && (
               <button
-              // onClick={() => handleDelete(measurement)}
+               onClick={() => handleDelete(measurement)}
               >
                 x
               </button>
