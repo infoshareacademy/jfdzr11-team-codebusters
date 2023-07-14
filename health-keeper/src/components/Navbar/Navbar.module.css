@@ -52,7 +52,7 @@
 }
 
 .navbar_container a.calendar.active {
-  background: url(../../assets/navbar/avatar-checked.png);
+  background: url(../../assets/navbar/calendar-checked.png);
 }
 
 .navbar_container a.notifications {
