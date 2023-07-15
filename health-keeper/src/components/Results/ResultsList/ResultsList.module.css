@@ -1,15 +1,16 @@
 .header {
   text-align: center;
-  margin: 1rem 0;
+  font-size: 2rem;
+  margin-top: 1rem;
+  font-weight: var(--fw-extra-bold);
 }
 .results_list {
   list-style: none;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   padding-inline-start: 0;
-  padding: 0 1rem;
-  gap: 1rem;
 }
 
 .results_list a {
@@ -19,15 +20,41 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  
 }
 
 .results_list li {
-  border: 1.5px solid black;
-  border-radius: 0.5rem;
+  background-color: var(--fast-white);
+  color: var(--primary-green);
+  height: 69px;
+  width: calc(100% - 48px);
+  border-radius: 12px;
+  border: 1px solid var(--primary-green);
+  text-transform: uppercase;
+  font-weight: var(--fw-bolder);
+  letter-spacing: -0.5px;
+  font-size: 18px;
   display: flex;
-  justify-content: center;
-  padding: 0.4rem 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  font-family: var(--Relaway);
+}
+
+.results_list li a {
+  color: var(--primary-green);
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  text-align: start;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: var(--fw-bolder);
+}
+.results_list li a img {
+  width: 35px ;
+  height: 34px ;
 }
 
 .results_list li:hover,
@@ -35,4 +62,9 @@
   background: var(--primary-green, #446e52);
   color: var(--base-colors-fast-white, #f8f8f9);
   cursor: pointer;
+}
+
+.results_list li:hover img,
+.results_list li:hover a img {
+  filter: brightness(0) invert(1);
 }

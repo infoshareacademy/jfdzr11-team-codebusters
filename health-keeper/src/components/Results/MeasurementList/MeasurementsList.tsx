@@ -4,9 +4,10 @@ import styles from './MeasurementsList.module.css';
 import { DataContext } from '../../../DataContext/DataContext';
 import {MeasurementsData} from '../../../DataContext/dataTypes'
 import { toast } from 'react-hot-toast';
-import { updateDoc, doc } from 'firebase/firestore';
+import { doc } from 'firebase/firestore';
 import { db } from '../../../api/firebase/firebase';
 import { AuthContext } from '../../../AuthContext/AuthContext';
+// import binIcon from '../../../assets/bin.png';
 
 const MeasurementList = () => {
   const [measurementsNames, setMeasurementsNames] = useState<string[]>([]);
@@ -28,7 +29,7 @@ const MeasurementList = () => {
       }
     };
     fetchMeasurementNames();
-  }, []);
+  }, [userData]);
 
   const handleHover = (hoveredName: string) => {
     setHoveredName(hoveredName);
@@ -38,17 +39,17 @@ const MeasurementList = () => {
     setHoveredName('');
   };
 
-  const handleDelete = async (measurementName: string) => {
-    try {
-      const newMeasurements = {...userData.measurements} ;
-      delete newMeasurements[measurementName];
-      await updateDoc(docRef, { measurements: newMeasurements  });
-      setMeasurementsNames(Object.keys(newMeasurements))
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  // const handleDelete = async (measurementName: string) => {
+  //   try {
+  //     const newMeasurements = {...userData.measurements} ;
+  //     delete newMeasurements[measurementName];
+  //     await updateDoc(docRef, { measurements: newMeasurements  });
+  //     setMeasurementsNames(Object.keys(newMeasurements))
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  
   return (
     <>
       <h2 className={styles.header}>Codzienne pomiary</h2>
@@ -59,13 +60,13 @@ const MeasurementList = () => {
             className={styles.measurement_item}
             onMouseOver={() => handleHover(measurement)}
             onMouseOut={handleMouseLeave}>
-            {hoveredName === measurement && (
+            {/* {hoveredName === measurement && (
               <button
                onClick={() => handleDelete(measurement)}
               >
-                X
+                <img src={binIcon} alt="bin icon" />
               </button>
-            )}
+            )} */}
             <Link to={`/results-list/measurements/${measurement}/addEntry`}>
               {measurement.toUpperCase()}
             </Link>

@@ -10,7 +10,7 @@ const MyMedicine = () => {
 
   useEffect(() => {
     setMedicines(userData.medicines);
-  }, [userData]);
+  }, []);
 
   
   return (

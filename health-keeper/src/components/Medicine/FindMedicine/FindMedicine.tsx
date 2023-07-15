@@ -6,6 +6,7 @@ import { AuthContext } from '../../../AuthContext/AuthContext';
 import type { MedType } from '../types';
 import { ReminderComponent } from '../../index';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const FindMedicine = () => {
   const { currentUser } = useContext(AuthContext);
@@ -21,6 +22,7 @@ const FindMedicine = () => {
     registryNumber: '',
     pack: '',
   });
+  const navigate = useNavigate();
   const getMedicine = async () => {
     const searchCode = (document.getElementById('codeEAN') as HTMLInputElement)
       .value;
@@ -82,7 +84,8 @@ const FindMedicine = () => {
 
     const updateMedicines = [...userData.medicines, newMed];
     await updateDoc(docRef, { medicines: updateMedicines });
-    console.log('Dodano lek');
+    navigate('/medicine');
+    toast.success('Lek został dodany do Twojej apteczki');
   };
 
   const handleReminderVisibility = () => {
@@ -101,7 +104,10 @@ const FindMedicine = () => {
               id="codeEAN"
               placeholder="np. 5909990864546"
             />
-            <button type="button" onClick={getMedicine}>
+            <button
+              type="button"
+              onClick={getMedicine}
+              className={styles.medicine_button}>
               Wyszukaj lek
             </button>
           </form>
@@ -137,10 +143,15 @@ const FindMedicine = () => {
             <li>Numer pozwolenia: {foundMedicine.registryNumber}</li>
           </ul>
           <div className={styles.buttons_container}>
-            <button type="button" onClick={addMedicine}>
+            <button
+              type="button"
+              onClick={addMedicine}
+              className={styles.medicine_button}>
               Dodaj lek
             </button>
-            <button onClick={handleReminderVisibility}>
+            <button
+              onClick={handleReminderVisibility}
+              className={styles.medicine_button}>
               Dodaj przypomnienie
             </button>
           </div>

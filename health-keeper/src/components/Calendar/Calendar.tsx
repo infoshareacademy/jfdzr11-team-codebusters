@@ -12,7 +12,7 @@ const months = [
   'Maj',
   'Czerwiec',
   'Lipiec',
-  'Śierpień',
+  'Sierpień',
   'Wrzesień',
   'Październik',
   'Listopad',

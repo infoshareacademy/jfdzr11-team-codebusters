@@ -72,14 +72,21 @@ li {
 
 .buttons_container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
 
 .buttons_container button {
-  padding: 0.3rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 4px;
   font-size: 1rem;
   margin-top: 1rem;
   align-self: center;
+}
+
+.medicine_button {
+  border: 1px solid var(--medium-grey);
+  background-color: var(--primary-green);
+  color: var(--fast-white);
 }
