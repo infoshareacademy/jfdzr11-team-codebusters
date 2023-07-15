@@ -137,27 +137,25 @@ const ReminderForm: React.FC<ReminderFormProps> = ({
     }
   };
 
-  // const handleDeleteReminder = async () => {
-  //   try {
-  //     if(editForm){
-  //     const deleteId = editForm.reminderId;
-  //     const _userData = userData;
-  //     console.log("przed usunięciem", _userData.reminders);
-  //     console.log("deleteID", deleteId);
+  const handleDeleteReminder = async () => {
+    try {
+      if (editForm) {
+        const deleteId = editForm.reminderId;
+        const _userData = userData;
+        console.log('przed usunięciem', _userData.reminders);
+        console.log('deleteID', deleteId);
 
-  //     const updatedReminders = _userData.reminders.filter((reminder) => {
-  //     reminder.reminderId !== deleteId;}
-  //     )
-  //     console.log("po usunięciu", updatedReminders);
-  //     await updateDoc(docRef, { reminders: updatedReminders });
-  //     onHideForm();
-
-  //   }
-  // }
-  //   catch(error){
-  //     console.log(error);
-  //   }
-  // };
+        const updatedReminders = _userData.reminders.filter(reminder => {
+          return reminder.reminderId !== deleteId;
+        });
+        console.log('po usunięciu', updatedReminders);
+        await updateDoc(docRef, { reminders: updatedReminders });
+        onHideForm();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleTimesDayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTimesDay(Number(e.target.value));
@@ -224,28 +222,15 @@ const ReminderForm: React.FC<ReminderFormProps> = ({
           name="reminderText"
           id="reminderText"
         />
-        {/* <fieldset className={styles.medicine_type_wrapper}>
-        <legend>Typ przypomnienia:</legend>
-        <label htmlFor="general">Ogólny</label>
-        <input
-          type="radio"
-          id="general"
-          name="reminderType"
-          value="general"
-          defaultChecked={editForm && editForm.reminderType === 'general'}
-        />
-        <label htmlFor="medicine">Lek:</label>
-        <input
-          type="radio"
-          id="medicine"
-          name="reminderType"
-          value="medicine"
-          defaultChecked={editForm && editForm.reminderType === 'medicine'}
-        />
-      </fieldset> */}
         <button type="submit">OK</button>
       </form>
-      {/* {editForm && <button className={styles.delete} onClick={handleDeleteReminder}>Usuń</button>} */}
+      {editForm && (
+        <div className={styles.delete_btn_wrapper}>
+          <button className={styles.delete} onClick={handleDeleteReminder}>
+            Usuń przypomnienie
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { FormEvent } from 'react';
 import { auth } from '../../../api/firebase/firebase';
 import { useNavigate, Link } from 'react-router-dom';
 import styles from './ForgotPassword.module.css'
+import toast from 'react-hot-toast';
 
 const ForgotPassword = () => {
 
@@ -16,10 +17,10 @@ const navigate = useNavigate()
     ).value;
     try {
       await sendPasswordResetEmail(auth, email);
-      console.log('Link email sent');
+      toast.success('Mail wysłany');
       navigate('/login')
     } catch (error) {
-      console.log(error);
+      toast.error('Nie udało się wysłać maila');
     }
   };
 
