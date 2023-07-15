@@ -136,7 +136,7 @@ const FindMedicine = () => {
 
             <li>Numer pozwolenia: {foundMedicine.registryNumber}</li>
           </ul>
-          <div>
+          <div className={styles.buttons_container}>
             <button type="button" onClick={addMedicine}>
               Dodaj lek
             </button>
