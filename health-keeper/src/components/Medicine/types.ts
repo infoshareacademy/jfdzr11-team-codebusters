@@ -5,6 +5,7 @@ export type MedType = {
   power: string;
   registryNumber: string;
   substance: string;
+  currentAmount: number;
 };
 
 export type MedData = Array<MedType>;

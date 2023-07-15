@@ -90,3 +90,17 @@ li {
 .resultDiv li span {
   font-weight: bold;
 }
+
+.buttons_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons_container button {
+  padding: 0.3rem 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-top: 1rem;
+  align-self: center;
+}

@@ -1,19 +1,18 @@
-import {
-  doc,
-  getDoc,
-  updateDoc,
-} from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import styles from './FindMedicine.module.css';
 import { useContext, useState } from 'react';
 import { db } from '../../../api/firebase/firebase';
 import { AuthContext } from '../../../AuthContext/AuthContext';
 import type { MedType } from '../types';
+import { ReminderComponent } from '../../index';
+import { toast } from 'react-hot-toast';
 
 const FindMedicine = () => {
   const { currentUser } = useContext(AuthContext);
   const id = currentUser?.uid;
   let medPack: string;
   const [isActive, setActive] = useState<boolean>(false);
+  const [reminderVisibility, setReminderVisibility] = useState<boolean>(false);
   const [foundMedicine, setMedicine] = useState({
     substance: '',
     power: '',
@@ -56,18 +55,10 @@ const FindMedicine = () => {
   };
 
   const addMedicine = async () => {
-    console.log(
-      foundMedicine.form,
-      foundMedicine.name,
-      foundMedicine.pack,
-      foundMedicine.power,
-      foundMedicine.registryNumber,
-      foundMedicine.substance
-    );
-
     const docRef = doc(db, 'users', id);
     const docSnap = await getDoc(docRef);
     const userData = docSnap.data();
+    const _currentAmount = Number(foundMedicine.pack.split(' ')[0]);
 
     const newMed: MedType = {
       name: foundMedicine.name,
@@ -76,11 +67,26 @@ const FindMedicine = () => {
       power: foundMedicine.power,
       registryNumber: foundMedicine.registryNumber,
       substance: foundMedicine.substance,
+      currentAmount: _currentAmount,
     };
+
+    const isNumberAlreadyInBase = userData.medicines.some(
+      (medicine: MedType) => {
+        return medicine.registryNumber === newMed.registryNumber;
+      }
+    );
+    if (isNumberAlreadyInBase) {
+      toast.error('Ten lek jest już w Twojej apteczce');
+      return;
+    }
 
     const updateMedicines = [...userData.medicines, newMed];
     await updateDoc(docRef, { medicines: updateMedicines });
     console.log('Dodano lek');
+  };
+
+  const handleReminderVisibility = () => {
+    setReminderVisibility(!reminderVisibility);
   };
 
   return (
@@ -90,7 +96,11 @@ const FindMedicine = () => {
           <h2>Znajdź lek</h2>
           <form className={styles.findDiv}>
             <label htmlFor="codeEAN">Wpisz kod leku z opakowania</label>
-            <input name="codeEAN" id="codeEAN" placeholder="np. 5909990864546" />
+            <input
+              name="codeEAN"
+              id="codeEAN"
+              placeholder="np. 5909990864546"
+            />
             <button type="button" onClick={getMedicine}>
               Wyszukaj lek
             </button>
@@ -99,18 +109,41 @@ const FindMedicine = () => {
       ) : null}
       {isActive ? (
         <div className={styles.resultDiv}>
+          {reminderVisibility && (
+            <ReminderComponent
+              editForm={undefined}
+              isModalForm
+              onHideForm={handleReminderVisibility}
+              medicineForm={true}
+            />
+          )}
           <ul>
-            <li><span>Nazwa leku:</span> {foundMedicine.name}</li>
-            <li><span>Forma leku:</span> {foundMedicine.form}</li>
-            <li><span>Nazwa substancji czynnej:</span> {foundMedicine.substance}</li>
-            <li><span>Ilość substancji czynnej:</span> {foundMedicine.power}</li>
-            <li><span>Opakowanie:</span> {foundMedicine.pack}</li>
+            <li>
+              <span>Nazwa leku:</span> {foundMedicine.name}
+            </li>
+            <li>
+              <span>Forma leku:</span> {foundMedicine.form}
+            </li>
+            <li>
+              <span>Nazwa substancji czynnej:</span> {foundMedicine.substance}
+            </li>
+            <li>
+              <span>Ilość substancji czynnej:</span> {foundMedicine.power}
+            </li>
+            <li>
+              <span>Opakowanie:</span> {foundMedicine.pack}
+            </li>
 
             <li>Numer pozwolenia: {foundMedicine.registryNumber}</li>
           </ul>
-          <button type="button" onClick={addMedicine}>
-            Dodaj lek
-          </button>
+          <div className={styles.buttons_container}>
+            <button type="button" onClick={addMedicine}>
+              Dodaj lek
+            </button>
+            <button onClick={handleReminderVisibility}>
+              Dodaj przypomnienie
+            </button>
+          </div>
         </div>
       ) : null}
     </div>

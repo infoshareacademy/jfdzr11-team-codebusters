@@ -88,7 +88,7 @@
     grid-area: arrowIcon;
     align-self: center;
     cursor: pointer;
-    background: url('./../../../assets/arrow.png');
+    background: url('./../../../assets/arrow-black.png');
     width: 35px;
     height: 35px;
     border: none;

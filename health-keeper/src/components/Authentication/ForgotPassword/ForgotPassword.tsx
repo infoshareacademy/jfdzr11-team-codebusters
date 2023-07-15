@@ -1,7 +1,8 @@
 import { sendPasswordResetEmail } from '@firebase/auth';
 import { FormEvent } from 'react';
 import { auth } from '../../../api/firebase/firebase';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router-dom';
+import styles from './ForgotPassword.module.css'
 
 const ForgotPassword = () => {
 
@@ -23,11 +24,15 @@ const navigate = useNavigate()
   };
 
   return (
-    <form onSubmit={passwordResetHandler}>
-      <label htmlFor="email">Email:</label>
-      <input type="email" name="email" id="email" />
+    <div className={styles.form_wrapper}>
+    <Link to="/login" className={styles.backIcon} />
+    <span className={styles.header}>Przypomnij hasło</span>
+    <form onSubmit={passwordResetHandler} className={styles.form}>
+      <label htmlFor="email">E-mail</label>
+      <input type="email" name="email" id="email"/>
       <button type='submit'>Wyślij</button>
     </form>
+    </div>
   );
 };
 
