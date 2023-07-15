@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast';
 import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../../../api/firebase/firebase';
 import { AuthContext } from '../../../AuthContext/AuthContext';
+import binIcon from '../../../assets/bin.png';
 
 const MeasurementList = () => {
   const [measurementsNames, setMeasurementsNames] = useState<string[]>([]);
@@ -63,7 +64,7 @@ const MeasurementList = () => {
               <button
                onClick={() => handleDelete(measurement)}
               >
-                X
+                <img src={binIcon} alt="bin icon" />
               </button>
             )}
             <Link to={`/results-list/measurements/${measurement}/addEntry`}>

@@ -110,7 +110,7 @@ const AddMeasurementForm = ({
           <h2 className={styles.measurement_name}>{param?.toUpperCase()}</h2>
         )}
         <label htmlFor="value">Wartość</label>
-        <input type="number" name="value" id="value" />
+        <input type="number" name="value" id="value" step=".01" />
         <label htmlFor="date">Data</label>
         <input type="date" name="date" id="date" />
         <button type="submit">Dodaj</button>

@@ -10,6 +10,7 @@
   padding-inline-start: 0;
   list-style: none;
   padding: 1rem;
+  
 }
 
 .measurement_list li {
@@ -22,9 +23,10 @@
 }
 
 .measurement_item {
-  border: 2px solid black;
+  border: 2px solid var(--primary-green);
   position: relative;
   border-radius: 10px;
+  font-weight: var(--fw-bolder);
 }
 
 .measurement_item a {
@@ -37,8 +39,8 @@
 
 .measurement_list li:hover,
 .measurement_list li:hover a {
-  background: var(--primary-green-normal, #446e52);
-  color: var(--base-colors-fast-white, #f8f8f9);
+  background: var(--primary-green);
+  color: var(--fast-white);
   cursor: pointer;
 }
 
@@ -47,11 +49,12 @@
   color: var(--black);
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
+  border: 2px solid var(--primary-green);
   border-radius: 10px;
   padding: 0.3rem 1.2rem;
   margin: 0.5rem 1rem;
   text-decoration: none;
+  font-weight: var(--fw-bolder);
 }
 
 .add:hover {
@@ -62,7 +65,7 @@
 
 .measurement_item button {
   position: absolute;
-  top: 0;
+  top: -15px;
   right: -2px;
   background: #ff4d4f;
   color: var(--fast-white);
@@ -72,4 +75,10 @@
 }
 .measurement_item button:hover {
   cursor: pointer;
+}
+
+.measurement_item img {
+  
+  width: 23px;
+  height: 23px;
 }
