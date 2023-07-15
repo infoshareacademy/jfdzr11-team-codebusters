@@ -54,7 +54,7 @@ const Medicine = ({ medicine }: MedicineProps) => {
   return (
     <div className={styles.medicine}>
       <div className={styles.medicine_label}>
-        <h2 onClick={medicineVisibilityToggle}>{medicine.name}</h2>
+        <h2 onClick={medicineVisibilityToggle} className={styles.medicine_name}>{medicine.name}</h2>
         <span>
           {currentAmountMedicine} / {medicine.pack}
         </span>
@@ -69,7 +69,7 @@ const Medicine = ({ medicine }: MedicineProps) => {
         </div>
       </div>
       {medicineVisibility && (
-        <ul className={styles.medicineSlideout}>
+        <ul className={styles.medicine_slideout}>
           <li>{medicine.form}</li>
           <li>{medicine.substance}</li>
           <li>{medicine.power}</li>
