@@ -12,19 +12,21 @@ type ReminderProps = {
   reminderData?: Array<Reminder> | null;
   onHideForm?: () => void;
   editForm: undefined | Reminder;
+  medicineForm: boolean;
 };
 const ReminderComponent: React.FC<ReminderProps> = ({
   isModalForm,
   onModalDisable = () => {},
   reminderData,
   onHideForm = () => {},
-  editForm
+  editForm,
+  medicineForm
 }) => {  
   return (
     <>
       <Backdrop onModalDisable={onModalDisable} onHideForm={onHideForm} />
       {isModalForm ? (
-        <ReminderForm editForm={editForm} onHideForm={onHideForm} />
+        <ReminderForm editForm={editForm} onHideForm={onHideForm} medicineForm={medicineForm} />
       ) : (
         <ReminderMessage reminderData={reminderData} onModalDisable={onModalDisable}  />
       )}

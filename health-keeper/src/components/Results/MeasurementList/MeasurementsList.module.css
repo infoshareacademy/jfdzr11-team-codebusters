@@ -1,10 +1,10 @@
 .header {
-    text-align: center;
-    margin: 0.5rem 0;
+  text-align: center;
+  margin: 0.5rem 0;
 }
 .measurement_list {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
   column-gap: 1rem;
   row-gap: 0.7rem;
   padding-inline-start: 0;
@@ -13,29 +13,26 @@
 }
 
 .measurement_list li {
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
 }
 .measurement_list a {
-    text-decoration: none;
-
+  text-decoration: none;
 }
 
 .measurement_item {
-    border: 2px solid black;
-    position: relative;
-    border-radius: 10px;
-
+  border: 2px solid black;
+  position: relative;
+  border-radius: 10px;
 }
 
 .measurement_item a {
-    color: var(--black);
-    height: 100%;
-    width: 100%;
-    text-align: center;
-    padding: 0.3rem 1.2rem;
-    
+  color: var(--black);
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  padding: 0.3rem 1.2rem;
 }
 
 .measurement_list li:hover,
@@ -45,35 +42,32 @@
   cursor: pointer;
 }
 
-
 .add {
-    display: flex;
-    color: var(--black);
-    justify-content: center;
-    align-items: center;
-    border: 2px solid black;
-    border-radius: 10px;
-    padding: 0.3rem 1.2rem;
-    margin: 0.5rem 1rem;
-    text-decoration: none;
+  display: flex;
+  color: var(--black);
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 0.3rem 1.2rem;
+  margin: 0.5rem 1rem;
+  text-decoration: none;
 }
 
 .add:hover {
-    background: var(--primary-green-normal, #446e52);
-    color: var(--base-colors-fast-white, #f8f8f9);
-    cursor: pointer;
+  background: var(--primary-green-normal, #446e52);
+  color: var(--base-colors-fast-white, #f8f8f9);
+  cursor: pointer;
 }
 
-.measurement_item button{
+.measurement_item button {
   position: absolute;
-  top:-10px;
-  right: 0;
-  
-  background: lightcoral;
+  top: 0;
+  right: -2px;
+  background: #ff4d4f;
   color: var(--fast-white);
   border: none;
-  border-radius: 50%;
-  aspect-ratio: 1/1;
+  border-radius: 0 10px 0 8px;
   height: 25px;
 }
 .measurement_item button:hover {
