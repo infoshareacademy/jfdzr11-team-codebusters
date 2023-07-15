@@ -3,13 +3,12 @@ import styles from './PersonalData.module.css';
 import { useState, useContext, useEffect } from 'react';
 import { DataContext } from '../../../DataContext/DataContext';
 import { db } from './../../../api/firebase/firebase';
-import { doc, updateDoc, getDoc, Timestamp } from 'firebase/firestore';
+import { doc, updateDoc, Timestamp } from 'firebase/firestore';
 import { AuthContext } from '../../../AuthContext/AuthContext';
 import dateConvert from '../../../utils/DateConverter';
 
-
 const PersonalData = () => {
-  const { userData, setUserData } = useContext(DataContext);
+  const { userData } = useContext(DataContext);
   const [label, setLabel] = useState('personaldata');
 
   const [convertedBirthday, setConvertedBirthday] = useState('');
@@ -177,10 +176,6 @@ const PersonalData = () => {
     try {
       const userRef = doc(db, 'users', currentUser?.uid);
       await updateDoc(userRef, formValue);
-      const userData = await getDoc(userRef).then(snapshot => snapshot.data());
-      if (userData) {
-        setUserData(userData as UserData);
-      }
     } catch (error) {
       console.log(error);
     }

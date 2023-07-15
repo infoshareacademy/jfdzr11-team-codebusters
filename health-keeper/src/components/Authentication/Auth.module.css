@@ -5,11 +5,12 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: absolute;
 }
 
 .backIcon {
     display: block;
-    background: url('./../../assets/arrow.png');
+    background: url('./../../assets/arrow-black.png');
     width: 35px;
     height: 35px;
     transform: rotate(180deg);
@@ -34,10 +35,8 @@
 
 .form {
     display: flex;
-    flex-direction: column;
     gap: 0.25rem;
     max-width: 312px;
-    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column; 
