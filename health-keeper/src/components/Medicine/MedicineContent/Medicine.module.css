@@ -1,0 +1,52 @@
+.medicine_label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 15px;
+    margin: 15px 10px;
+
+}
+.medicine_name {
+    font-size: 16px;
+}
+
+.button_container {
+    display: flex;
+}
+
+.medicine_label span{
+    font-size: 14px;
+}
+
+
+.buttons_container{
+    display: flex;
+    column-gap: 5px;
+    align-items: flex-end;    
+}
+
+.buttons_container button{
+
+    min-width: 25px;
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid var(--medium-grey);
+    background: var(--primary-green);
+    color: var(--fast-white);
+    cursor: pointer;
+}
+
+.medicine_slideout{
+    font-size: 12px;
+    margin-left: 20px;
+    border-bottom: 1px solid var(--black);
+}
+
+.medicineSlideout li {
+   margin: 5px;
+}
+
+.medicine_slideout li{
+    font-size: 14px;
+}

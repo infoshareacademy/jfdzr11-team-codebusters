@@ -1,0 +1,32 @@
+.reminder_wrapper {    
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border: 2px solid black;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  min-height: 30%;
+  max-height: 50%;
+  z-index: 100;
+  background: white;
+}
+
+.close_button {
+  position: absolute;
+  top:2px;
+  right: 2px;
+  padding: 0.5rem;
+  background: var(--primary-green);
+  color: var(--fast-white);
+  border: none;
+  border-radius: 0 10px 0 10px;
+  
+}
+.close_button:hover {
+  cursor: pointer;
+}

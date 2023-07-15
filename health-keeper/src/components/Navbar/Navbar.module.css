@@ -1,0 +1,79 @@
+.navbar_container {
+  width: 100%;
+  height: 100%;
+  background-color: var(--fast-white);
+  box-shadow: 0 4px 10px var(--black-shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 32px;
+}
+
+.navigate_back_btn {
+  width: 69px;
+  height: 24px;
+  border: none;
+  cursor: pointer;
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+  font-family: var(--Relaway);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.navbar_container a {
+  cursor: pointer;
+}
+
+.navbar_icon_container {
+  display: flex;
+  gap: 8px;
+}
+
+.navbar_container a.calendar {
+  width: 24px;
+  height: 24px;
+  background: url(../../assets/navbar/calendar-default.png);
+  margin: 0;
+  padding: 0;
+}
+
+.notifications_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: url(../../assets/navbar/notifications-default.png);
+}
+
+.navbar_container a.calendar.active {
+  background: url(../../assets/navbar/calendar-checked.png);
+}
+
+.navbar_container a.notifications {
+  width: 24px;
+  height: 24px;
+  background: url(../../assets/navbar/notifications-default.png);
+}
+
+.navbar_container a.notifications.active {
+  background: url(../../assets/navbar/notifications-checked.png);
+}
+
+.navbar_container a.avatar {
+  width: 24px;
+  height: 24px;
+  background: url(../../assets/navbar/avatar-default.png);
+}
+
+.navbar_container a.avatar.active {
+  background: url(../../assets/navbar/avatar-checked.png);
+}
+.notifications_button:hover {
+  cursor: pointer;
+}
