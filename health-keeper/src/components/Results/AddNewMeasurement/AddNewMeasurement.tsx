@@ -1,7 +1,6 @@
-import { AddMeasurementForm } from '../../index';
+import { AddMeasurementForm } from "../../index";
 
 const AddNewMeasurement = () => {
-
   return <AddMeasurementForm isNewMeasurement />;
 };
 

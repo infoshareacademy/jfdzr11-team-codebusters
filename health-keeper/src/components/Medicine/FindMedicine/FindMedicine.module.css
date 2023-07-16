@@ -30,7 +30,8 @@
   margin-bottom: 3rem;
 }
 
-.findDiv button:hover, .resultDiv button:hover {
+.findDiv button:hover,
+.resultDiv button:hover {
   cursor: pointer;
   background-color: var(--primary-green);
   color: var(--fast-white);

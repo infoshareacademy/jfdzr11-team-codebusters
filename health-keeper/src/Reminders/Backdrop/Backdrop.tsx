@@ -1,4 +1,4 @@
-import styles from './Backdrop.module.css';
+import styles from "./Backdrop.module.css";
 
 type BackdropProps = {
   onModalDisable: () => void;

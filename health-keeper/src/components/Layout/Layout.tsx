@@ -1,16 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import { AuthContext } from '../../AuthContext/AuthContext';
-import { Navbar, Footer, ReminderComponent } from '../index';
-import styles from './Layout.module.css';
-import {
-  doc,
-  onSnapshot,
-  updateDoc,
-} from 'firebase/firestore';
-import { db } from '../../api/firebase/firebase';
-import { checkReminders } from '../../Reminders/utils';
-import type { ReminderData, ReminderType } from '../../Reminders/types';
+import { useContext, useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+import { AuthContext } from "../../AuthContext/AuthContext";
+import { Navbar, Footer, ReminderComponent } from "../index";
+import styles from "./Layout.module.css";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { db } from "../../api/firebase/firebase";
+import { checkReminders } from "../../Reminders/utils";
+import type { ReminderData, ReminderType } from "../../Reminders/types";
 
 const Layout = () => {
   const { currentUser } = useContext(AuthContext);
@@ -18,7 +14,7 @@ const Layout = () => {
   const [showReminder, setShowReminder] = useState(false);
   const [reminderData, setReminderData] = useState<ReminderData | null>(null);
   const [currentReminder, setCurrentReminder] = useState<ReminderType | null>(
-    null
+    null,
   );
 
   // get the reminders from the database
@@ -27,8 +23,8 @@ const Layout = () => {
       setShowReminder(false);
       return;
     }
-    const docRef = doc(db, 'users', currentUser?.uid);
-    const unsubscribe = onSnapshot(docRef, docSnap => {
+    const docRef = doc(db, "users", currentUser?.uid);
+    const unsubscribe = onSnapshot(docRef, (docSnap) => {
       const userReminders = docSnap.data()?.reminders;
       setReminderData(userReminders);
     });
@@ -47,29 +43,29 @@ const Layout = () => {
         20000,
         reminderData,
         setCurrentReminder,
-        setShowReminder
+        setShowReminder,
       );
 
       return () => {
-        clearInterval(intervalId); 
+        clearInterval(intervalId);
       };
     }
   }, [reminderData, currentReminder]);
 
   const handleReminderVisibility = async () => {
-    const docRef = doc(db, 'users', currentUser?.uid);
-    
+    const docRef = doc(db, "users", currentUser?.uid);
+
     try {
       if (currentReminder && reminderData) {
         const reminderId = currentReminder.reminderId;
         // Remove the reminder from the Firebase document
         const filteredReminders = reminderData.filter(
-          reminder => reminder.reminderId !== reminderId
+          (reminder) => reminder.reminderId !== reminderId,
         );
         await updateDoc(docRef, {
           reminders: filteredReminders,
         });
-        console.log('Reminder deleted');
+        console.log("Reminder deleted");
         setShowReminder(false);
       }
     } catch (error) {

@@ -1,11 +1,11 @@
-import 'moment/locale/en-gb';
-import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../../AuthContext/AuthContext';
-import { CategoryScale, LinearScale, PointElement } from 'chart.js';
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS } from 'chart.js/auto';
-import { DataContext } from '../../../DataContext/DataContext';
-import { TooltipItem } from 'chart.js';
+import "moment/locale/en-gb";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../AuthContext/AuthContext";
+import { CategoryScale, LinearScale, PointElement } from "chart.js";
+import { Line } from "react-chartjs-2";
+import { Chart as ChartJS } from "chart.js/auto";
+import { DataContext } from "../../../DataContext/DataContext";
+import { TooltipItem } from "chart.js";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement);
 
@@ -31,7 +31,7 @@ const ResultChart2 = ({ param }: ResultChartProps) => {
 
           const dataPoints: Array<{ date: Date; measurementValue: number }> =
             [];
-          Object.keys(measurementEntries).forEach(entryKey => {
+          Object.keys(measurementEntries).forEach((entryKey) => {
             const entry = measurementEntries[entryKey];
             const dataPoint = {
               date: entry.date.toDate(),
@@ -40,7 +40,7 @@ const ResultChart2 = ({ param }: ResultChartProps) => {
             dataPoints.push(dataPoint);
             console.log(dataPoints);
           });
-          
+
           dataPoints.sort((a, b) => a.date.getTime() - b.date.getTime());
           setMeasurementData(dataPoints);
         }
@@ -52,7 +52,7 @@ const ResultChart2 = ({ param }: ResultChartProps) => {
   }, [param, userId, userData]);
 
   const getLabel = (date: Date) => {
-    const month = date.toLocaleString('default', { month: 'short' });
+    const month = date.toLocaleString("default", { month: "short" });
     const year = date.getFullYear();
     const day = date.getDate();
     return `${day} ${month} ${year}`;
@@ -73,13 +73,13 @@ const ResultChart2 = ({ param }: ResultChartProps) => {
           return getLabel(currentDate);
         }
       }
-      return '';
+      return "";
     }),
     datasets: [
       {
-        data: measurementData.map(entry => entry.measurementValue),
+        data: measurementData.map((entry) => entry.measurementValue),
         fill: false,
-        borderColor: 'rgb(75, 192, 192)',
+        borderColor: "rgb(75, 192, 192)",
         tension: 0.1,
       },
     ],

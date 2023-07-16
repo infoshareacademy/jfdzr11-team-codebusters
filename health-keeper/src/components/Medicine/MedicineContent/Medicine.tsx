@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react';
-import styles from './Medicine.module.css';
-import MedType from '../types';
-import { AuthContext } from '../../../AuthContext/AuthContext';
-import { db } from '../../../api/firebase/firebase';
-import { doc, updateDoc } from 'firebase/firestore';
-import { DataContext } from '../../../DataContext/DataContext';
+import { useContext, useState } from "react";
+import styles from "./Medicine.module.css";
+import MedType from "../types";
+import { AuthContext } from "../../../AuthContext/AuthContext";
+import { db } from "../../../api/firebase/firebase";
+import { doc, updateDoc } from "firebase/firestore";
+import { DataContext } from "../../../DataContext/DataContext";
 
 interface MedicineProps {
   medicine: MedType;
@@ -13,7 +13,7 @@ interface MedicineProps {
 const Medicine = ({ medicine }: MedicineProps) => {
   const [medicineVisibility, setMedicineVisibility] = useState(false);
   const [currentAmountMedicine, setCurrentAmountMedicine] = useState(
-    medicine.currentAmount
+    medicine.currentAmount,
   );
 
   const { currentUser } = useContext(AuthContext);
@@ -21,17 +21,17 @@ const Medicine = ({ medicine }: MedicineProps) => {
 
   const id = currentUser?.uid;
 
-  const docRef = doc(db, 'users', id);
+  const docRef = doc(db, "users", id);
   const medicineVisibilityToggle = () => {
     setMedicineVisibility(!medicineVisibility);
   };
 
   const handleAddMedicine = () => {
-    setCurrentAmountMedicine(prev => prev + 1);
+    setCurrentAmountMedicine((prev) => prev + 1);
   };
 
   const handleRemoveMedicine = () => {
-    setCurrentAmountMedicine(prev => prev - 1);
+    setCurrentAmountMedicine((prev) => prev - 1);
   };
 
   const handleMedicineAmountChange = async () => {
@@ -40,12 +40,12 @@ const Medicine = ({ medicine }: MedicineProps) => {
     const updatedMedicines: MedType[] = userData.medicines.filter(
       (element: MedType) => {
         return element.registryNumber !== medicine.registryNumber;
-      }
+      },
     );
     updatedMedicines.push(medicine);
     try {
       await updateDoc(docRef, { medicines: updatedMedicines });
-      console.log('Document updated successfully!');
+      console.log("Document updated successfully!");
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +54,9 @@ const Medicine = ({ medicine }: MedicineProps) => {
   return (
     <div className={styles.medicine}>
       <div className={styles.medicine_label}>
-        <h2 onClick={medicineVisibilityToggle} className={styles.medicine_name}>{medicine.name}</h2>
+        <h2 onClick={medicineVisibilityToggle} className={styles.medicine_name}>
+          {medicine.name}
+        </h2>
         <span>
           {currentAmountMedicine} / {medicine.pack}
         </span>
@@ -63,7 +65,8 @@ const Medicine = ({ medicine }: MedicineProps) => {
           <button onClick={handleAddMedicine}>+</button>
           <button
             disabled={medicine.currentAmount === currentAmountMedicine}
-            onClick={handleMedicineAmountChange}>
+            onClick={handleMedicineAmountChange}
+          >
             Zapisz
           </button>
         </div>

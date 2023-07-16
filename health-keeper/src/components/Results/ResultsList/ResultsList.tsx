@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import styles from './ResultsList.module.css';
-import arrowIcon from './../../../assets/arrow.png';
+import { Link } from "react-router-dom";
+import styles from "./ResultsList.module.css";
+import arrowIcon from "./../../../assets/arrow.png";
 const ResultsList = () => {
   return (
     <div className={styles.container}>

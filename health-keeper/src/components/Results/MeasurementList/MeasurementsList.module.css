@@ -73,7 +73,8 @@
 .measurement_item button:hover {
   cursor: pointer;
 }
-.measurement_item:hover, .measurement_item a:hover {
+.measurement_item:hover,
+.measurement_item a:hover {
   color: var(--fast-white);
 }
 

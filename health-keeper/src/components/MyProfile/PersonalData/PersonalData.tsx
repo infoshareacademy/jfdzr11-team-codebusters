@@ -1,37 +1,37 @@
-import React from 'react';
-import styles from './PersonalData.module.css';
-import { useState, useContext, useEffect } from 'react';
-import { DataContext } from '../../../DataContext/DataContext';
-import { db } from './../../../api/firebase/firebase';
-import { doc, updateDoc, Timestamp } from 'firebase/firestore';
-import { AuthContext } from '../../../AuthContext/AuthContext';
-import dateConvert from '../../../utils/DateConverter';
+import React from "react";
+import styles from "./PersonalData.module.css";
+import { useState, useContext, useEffect } from "react";
+import { DataContext } from "../../../DataContext/DataContext";
+import { db } from "./../../../api/firebase/firebase";
+import { doc, updateDoc, Timestamp } from "firebase/firestore";
+import { AuthContext } from "../../../AuthContext/AuthContext";
+import dateConvert from "../../../utils/DateConverter";
 
 const PersonalData = () => {
   const { userData } = useContext(DataContext);
-  const [label, setLabel] = useState('personaldata');
+  const [label, setLabel] = useState("personaldata");
 
-  const [convertedBirthday, setConvertedBirthday] = useState('');
-  const [convertedBirthdayReverse, setConvertedBirthdayReverse] = useState('');
+  const [convertedBirthday, setConvertedBirthday] = useState("");
+  const [convertedBirthdayReverse, setConvertedBirthdayReverse] = useState("");
   const { currentUser } = useContext(AuthContext);
 
   const [editForm, setEditForm] = useState<boolean>(false);
-  const [editFormType, setEditFormType] = useState('');
-  const [key, setKey] = useState<string>('');
+  const [editFormType, setEditFormType] = useState("");
+  const [key, setKey] = useState<string>("");
 
-  const [fullname, setFullname] = useState<string>('');
+  const [fullname, setFullname] = useState<string>("");
 
   useEffect(() => {
     if (userData.personalData?.birthday) {
       setConvertedBirthday(
-        dateConvert(userData.personalData?.birthday, 'normal')
+        dateConvert(userData.personalData?.birthday, "normal"),
       );
       setConvertedBirthdayReverse(
-        dateConvert(userData.personalData?.birthday, 'reverse')
+        dateConvert(userData.personalData?.birthday, "reverse"),
       );
     }
     setFullname(
-      `${userData.personalData?.name} ${userData.personalData?.lastName}`
+      `${userData.personalData?.name} ${userData.personalData?.lastName}`,
     );
   }, [userData]);
 
@@ -42,7 +42,7 @@ const PersonalData = () => {
   };
 
   const renderForm = () => {
-    if (editFormType === 'Imię i nazwisko') {
+    if (editFormType === "Imię i nazwisko") {
       return (
         <>
           <input
@@ -58,8 +58,8 @@ const PersonalData = () => {
           />
         </>
       );
-    } else if (editFormType === 'Płeć') {
-      return userData.personalData?.gender == 'mężczyzna' ? (
+    } else if (editFormType === "Płeć") {
+      return userData.personalData?.gender == "mężczyzna" ? (
         <div className={styles.radio_container}>
           <div>
             <input
@@ -94,7 +94,7 @@ const PersonalData = () => {
           </div>
         </div>
       );
-    } else if (editFormType === 'Data urodzenia') {
+    } else if (editFormType === "Data urodzenia") {
       return (
         <input
           type="date"
@@ -102,7 +102,7 @@ const PersonalData = () => {
           defaultValue={convertedBirthdayReverse}
         />
       );
-    } else if (editFormType === 'PESEL') {
+    } else if (editFormType === "PESEL") {
       return (
         <input
           type="text"
@@ -111,7 +111,7 @@ const PersonalData = () => {
           size={11}
         />
       );
-    } else if (editFormType === 'Telefon') {
+    } else if (editFormType === "Telefon") {
       return (
         <input
           type="text"
@@ -120,7 +120,7 @@ const PersonalData = () => {
           size={9}
         />
       );
-    } else if (editFormType === 'Adres') {
+    } else if (editFormType === "Adres") {
       return (
         <input
           type="text"
@@ -128,7 +128,7 @@ const PersonalData = () => {
           defaultValue={userData.personalData?.address}
         />
       );
-    } else if (editFormType === 'Adres e-mail') {
+    } else if (editFormType === "Adres e-mail") {
       return (
         <input
           type="text"
@@ -145,7 +145,7 @@ const PersonalData = () => {
 
     let formValue;
 
-    if (key === 'fullname') {
+    if (key === "fullname") {
       formValue = {
         personalData: {
           ...userData.personalData,
@@ -157,9 +157,9 @@ const PersonalData = () => {
       const form = (event.target as any).editData;
       let data;
 
-      if (key === 'birthday') {
+      if (key === "birthday") {
         data = Timestamp.fromDate(new Date(form.value));
-      } else if (key === 'PESEL' || key === 'tel') {
+      } else if (key === "PESEL" || key === "tel") {
         data = Number(form.value);
       } else {
         data = form.value;
@@ -174,7 +174,7 @@ const PersonalData = () => {
     }
 
     try {
-      const userRef = doc(db, 'users', currentUser?.uid);
+      const userRef = doc(db, "users", currentUser?.uid);
       await updateDoc(userRef, formValue);
     } catch (error) {
       console.log(error);
@@ -189,53 +189,53 @@ const PersonalData = () => {
           <span className={styles.personaldata_header}>Dane personalne</span>
           <button
             className={
-              label === 'personaldata'
+              label === "personaldata"
                 ? styles.personaldata_label_active
                 : styles.personaldata_label
             }
-            onClick={() => setLabel('personaldata')}>
+            onClick={() => setLabel("personaldata")}
+          >
             Dane osobowe
           </button>
           <button
             className={
-              label === 'contactdata'
+              label === "contactdata"
                 ? styles.personaldata_label_active
                 : styles.personaldata_label
             }
-            onClick={() => setLabel('contactdata')}>
+            onClick={() => setLabel("contactdata")}
+          >
             Dane kontaktowe
           </button>
-          {label == 'personaldata' ? (
+          {label == "personaldata" ? (
             <>
               <div className={styles.data_container}>
                 <span className={styles.data_header}>Imię i nazwisko</span>
                 <span className={styles.data_detail}>{fullname}</span>
                 <button
-                  onClick={() =>
-                    formEdit('Imię i nazwisko', 'fullname')
-                  }></button>
+                  onClick={() => formEdit("Imię i nazwisko", "fullname")}
+                ></button>
               </div>
               <div className={styles.data_container}>
                 <span className={styles.data_header}>Płeć</span>
                 <span className={styles.data_detail}>
                   {userData.personalData?.gender}
                 </span>
-                <button onClick={() => formEdit('Płeć', 'gender')}></button>
+                <button onClick={() => formEdit("Płeć", "gender")}></button>
               </div>
               <div className={styles.data_container}>
                 <span className={styles.data_header}>Data urodzenia</span>
                 <span className={styles.data_detail}>{convertedBirthday}</span>
                 <button
-                  onClick={() =>
-                    formEdit('Data urodzenia', 'birthday')
-                  }></button>
+                  onClick={() => formEdit("Data urodzenia", "birthday")}
+                ></button>
               </div>
               <div className={styles.data_container}>
                 <span className={styles.data_header}>PESEL</span>
                 <span className={styles.data_detail}>
                   {userData.personalData?.PESEL}
                 </span>
-                <button onClick={() => formEdit('PESEL', 'PESEL')}></button>
+                <button onClick={() => formEdit("PESEL", "PESEL")}></button>
               </div>
             </>
           ) : (
@@ -245,16 +245,16 @@ const PersonalData = () => {
                 <span className={styles.data_detail}>
                   {userData.personalData?.tel
                     ? `+48 ${userData.personalData?.tel}`
-                    : ''}
+                    : ""}
                 </span>
-                <button onClick={() => formEdit('Telefon', 'tel')}></button>
+                <button onClick={() => formEdit("Telefon", "tel")}></button>
               </div>
               <div className={styles.data_container}>
                 <span className={styles.data_header}>Adres</span>
                 <span className={styles.data_detail}>
                   {userData.personalData?.address}
                 </span>
-                <button onClick={() => formEdit('Adres', 'address')}></button>
+                <button onClick={() => formEdit("Adres", "address")}></button>
               </div>
               <div className={styles.data_container}>
                 <span className={styles.data_header}>Adres e-mail</span>
@@ -262,7 +262,8 @@ const PersonalData = () => {
                   {userData.personalData?.email}
                 </span>
                 <button
-                  onClick={() => formEdit('Adres e-mail', 'email')}></button>
+                  onClick={() => formEdit("Adres e-mail", "email")}
+                ></button>
               </div>
             </>
           )}

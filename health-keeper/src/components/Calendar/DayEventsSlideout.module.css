@@ -1,107 +1,95 @@
-.slideout{
-    width: 100%;
-    margin: 2px 2px;
-    padding: 2px;
-    max-height: 150px;
-    overflow: scroll;
+.slideout {
+  width: 100%;
+  margin: 2px 2px;
+  padding: 2px;
+  max-height: 150px;
+  overflow: scroll;
 }
 
 .slideout-show {
-    height: 150px;
-    visibility: visible;
-     opacity: 1;
-    animation-name: slidein;
-    animation-duration: 0.5s;
-    animation-direction: normal;
+  height: 150px;
+  visibility: visible;
+  opacity: 1;
+  animation-name: slidein;
+  animation-duration: 0.5s;
+  animation-direction: normal;
 }
 .slideout-hidden {
-    height: 1px;
-    visibility: hidden;
-    opacity: 0;
-    animation-name: slideout;
-    animation-duration: 0.5s;
-    animation-direction: normal;
-   
-    /* transition: height 0.5s, visibility 0s, opacity 1s linear;
+  height: 1px;
+  visibility: hidden;
+  opacity: 0;
+  animation-name: slideout;
+  animation-duration: 0.5s;
+  animation-direction: normal;
+
+  /* transition: height 0.5s, visibility 0s, opacity 1s linear;
     animation-name: slide;
     animation-duration: 0.5s; */
 }
 
 @keyframes slidein {
-    0% {
-        height: 1px;
-        visibility: hidden;
-        opacity: 0;
-       
-    }
-    
-    
-    to{
-        height: 150px;
-        visibility: visible;
-        opacity: 1;
-        
-    }
+  0% {
+    height: 1px;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  to {
+    height: 150px;
+    visibility: visible;
+    opacity: 1;
+  }
 }
-    @keyframes slideout {
-        from {
-            height: 150px;
-            visibility: visible;
-            opacity: 1;
-           
-           
-        }
-        to{
-            height: 1px;
-            visibility: hidden;
-            opacity: 0;
-        }
+@keyframes slideout {
+  from {
+    height: 150px;
+    visibility: visible;
+    opacity: 1;
+  }
+  to {
+    height: 1px;
+    visibility: hidden;
+    opacity: 0;
+  }
 }
 
-
-.reminder{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    width: 100%;
-    padding: 5px 10px;
-    margin: 3px 0;
-    border-radius: 5px;
-    animation-name: smoothAppear;
-    animation-duration: 0.5s;
-    animation-direction: normal;
+.reminder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px 10px;
+  margin: 3px 0;
+  border-radius: 5px;
+  animation-name: smoothAppear;
+  animation-duration: 0.5s;
+  animation-direction: normal;
 }
 
 .reminder-general {
-    
-    background-color: rgba(51, 141, 201, 0.364);
+  background-color: rgba(51, 141, 201, 0.364);
 }
 
-.reminder-medicine{
-   
-    background-color: rgba(51, 201, 89, 0.364);
+.reminder-medicine {
+  background-color: rgba(51, 201, 89, 0.364);
 }
 
 @keyframes smoothAppear {
-    from{
-        opacity: 0;
-    }
-    to{
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-
-
-.reminderEditBtn{
-    border: none;
-    background-color: transparent;
-    color: #ffffff;
+.reminderEditBtn {
+  border: none;
+  background-color: transparent;
+  color: #ffffff;
 }
 
-
-
-.editIcon{
-    max-height: 25px;
+.editIcon {
+  max-height: 25px;
 }

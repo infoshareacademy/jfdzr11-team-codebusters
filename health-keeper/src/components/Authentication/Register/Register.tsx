@@ -1,11 +1,11 @@
-import { FormEvent } from 'react';
-import styles from '../Auth.module.css';
-import { doc, setDoc } from 'firebase/firestore';
-import { db } from '../../../api/firebase/firebase';
-import { useNavigate, Link } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../../api/firebase/firebase';
-import { toast } from 'react-hot-toast';
+import { FormEvent } from "react";
+import styles from "../Auth.module.css";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../../api/firebase/firebase";
+import { useNavigate, Link } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../api/firebase/firebase";
+import { toast } from "react-hot-toast";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -14,36 +14,36 @@ const Register = () => {
     e.preventDefault();
 
     const name: string = (
-      e.currentTarget.elements.namedItem('name') as HTMLInputElement
+      e.currentTarget.elements.namedItem("name") as HTMLInputElement
     ).value;
     const lastName: string = (
-      e.currentTarget.elements.namedItem('lastName') as HTMLInputElement
+      e.currentTarget.elements.namedItem("lastName") as HTMLInputElement
     ).value;
     const email: string = (
-      e.currentTarget.elements.namedItem('email') as HTMLInputElement
+      e.currentTarget.elements.namedItem("email") as HTMLInputElement
     ).value;
     const confirmEmail: string = (
-      e.currentTarget.elements.namedItem('confirmEmail') as HTMLInputElement
+      e.currentTarget.elements.namedItem("confirmEmail") as HTMLInputElement
     ).value;
     const password: string = (
-      e.currentTarget.elements.namedItem('password') as HTMLInputElement
+      e.currentTarget.elements.namedItem("password") as HTMLInputElement
     ).value;
     const confirmPassword: string = (
-      e.currentTarget.elements.namedItem('confirmPassword') as HTMLInputElement
+      e.currentTarget.elements.namedItem("confirmPassword") as HTMLInputElement
     ).value;
 
     // check if password and email match
     if (email !== confirmEmail || password !== confirmPassword) {
-      console.log('Passwords or emails are not the same!');
+      console.log("Passwords or emails are not the same!");
       return;
     } else {
       try {
         const userCredential = await createUserWithEmailAndPassword(
           auth,
           email,
-          password
+          password,
         );
-        toast.success('Pomyślnie zarejestrowano!');
+        toast.success("Pomyślnie zarejestrowano!");
 
         const userId = userCredential.user?.uid;
 
@@ -61,13 +61,13 @@ const Register = () => {
             cukier: {},
           },
           reminders: [],
-          medicines: []
+          medicines: [],
         };
-        navigate('/');
+        navigate("/");
         // add user to database
-        await setDoc(doc(db, 'users', userId), user);
+        await setDoc(doc(db, "users", userId), user);
       } catch (error) {
-        toast.error('Wystąpił błąd podczas rejestracji!');
+        toast.error("Wystąpił błąd podczas rejestracji!");
       }
     }
   };

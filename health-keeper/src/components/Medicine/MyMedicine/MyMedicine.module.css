@@ -2,12 +2,12 @@
   height: 100%;
   padding: 10px;
 }
-.container h1{
+.container h1 {
   text-align: center;
   font-size: 1.5em;
   margin: 10px 0;
 }
 
 .container ul {
- padding: 0;
+  padding: 0;
 }

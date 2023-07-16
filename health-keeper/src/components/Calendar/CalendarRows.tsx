@@ -17,8 +17,8 @@ const getRemindersForSelectedDay = (reminders: Reminder[], day: Date) => {
   else {
     dayReminders = reminders.filter(
       (reminder) =>
-        new Date(reminder.dateTime).toDateString() === day.toDateString()
-      );
+        new Date(reminder.dateTime).toDateString() === day.toDateString(),
+    );
     return dayReminders.sort((a, b) => a.dateTime - b.dateTime);
   }
 };
@@ -29,7 +29,7 @@ const getAllDays = (selectedDay: Date) => {
     selectedDay.getFullYear(),
     selectedDay.getMonth(),
     1,
-    12
+    12,
   );
 
   const firstDayWeekday = firstDayOfSelectedMonth.getDay();
@@ -62,7 +62,9 @@ const getAllDays = (selectedDay: Date) => {
       }
     } else {
       _days.push(
-        new Date(currentlyHandledDay.setDate(currentlyHandledDay.getDate() + 1))
+        new Date(
+          currentlyHandledDay.setDate(currentlyHandledDay.getDate() + 1),
+        ),
       );
     }
   }

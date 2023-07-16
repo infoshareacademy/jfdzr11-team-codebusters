@@ -13,7 +13,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img, picture, video, canvas, svg {
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
   max-width: 100%;
 }
@@ -41,7 +45,7 @@ h6 {
   --medium-grey: #b8b8ba;
   --fast-white: #f8f8f9;
   --primary-green: #446e52;
-  --Relaway: 'Raleway', sans-serif;
+  --Relaway: "Raleway", sans-serif;
   /* font */
   font-family: var(--Relaway);
   --fw-bold: 500;

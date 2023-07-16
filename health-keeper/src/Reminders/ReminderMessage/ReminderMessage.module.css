@@ -1,4 +1,4 @@
-.reminder_wrapper {    
+.reminder_wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,14 +18,13 @@
 
 .close_button {
   position: absolute;
-  top:2px;
+  top: 2px;
   right: 2px;
   padding: 0.5rem;
   background: var(--primary-green);
   color: var(--fast-white);
   border: none;
   border-radius: 0 10px 0 10px;
-  
 }
 .close_button:hover {
   cursor: pointer;

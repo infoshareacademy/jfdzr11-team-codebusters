@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom';
-import styles from './MedicineMain.module.css';
-import arrowIcon from '../../assets/arrow.png';
+import { Link } from "react-router-dom";
+import styles from "./MedicineMain.module.css";
+import arrowIcon from "../../assets/arrow.png";
 
 const MedicineMain = () => {
   return (
     <div className={styles.wrapper}>
-      <Link to={'/medicine/mymedicine'}>
+      <Link to={"/medicine/mymedicine"}>
         Apteczka
         <img src={arrowIcon} />
       </Link>
-      <Link to={'/medicine/find'}>
+      <Link to={"/medicine/find"}>
         Znajdź lek
         <img src={arrowIcon} />
       </Link>

@@ -1,10 +1,9 @@
-import { FormEvent, useRef } from 'react';
-import styles from '../Auth.module.css';
-import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../../api/firebase/firebase';
-import { toast } from 'react-hot-toast';
-
+import { FormEvent, useRef } from "react";
+import styles from "../Auth.module.css";
+import { Link, useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../api/firebase/firebase";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -15,18 +14,18 @@ const Login = () => {
     e.preventDefault();
 
     const email: string = (
-      e.currentTarget.elements.namedItem('email') as HTMLInputElement
+      e.currentTarget.elements.namedItem("email") as HTMLInputElement
     ).value;
     const password: string = (
-      e.currentTarget.elements.namedItem('password') as HTMLInputElement
+      e.currentTarget.elements.namedItem("password") as HTMLInputElement
     ).value;
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      toast.success('Pomyślnie zalogowano!');
-      navigate('/');
+      toast.success("Pomyślnie zalogowano!");
+      navigate("/");
     } catch (error) {
-      toast.error('Wystąpił błąd podczas logowania!')
+      toast.error("Wystąpił błąd podczas logowania!");
     }
     formRef.current?.reset();
   };
@@ -42,8 +41,8 @@ const Login = () => {
           <label htmlFor="email">Hasło</label>
           <input type="password" name="password" id="password" />
           <button type="submit">Zaloguj się</button>
-          <Link to='/forgot-password'>Nie pamiętam hasła</Link>
-          <Link to="/register">Nie masz jeszcze konta?</Link> 
+          <Link to="/forgot-password">Nie pamiętam hasła</Link>
+          <Link to="/register">Nie masz jeszcze konta?</Link>
         </form>
       </div>
     </>

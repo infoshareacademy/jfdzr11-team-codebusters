@@ -1,5 +1,5 @@
-import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
 import {
   Layout,
   Login,
@@ -15,17 +15,17 @@ import {
   PersonalData,
   FindMedicine,
   MyMedicine,
-} from './components/index';
-import PrivateRoute from './utils/PrivateRoute';
-import { useContext, useEffect } from 'react';
-import { AuthContext } from './AuthContext/AuthContext';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './api/firebase/firebase';
-import { DataContext } from './DataContext/DataContext';
-import { db } from './api/firebase/firebase';
-import { doc, onSnapshot } from 'firebase/firestore';
-import { UserData } from './DataContext/dataTypes';
-import { Toaster, toast } from 'react-hot-toast';
+} from "./components/index";
+import PrivateRoute from "./utils/PrivateRoute";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "./AuthContext/AuthContext";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./api/firebase/firebase";
+import { DataContext } from "./DataContext/DataContext";
+import { db } from "./api/firebase/firebase";
+import { doc, onSnapshot } from "firebase/firestore";
+import { UserData } from "./DataContext/dataTypes";
+import { Toaster, toast } from "react-hot-toast";
 
 function App() {
   const { setCurrentUser, setIsFetchingUserData, isFetchingUserData } =
@@ -34,26 +34,26 @@ function App() {
 
   const getUserData = async (userID: string) => {
     try {
-      const docRef = doc(db, 'users', userID);
-      const unsubscribe = onSnapshot(docRef, docSnap => {
+      const docRef = doc(db, "users", userID);
+      const unsubscribe = onSnapshot(docRef, (docSnap) => {
         const userData = docSnap.data();
         setUserData(userData as UserData);
       });
 
       return () => unsubscribe();
     } catch (error) {
-      toast.error('Błąd pobierania danych użytkownika');
+      toast.error("Błąd pobierania danych użytkownika");
     }
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
         getUserData(user.uid);
         console.log(user);
       } else {
-        console.log('wylogowano');
+        console.log("wylogowano");
       }
       setIsFetchingUserData(false);
     });
@@ -69,7 +69,7 @@ function App() {
     <div className="app_container">
       <Toaster
         containerStyle={{
-          top: '170px',
+          top: "170px",
         }}
       />
       <Routes>

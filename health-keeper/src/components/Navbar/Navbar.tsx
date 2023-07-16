@@ -1,9 +1,9 @@
-import styles from './Navbar.module.css';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import backIcon from './../../assets/navbar/back.png';
-import { useState } from 'react';
-import { ReminderComponent } from '../index';
+import styles from "./Navbar.module.css";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import backIcon from "./../../assets/navbar/back.png";
+import { useState } from "react";
+import { ReminderComponent } from "../index";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -25,10 +25,11 @@ const Navbar = () => {
         />
       )}
       <div className={styles.navbar_container}>
-        {location.pathname !== '/' ? (
+        {location.pathname !== "/" ? (
           <button
             className={styles.navigate_back_btn}
-            onClick={() => navigate(-1)}>
+            onClick={() => navigate(-1)}
+          >
             <img src={backIcon} />
             <span>Wróć</span>
           </button>
@@ -38,17 +39,18 @@ const Navbar = () => {
         <div className={styles.navbar_icon_container}>
           <Link
             to="/"
-            className={`${location.pathname === '/' ? styles.active : null} ${
+            className={`${location.pathname === "/" ? styles.active : null} ${
               styles.calendar
             }`}
           />
           <button
             onClick={handleReminderVisibility}
-            className={styles.notifications_button}></button>
+            className={styles.notifications_button}
+          ></button>
           <Link
             to="/myprofile"
             className={`${
-              location.pathname === '/myprofile' ? styles.active : null
+              location.pathname === "/myprofile" ? styles.active : null
             } ${styles.avatar}`}
           />
         </div>

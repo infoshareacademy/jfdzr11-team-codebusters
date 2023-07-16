@@ -2,9 +2,9 @@ import {
   Backdrop,
   ReminderForm,
   ReminderMessage,
-} from '../../components/index';
-import React from 'react';
-import { Reminder } from '../../DataContext/dataTypes';
+} from "../../components/index";
+import React from "react";
+import { Reminder } from "../../DataContext/dataTypes";
 
 type ReminderProps = {
   isModalForm: boolean;
@@ -20,15 +20,22 @@ const ReminderComponent: React.FC<ReminderProps> = ({
   reminderData,
   onHideForm = () => {},
   editForm,
-  medicineForm
-}) => {  
+  medicineForm,
+}) => {
   return (
     <>
       <Backdrop onModalDisable={onModalDisable} onHideForm={onHideForm} />
       {isModalForm ? (
-        <ReminderForm editForm={editForm} onHideForm={onHideForm} medicineForm={medicineForm} />
+        <ReminderForm
+          editForm={editForm}
+          onHideForm={onHideForm}
+          medicineForm={medicineForm}
+        />
       ) : (
-        <ReminderMessage reminderData={reminderData} onModalDisable={onModalDisable}  />
+        <ReminderMessage
+          reminderData={reminderData}
+          onModalDisable={onModalDisable}
+        />
       )}
     </>
   );

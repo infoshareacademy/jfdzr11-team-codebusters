@@ -1,31 +1,31 @@
-import { Link } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
-import styles from './MeasurementsList.module.css';
-import { DataContext } from '../../../DataContext/DataContext';
-import {MeasurementsData} from '../../../DataContext/dataTypes'
-import { toast } from 'react-hot-toast';
-import { doc } from 'firebase/firestore';
-import { db } from '../../../api/firebase/firebase';
-import { AuthContext } from '../../../AuthContext/AuthContext';
+import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import styles from "./MeasurementsList.module.css";
+import { DataContext } from "../../../DataContext/DataContext";
+import { MeasurementsData } from "../../../DataContext/dataTypes";
+import { toast } from "react-hot-toast";
+import { doc } from "firebase/firestore";
+import { db } from "../../../api/firebase/firebase";
+import { AuthContext } from "../../../AuthContext/AuthContext";
 // import binIcon from '../../../assets/bin.png';
 
 const MeasurementList = () => {
   const [measurementsNames, setMeasurementsNames] = useState<string[]>([]);
-  const {userData} = useContext(DataContext)
-  const [hoveredName, setHoveredName] = useState<string>('');
-  const {currentUser} = useContext(AuthContext)
+  const { userData } = useContext(DataContext);
+  const [hoveredName, setHoveredName] = useState<string>("");
+  const { currentUser } = useContext(AuthContext);
 
-   const id = currentUser?.uid;
-   const docRef = doc(db, 'users', id);
+  const id = currentUser?.uid;
+  const docRef = doc(db, "users", id);
 
   useEffect(() => {
     const fetchMeasurementNames = async () => {
       try {
-        const measurements: MeasurementsData = userData.measurements
+        const measurements: MeasurementsData = userData.measurements;
         const measurementNames: string[] = Object.keys(measurements);
         setMeasurementsNames(measurementNames);
       } catch (error) {
-        toast.error('Błąd pobierania danych');
+        toast.error("Błąd pobierania danych");
       }
     };
     fetchMeasurementNames();
@@ -36,7 +36,7 @@ const MeasurementList = () => {
   };
 
   const handleMouseLeave = () => {
-    setHoveredName('');
+    setHoveredName("");
   };
 
   // const handleDelete = async (measurementName: string) => {
@@ -49,17 +49,18 @@ const MeasurementList = () => {
   //     console.log(error);
   //   }
   // };
-  
+
   return (
     <>
       <h2 className={styles.header}>Codzienne pomiary</h2>
       <ul className={styles.measurement_list}>
-        {measurementsNames.map(measurement => (
+        {measurementsNames.map((measurement) => (
           <li
             key={crypto.randomUUID()}
             className={styles.measurement_item}
             onMouseOver={() => handleHover(measurement)}
-            onMouseOut={handleMouseLeave}>
+            onMouseOut={handleMouseLeave}
+          >
             {/* {hoveredName === measurement && (
               <button
                onClick={() => handleDelete(measurement)}

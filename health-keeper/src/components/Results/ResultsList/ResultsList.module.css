@@ -53,8 +53,8 @@
   font-weight: var(--fw-bolder);
 }
 .results_list li a img {
-  width: 35px ;
-  height: 34px ;
+  width: 35px;
+  height: 34px;
 }
 
 .results_list li:hover,
