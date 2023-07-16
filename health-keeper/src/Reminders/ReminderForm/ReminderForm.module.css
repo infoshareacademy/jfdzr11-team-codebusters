@@ -19,7 +19,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  padding: 1.2rem 1.2rem 0.55rem 1.2rem
+  padding: 1.2rem 1.2rem 0.55rem 1.2rem;
 }
 
 .form textarea {
@@ -92,7 +92,7 @@
   padding: 0.35rem 0.5rem;
   border-radius: 4px;
   border: 1px solid var(--medium-grey);
-  background:hsla(349, 100%, 73%, 1);
+  background: hsla(349, 100%, 73%, 1);
   color: var(--fast-white);
   cursor: pointer;
 }

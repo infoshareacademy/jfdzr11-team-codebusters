@@ -58,10 +58,6 @@ const Register = () => {
           },
           measurements: {
             tętno: {},
-            ciśnienie: {},
-            puls: {},
-            nawodnienie: {},
-            waga: {},
             cukier: {},
           },
           reminders: [],

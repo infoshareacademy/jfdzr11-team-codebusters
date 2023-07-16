@@ -58,7 +58,9 @@ const Calendar = () => {
             onClick={() => onMonthChange(selectedDay, 'prev')}>
             {'<'}
           </button>
-          <button onClick={() => onMonthChange(selectedDay, 'next')}>
+          <button
+            className={styles[`header-btn`]}
+            onClick={() => onMonthChange(selectedDay, 'next')}>
             {'>'}
           </button>
         </section>

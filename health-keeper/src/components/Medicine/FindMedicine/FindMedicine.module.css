@@ -29,13 +29,7 @@
   margin-top: 0.8rem;
   margin-bottom: 3rem;
 }
-.findDiv button, .resultDiv button {
-  padding: 0.5rem 2rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  margin-top: 1rem;
-  align-self: center;
-}
+
 .findDiv button:hover, .resultDiv button:hover {
   cursor: pointer;
   background-color: var(--primary-green);
@@ -89,4 +83,9 @@ li {
   border: 1px solid var(--medium-grey);
   background-color: var(--primary-green);
   color: var(--fast-white);
+  padding: 0.5rem 2rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-top: 1rem;
+  align-self: center;
 }

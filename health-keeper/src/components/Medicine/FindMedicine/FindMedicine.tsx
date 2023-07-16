@@ -140,7 +140,7 @@ const FindMedicine = () => {
               <span>Opakowanie:</span> {foundMedicine.pack}
             </li>
 
-            <li>Numer pozwolenia: {foundMedicine.registryNumber}</li>
+            <li><span>Numer pozwolenia:</span> {foundMedicine.registryNumber}</li>
           </ul>
           <div className={styles.buttons_container}>
             <button

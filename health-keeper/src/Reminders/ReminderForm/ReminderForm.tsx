@@ -72,7 +72,6 @@ const ReminderForm: React.FC<ReminderFormProps> = ({
       } else {
         const updatedReminders = [..._userData.reminders, newReminder];
         // update the document in the database
-
         await updateDoc(docRef, { reminders: updatedReminders });
         console.log('Reminder successfully added');
         onHideForm();
